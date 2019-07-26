@@ -8,11 +8,13 @@
 }
 
 .container-hotels {
-  background-image: url("beach.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: repeat;
-  position: relative;
+  background-image: url("sky.jpg");
+  background-size: 100% auto;
+  background-repeat: repeat-y;
+  /*background-size: cover;*/
+  /*background-position: center;*/
+  /*background-repeat: no-repeat;*/
+  /*position: relative;*/
 }
 
 .bg-primary {
