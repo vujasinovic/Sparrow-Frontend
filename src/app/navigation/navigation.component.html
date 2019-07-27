@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="z-index: 999;">
   <a class="navbar-brand font-weight-bold" href="#">Sparrow
     <i class="fa fa-dove ml-2"></i>
   </a>
@@ -27,21 +27,25 @@
     </ul>
 
     <div *ngIf="(user | async) as user; else noUser">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <div class="dropdown">
+            <button class="btn text-white dropdown-toggle border-info" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-user-circle-o"></i>
+              {{user.firstName}}
+            </button>
 
-      <div class="dropdown">
-        <button class="btn text-white dropdown-toggle border-info" type="button" id="dropdownMenuButton"
-                data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-user-circle-o"></i>
-          {{user.firstName}}
-        </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Profile</a>
+              <a class="dropdown-item" href="#">Reservations</a>
+              <a class="dropdown-item" href="#" (click)="authService.logout()">Logout</a>
+            </div>
+          </div>
 
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Profile</a>
-          <a class="dropdown-item" href="#">Reservations</a>
-          <a class="dropdown-item" href="#" (click)="authService.logout()">Logout</a>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
 
     <ng-template #noUser>
