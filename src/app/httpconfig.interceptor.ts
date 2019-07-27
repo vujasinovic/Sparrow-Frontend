@@ -14,7 +14,6 @@ import {AuthService} from './login/auth.service';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, filter, finalize, map, switchMap, take} from 'rxjs/operators';
 import {ApiResponse} from './dto/api-response';
-import {Router} from '@angular/router';
 import {TokenRefreshResponse} from './dto/token-refresh-response';
 import {Globals} from './globals';
 
@@ -25,7 +24,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
   private pathApi = '/api/';
   private pathRefresh = '/auth/refresh';
 
-  constructor(private loginService: AuthService, private router: Router, private globals: Globals) {
+  constructor(private loginService: AuthService, private globals: Globals) {
   }
 
   isRefreshingToken = false;
@@ -105,6 +104,11 @@ export class HttpConfigInterceptor implements HttpInterceptor {
                 })
               );
             }
+          }),
+
+          catchError(err => {
+            this.loginService.logout();
+            return throwError(err);
           }),
 
           finalize(() => {

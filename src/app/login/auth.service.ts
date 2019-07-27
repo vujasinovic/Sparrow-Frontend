@@ -53,7 +53,7 @@ export class AuthService {
     return this.http.get(this.logoutUrl).subscribe(value => {
       localStorage.removeItem(this.globals.localStorageTokenName);
       this.reloadLoggedUser();
-      window.location.href = '/';
+      window.location.href = '/login';
     });
   }
 
