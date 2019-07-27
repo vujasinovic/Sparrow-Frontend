@@ -13,13 +13,17 @@ import {AuthService} from './login/auth.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttpConfigInterceptor} from './httpconfig.interceptor';
 import {LoginGuardService} from './login/login-guard';
+import {HotelComponent} from "./hotels/hotel.component";
+import {HotelProfileComponent} from "./hotel-profile/hotel-profile.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    HotelComponent,
+    HotelProfileComponent
   ],
   imports: [
     BrowserModule,
