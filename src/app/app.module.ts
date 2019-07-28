@@ -15,6 +15,7 @@ import {HttpConfigInterceptor} from './httpconfig.interceptor';
 import {LoginGuardService} from './login/login-guard';
 import {HotelComponent} from "./hotels/hotel.component";
 import {HotelProfileComponent} from "./hotel-profile/hotel-profile.component";
+import {HotelReservationComponent} from "./hotel-reservation/hotel-reservation.component";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {HotelProfileComponent} from "./hotel-profile/hotel-profile.component";
     HomeComponent,
     LoginComponent,
     HotelComponent,
-    HotelProfileComponent
+    HotelProfileComponent,
+    HotelReservationComponent
   ],
   imports: [
     BrowserModule,
