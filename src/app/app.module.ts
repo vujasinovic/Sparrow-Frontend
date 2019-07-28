@@ -16,6 +16,7 @@ import {LoginGuardService} from './login/login-guard';
 import {HotelComponent} from "./hotels/hotel.component";
 import {HotelProfileComponent} from "./hotel-profile/hotel-profile.component";
 import {HotelReservationComponent} from "./hotel-reservation/hotel-reservation.component";
+import {HotelEditComponent} from "./hotel-edit/hotel-edit.component";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {HotelReservationComponent} from "./hotel-reservation/hotel-reservation.c
     LoginComponent,
     HotelComponent,
     HotelProfileComponent,
-    HotelReservationComponent
+    HotelReservationComponent,
+    HotelEditComponent
   ],
   imports: [
     BrowserModule,
