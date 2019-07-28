@@ -107,7 +107,8 @@ export class HttpConfigInterceptor implements HttpInterceptor {
           }),
 
           catchError(err => {
-            this.loginService.logout();
+            localStorage.removeItem(this.globals.localStorageTokenName);
+            localStorage.removeItem(this.globals.localStorageUser);
             return throwError(err);
           }),
 
