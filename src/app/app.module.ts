@@ -7,7 +7,7 @@ import {NavigationComponent} from './navigation/navigation.component';
 import {AppRoutingModule} from './app-routing.module';
 import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Globals} from './globals';
 import {AuthService} from './login/auth.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -15,6 +15,8 @@ import {HttpConfigInterceptor} from './httpconfig.interceptor';
 import {LoginGuardService} from './login/login-guard';
 import {HotelComponent} from "./hotels/hotel.component";
 import {HotelProfileComponent} from "./hotel-profile/hotel-profile.component";
+import {RegisterComponent} from './register/register.component';
+import {RegisterService} from './register/register.service';
 import {HotelReservationComponent} from "./hotel-reservation/hotel-reservation.component";
 import {HotelEditComponent} from "./hotel-edit/hotel-edit.component";
 
@@ -26,6 +28,8 @@ import {HotelEditComponent} from "./hotel-edit/hotel-edit.component";
     LoginComponent,
     HotelComponent,
     HotelProfileComponent,
+    RegisterComponent
+    HotelProfileComponent,
     HotelReservationComponent,
     HotelEditComponent
   ],
@@ -35,8 +39,9 @@ import {HotelEditComponent} from "./hotel-edit/hotel-edit.component";
     NgbModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [Globals, AuthService, LoginGuardService,
+  providers: [Globals, AuthService, LoginGuardService, RegisterService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpConfigInterceptor,

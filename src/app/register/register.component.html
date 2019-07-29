@@ -1,0 +1,114 @@
+<div class="container">
+  <div class="row text-center mt-5">
+    <div class="col-md-8 col-lg-6 col-xl-5 mx-auto mt-auto ml-auto">
+      <div class="card bg-primary">
+        <div class="card-header text-white">
+          <h3>Register</h3>
+        </div>
+        <div class="card-body bg-light text-black-50">
+          <form [formGroup]="userData">
+            <div class="form-group">
+              <label for="inputEmail">Email</label>
+              <input required [(ngModel)]="user.email"
+                     [ngClass]="{ 'is-invalid': f.email.touched && f.email.errors, 'is-valid': f.email.touched && f.email.valid}"
+                     class=" form-control" id="inputEmail" placeholder="Email"
+                     name="email" formControlName="email">
+              <div *ngIf="f.email.touched && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Email is required</div>
+                <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputUsername">Username</label>
+              <input required [(ngModel)]="user.username"
+                     [ngClass]="{ 'is-invalid': f.username.touched && f.username.errors, 'is-valid': f.username.touched && f.username.valid}"
+                     class="form-control" id="inputUsername" placeholder="Username"
+                     name="username" formControlName="username">
+              <div *ngIf="f.username.touched && f.username.errors" class="invalid-feedback">
+                Username is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputFirstName">First Name</label>
+              <input required [(ngModel)]="user.firstName"
+                     [ngClass]="{ 'is-invalid': f.firstName.touched && f.firstName.errors, 'is-valid': f.firstName.touched && f.firstName.valid}"
+                     class="form-control" id="inputFirstName" placeholder="First Name"
+                     name="firstName" formControlName="firstName">
+              <div *ngIf="f.firstName.touched && f.firstName.errors" class="invalid-feedback">
+                First Name is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputLastName">Last Name</label>
+              <input required [(ngModel)]="user.lastName"
+                     [ngClass]="{ 'is-invalid': f.lastName.touched && f.lastName.errors, 'is-valid': f.lastName.touched && f.lastName.valid}"
+                     class="form-control" id="inputLastName" placeholder="Last Name"
+                     name="lastName" formControlName="lastName">
+              <div *ngIf="f.lastName.touched && f.lastName.errors" class="invalid-feedback">
+                Last Name is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputAddress">Address</label>
+              <input required [(ngModel)]="user.address"
+                     [ngClass]="{ 'is-invalid': f.address.touched && f.address.errors, 'is-valid': f.address.touched && f.address.valid}"
+                     class="form-control" id="inputAddress" placeholder="Address"
+                     name="address" formControlName="address">
+              <div *ngIf="f.address.touched && f.address.errors" class="invalid-feedback">
+                Address is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputPassword">Password</label>
+              <input required [(ngModel)]="user.password"
+                     [ngClass]="{ 'is-invalid': (f.password.touched && f.password.errors) || userData.hasError('notSame'), 'is-valid': f.password.touched && f.password.valid && !userData.hasError('notSame')}"
+                     type="password" class="form-control" id="inputPassword"
+                     placeholder="Password" name="password" formControlName="password">
+              <div *ngIf="userData.hasError('notSame')" class="invalid-feedback">
+                Passwords to not match
+              </div>
+              <div *ngIf="f.password.touched && f.password.errors" class="invalid-feedback">
+                <div *ngIf="f.password.errors.required">
+                  Password is required.
+                </div>
+                <div *ngIf="f.password.errors.minlength">
+                  Password has to be at least 6 characters long
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputPasswordRepeat">Confirm Password</label>
+              <input required [(ngModel)]="passwordRepeat"
+                     [ngClass]="{ 'is-invalid': (f.passwordRepeat.touched && f.passwordRepeat.errors) || userData.hasError('notSame'), 'is-valid': f.passwordRepeat.touched && f.passwordRepeat.valid && !userData.hasError('notSame')}"
+                     type="password" class="form-control" id="inputPasswordRepeat"
+                     placeholder="Confirm Password" name="passwordRepeat" formControlName="passwordRepeat">
+
+              <div *ngIf="userData.hasError('notSame')" class="invalid-feedback">
+                Passwords to not match
+              </div>
+              <div *ngIf="f.passwordRepeat.touched && f.passwordRepeat.errors" class="invalid-feedback">
+                <div *ngIf="f.passwordRepeat.errors.required">
+                  Confirm Password is required.
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="error" class="text-danger">
+              {{error}}
+            </div>
+            <button [disabled]="userData.invalid" (click)="register()" type="submit" class="btn btn-primary">
+              Register
+            </button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

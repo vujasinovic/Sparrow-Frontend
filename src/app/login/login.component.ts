@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from './auth.service';
 import {User} from '../user';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,8 +10,9 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
   user: User;
 
-  constructor(private loginService: AuthService, private router: Router) {
+  constructor(private loginService: AuthService, private router: Router, private route: ActivatedRoute) {
     this.user = new User();
+    this.route.params.subscribe(params => this.user.username = params.username);
   }
 
   ngOnInit(): void {
