@@ -18,6 +18,10 @@
                 <input [(ngModel)]="user.password" type="password" class="form-control" id="inputPassword"
                        placeholder="password" name="password">
               </div>
+
+              <div *ngIf="error" class="text-danger">
+                {{error}}
+              </div>
               <button (click)="login()" type="submit" class="btn btn-primary">Login</button>
             </form>
           </div>

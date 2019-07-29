@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from './auth.service';
 import {User} from '../user';
 import {ActivatedRoute, Router} from '@angular/router';
+import {catchError} from 'rxjs/operators';
+import {throwError} from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   user: User;
+  error: string;
 
   constructor(private loginService: AuthService, private router: Router, private route: ActivatedRoute) {
     this.user = new User();
@@ -16,11 +19,16 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
 
   login() {
-    this.loginService.login(this.user).subscribe(() => {
+    this.error = null;
+    this.loginService.login(this.user).pipe(
+      catchError(err => {
+        this.error = err.error.message;
+        return throwError(err);
+      })
+    ).subscribe(() => {
       this.loginService.reloadLoggedUser();
       this.router.navigate(['/']);
     });
