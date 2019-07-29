@@ -28,7 +28,7 @@ import {HotelEditComponent} from "./hotel-edit/hotel-edit.component";
     LoginComponent,
     HotelComponent,
     HotelProfileComponent,
-    RegisterComponent
+    RegisterComponent,
     HotelProfileComponent,
     HotelReservationComponent,
     HotelEditComponent
