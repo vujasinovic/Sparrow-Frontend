@@ -18,7 +18,7 @@
   <div class="tab-pane container fade" id="hotels">
     <div class="container">
       <div class="row mt-2">
-        <div class="col-md-9 mx-auto mr-auto ml-auto">
+        <div class="col-md-6 mr-auto">
           <div class="card bg-primary">
             <div class="card-header text-white text-center">
               <h5>Create new hotel</h5>
@@ -27,23 +27,49 @@
               <form>
                 <div class="form-group">
                   <label for="inputHotelName">Hotel name</label>
-                  <input class="form-control" id="inputHotelName" placeholder="Hotel name"
+                  <input [(ngModel)]="hotel.name" class="form-control" id="inputHotelName" placeholder="Hotel name"
                          name="hotelName">
                 </div>
                 <div class="form-group">
                   <label for="inputAddress">Address</label>
-                  <input class="form-control" id="inputAddress"
+                  <input [(ngModel)]="hotel.address.address" class="form-control" id="inputAddress"
                          placeholder="Address" name="address">
                 </div>
                 <div class="form-group">
                   <label for="inputDescription">Description</label>
-                  <textarea class="form-control" id="inputDescription"
+                  <textarea [(ngModel)]="hotel.description" class="form-control" id="inputDescription"
                             placeholder="Description" name="description" rows="5"> </textarea>
                 </div>
-                <button type="submit" class="btn btn-success float-right">Save</button>
+                <button type="submit" class="btn btn-success float-right" (click)="create()">Save</button>
               </form>
             </div>
           </div>
+        </div>
+        <div class="col-md-6">
+          <table class="table table-primary table-hover">
+            <thead>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Description</th>
+              <th></th>
+            </thead>
+            <tbody>
+              <tr *ngFor = "let hotel of hotels">
+                <td>
+                  {{hotel.name}}
+                </td>
+                <td>
+                  {{hotel.address.address}}
+                </td>
+                <td>
+                  {{hotel.description}}
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-danger" (click)="delete(hotel.id)">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
