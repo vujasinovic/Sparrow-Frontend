@@ -19,6 +19,9 @@ import {RegisterComponent} from './register/register.component';
 import {RegisterService} from './register/register.service';
 import {HotelReservationComponent} from "./hotel-reservation/hotel-reservation.component";
 import {HotelEditComponent} from "./hotel-edit/hotel-edit.component";
+import {SystemAdministratorComponent} from "./system-administrator/system-administrator.component";
+import {HotelService} from "./hotels/hotel.service";
+import {HotelProfileService} from "./hotel-profile/hotel-profile.service";
 
 @NgModule({
   declarations: [
@@ -31,7 +34,8 @@ import {HotelEditComponent} from "./hotel-edit/hotel-edit.component";
     RegisterComponent,
     HotelProfileComponent,
     HotelReservationComponent,
-    HotelEditComponent
+    HotelEditComponent,
+    SystemAdministratorComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +45,7 @@ import {HotelEditComponent} from "./hotel-edit/hotel-edit.component";
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [Globals, AuthService, LoginGuardService, RegisterService,
+  providers: [Globals, AuthService, LoginGuardService, RegisterService, HotelService, HotelProfileService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpConfigInterceptor,

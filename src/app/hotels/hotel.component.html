@@ -52,64 +52,23 @@
 <div class="container-sparrow p-3">
   <h3 class="ml-2 text-white">Hotels</h3>
   <hr class="my-4">
-  <div class="row bg-primary pl-1 pt-3 pb-3 m-1">
+  <div *ngFor="let hotel of hotels" class="row bg-primary pl-1 pt-3 pb-3 m-1 mb-3">
     <div class="col-md-3">
       <img src="airplane.jpg" class="img-thumbnail" alt="plaza">
     </div>
     <div class="col-md-6">
-      <h3 class="text-white">Hotel Sheraton<i class="fa fa-sm fa-star ml-2"></i>
+      <h3 class="text-white">{{hotel.name}}<i class="fa fa-sm fa-star ml-2"></i>
         <i class="fa fa-sm fa-star"></i><i class="fa fa-sm fa-star"></i>
         <i class="fa fa-sm fa-star"></i><i class="fa fa-sm fa-star-half-alt"></i>
       </h3>
-      <p class="lead text-white"><i class="fa fa-map-marker-alt"></i> Bulevar Vojvode Stepe Stepanovica 30A, 21000, Novi Sad</p>
+      <p class="lead text-white"><i class="fa fa-map-marker-alt"></i> {{hotel.address.address}}</p>
       <a class="text-white" href = "#">Show on map</a>
     </div>
     <div class="col-md-3 text-center">
       <p class="lead text-white ml-1">from</p>
       <h1 class="text-white font-weight-bold">150€</h1>
-      <a class="btn btn-lg btn-success mb-2 text-white" href="/hotels/1">Select</a>
+      <a class="btn btn-lg btn-success mb-2 text-white" href = "hotels/{{hotel.id}}"(click)="findOne(hotel.id)">Select</a>
       <p class="lead text-white ml-1">(price for 1 night)</p>
     </div>
   </div>
-  <hr class="my-4">
-  <div class="row bg-primary pl-1 pt-3 pb-3 m-1">
-    <div class="col-md-3">
-      <img src="airplane.jpg" class="img-thumbnail" alt="plaza">
-    </div>
-    <div class="col-md-6">
-      <h3 class="text-white">Hotel Holiday-In <i class="fa fa-sm fa-star ml-2"></i>
-        <i class="fa fa-sm fa-star"></i><i class="fa fa-sm fa-star"></i>
-        <i class="fa fa-sm fa-star"></i><i class="fa fa-sm fa-star-half-alt"></i>
-      </h3>
-      <p class="lead text-white"><i class="fa fa-map-marker-alt"></i> Narodnog Fronta 30A, 21000, Novi Sad</p>
-      <a class="text-white" href = "#">Show on map</a>
-    </div>
-    <div class="col-md-3 text-center">
-      <p class="lead text-white ml-1">from</p>
-      <h1 class="text-white font-weight-bold">70€</h1>
-      <a class="btn btn-lg btn-success mb-2 text-white" href="/hotels/2">Select</a>
-      <p class="lead text-white ml-1">(price for 1 night)</p>
-    </div>
-  </div>
-  <hr class="my-4">
-  <div class="row bg-primary pl-1 pt-3 pb-3 m-1">
-    <div class="col-md-3">
-      <img src="airplane.jpg" class="img-thumbnail" alt="plaza">
-    </div>
-    <div class="col-md-6">
-      <h3 class="text-white">Hotel Plaza <i class="fa fa-sm fa-star ml-2"></i>
-        <i class="fa fa-sm fa-star"></i><i class="fa fa-sm fa-star"></i>
-        <i class="fa fa-sm fa-star"></i><i class="fa fa-sm fa-star-half-alt"></i>
-      </h3>
-      <p class="lead text-white"><i class="fa fa-map-marker-alt"></i> Bulevar oslobodjenja 30A, 21000, Novi Sad</p>
-      <a class="text-white" href = "#">Show on map</a>
-    </div>
-    <div class="col-md-3 text-center">
-      <p class="lead text-white ml-1">from</p>
-      <h1 class="text-white font-weight-bold">100€</h1>
-      <a class="btn btn-lg btn-success mb-2 text-white" href="/hotels/3">Select</a>
-      <p class="lead text-white ml-1">(price for 1 night)</p>
-    </div>
-  </div>
-  <hr class="my-4">
 </div>

@@ -8,6 +8,7 @@ import {HotelComponent} from "./hotels/hotel.component";
 import {HotelProfileComponent} from "./hotel-profile/hotel-profile.component";
 import {HotelReservationComponent} from "./hotel-reservation/hotel-reservation.component";
 import {HotelEditComponent} from "./hotel-edit/hotel-edit.component";
+import {SystemAdministratorComponent} from "./system-administrator/system-administrator.component";
 
 const routes: Routes = [
   {path: '', component : HomeComponent},
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path: 'hotels', component: HotelComponent},
   {path: 'hotels/:id', component: HotelProfileComponent},
   {path: 'hotels/:id/reservation', component: HotelReservationComponent},
-  {path: 'hotels/:id/edit', component: HotelEditComponent}
+  {path: 'hotels/:id/edit', component: HotelEditComponent},
+  {path: 'sa', component: SystemAdministratorComponent}
 ];
 
 @NgModule({

@@ -2,20 +2,16 @@
   <div class="row">
     <div class="col-md-7">
       <hr class="my-2">
-      <h5 class="text-white font-weight-bold">Hotel Plaza
+      <h5 class="text-white font-weight-bold">{{hotel.name}}
         <button class="btn btn-sm btn-info float-right ml-2"><i class="fa fa-chart-line mr-1"></i>statistics</button>
         <a class="btn btn-sm btn-info float-right ml-2" href="hotels/1/edit"><i class="fa fa-edit mr-1"></i>edit</a>
       </h5>
-      <p class="text-white"><i class="fa fa-map-marker-alt mr-2"></i>Bulevar Oslobodjenja 30A, 21000, Novi Sad
+      <p class="text-white"><i class="fa fa-map-marker-alt mr-2"></i>{{hotel.address.address}}
 
       </p>
 
       <hr class="my-2">
-      <p class="text-white"><i class="fa fa-file-alt mr-2"></i>This is some random description. I'm just gonna put
-        some text here to fill the space. This is some random description. I'm just gonna put
-        some text here to fill the space. This is some random description. I'm just gonna put
-        some text here to fill the space. This is some random description. I'm just gonna put
-        some text here to fill the space.
+      <p class="text-white"><i class="fa fa-file-alt mr-2"></i>{{hotel.description}}
       </p>
       <p class="text-white"><i class="fa fa-concierge-bell mr-2"></i>25 free rooms</p>
       <p class="text-white"><i class="fa fa-bed mr-2"></i>67 free beds</p>
@@ -152,7 +148,6 @@
       <table class="table table-hover table-primary text-center">
         <thead>
         <tr>
-          <th scope="col">#</th>
           <th scope="col">Room</th>
           <th scope="col">Capacity</th>
           <th scope="col">Floor</th>
@@ -163,38 +158,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Single Room</td>
-          <td>1</td>
-          <td>1</td>
-          <td>Yes</td>
-          <td>20€</td>
-          <td><input type="checkbox"></td>
-          <td>
-            <a href="#" class="btn btn-sm btn-info mr-1">Edit</a>
-            <a href="#" class="btn btn-sm btn-danger">Delete</a>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Double Room</td>
-          <td>2</td>
-          <td>1</td>
-          <td>Yes</td>
-          <td>29€</td>
-          <td><input type="checkbox"></td>
-          <td>
-            <a href="#" class="btn btn-sm btn-info mr-1">Edit</a>
-            <a href="#" class="btn btn-sm btn-danger">Delete</a>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Royal</td>
-          <td>5</td>
-          <td>5</td>
-          <td>Yes</td>
+        <tr *ngFor = "let room of hotel.rooms">
+          <td>{{room.name}}</td>
+          <td>{{room.bedsNo}}</td>
+          <td>{{room.floor}}</td>
+          <td>{{room.balcony}}</td>
           <td>120€</td>
           <td><input type="checkbox"></td>
           <td>
