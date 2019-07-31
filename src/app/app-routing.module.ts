@@ -17,6 +17,7 @@ const routes: Routes = [
   {path: 'register', component : RegisterComponent, canActivate: [LoginGuardService]},
   {path: 'hotels', component: HotelComponent},
   {path: 'hotels/:id', component: HotelProfileComponent},
+  {path: 'hotels/:id/pricelist', component: HotelProfileComponent},
   {path: 'hotels/:id/reservation', component: HotelReservationComponent},
   {path: 'hotels/:id/edit', component: HotelEditComponent},
   {path: 'sa', component: SystemAdministratorComponent}

@@ -103,11 +103,11 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputAddress">Room name</label>
-              <input type="text" class="form-control form-control-sm" id="inputAddress" placeholder="Enter room name">
+              <input  type="text" class="form-control form-control-sm" id="inputAddress" placeholder="Enter room name">
             </div>
             <div class="form-group col-md-1">
               <label for="inputState">Capacity</label>
-              <select id="inputState" class="form-control form-control-sm">
+              <select  id="inputState" class="form-control form-control-sm">
                 <option selected>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -118,7 +118,7 @@
             </div>
             <div class="form-group col-md-1">
               <label for="inputState2">Floor</label>
-              <select id="inputState2" class="form-control form-control-sm">
+              <select  id="inputState2" class="form-control form-control-sm">
                 <option selected>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -158,12 +158,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor = "let room of hotel.rooms">
-          <td>{{room.name}}</td>
-          <td>{{room.bedsNo}}</td>
-          <td>{{room.floor}}</td>
-          <td>{{room.balcony}}</td>
-          <td>120€</td>
+        <tr *ngFor="let priceListItem of priceListItems">
+          <td>{{priceListItem.room.name}}</td>
+          <td>{{priceListItem.room.bedsNo}}</td>
+          <td>{{priceListItem.room.floor}}</td>
+          <td>{{priceListItem.room.balcony}}</td>
+          <td>{{priceListItem.price}} €</td>
           <td><input type="checkbox"></td>
           <td>
             <a href="#" class="btn btn-sm btn-info mr-1">Edit</a>
