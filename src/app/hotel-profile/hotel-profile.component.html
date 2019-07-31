@@ -13,8 +13,8 @@
       <hr class="my-2">
       <p class="text-white"><i class="fa fa-file-alt mr-2"></i>{{hotel.description}}
       </p>
-      <p class="text-white"><i class="fa fa-concierge-bell mr-2"></i>25 free rooms</p>
-      <p class="text-white"><i class="fa fa-bed mr-2"></i>67 free beds</p>
+      <p class="text-white"><i class="fa fa-concierge-bell mr-2"></i>Rooms: {{freeRooms}}</p>
+      <p class="text-white"><i class="fa fa-bed mr-2"></i>Beds: {{freeBeds}}</p>
     </div>
     <div class="col-md-5 text-center border border-white">
       <p class="text-white">Placeholder for google maps</p>
@@ -27,12 +27,6 @@
          class="text-white">
         <p class="text-white font-weight-bold">Additional services</p>
       </a>
-
-      <span class="badge badge-pill badge-primary font-weight-bold mr-1">Wellness & Spa</span>
-      <span class="badge badge-pill badge-primary font-weight-bold mr-1">Transfer to/from airport</span>
-      <span class="badge badge-pill badge-primary font-weight-bold mr-1">WiFi</span>
-      <span class="badge badge-pill badge-primary font-weight-bold mr-1">Air conditioning</span>
-      <span class="badge badge-pill badge-primary font-weight-bold mr-1">Swimming pool</span>
     </div>
   </div>
   <div class="row mt-3 collapse" id = "collapse2">
@@ -43,24 +37,8 @@
         <th>Actions</th>
         </thead>
         <tbody>
-        <tr>
-          <td>Wellness & Spa</td>
-          <td><a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a></td>
-        </tr>
-        <tr>
-          <td>Transfer to/from airport</td>
-          <td><a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a></td>
-        </tr>
-        <tr>
-          <td>WiFi</td>
-          <td><a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a></td>
-        </tr>
-        <tr>
-          <td>Air conditioning</td>
-          <td><a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a></td>
-        </tr>
-        <tr>
-          <td>Swimming pool</td>
+        <tr *ngFor="let hotelService of hotelServices">
+          <td>{{hotelService.extraService}}</td>
           <td><a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a></td>
         </tr>
         </tbody>

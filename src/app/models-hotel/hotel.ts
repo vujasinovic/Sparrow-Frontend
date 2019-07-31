@@ -2,6 +2,7 @@ import {Address} from "./address";
 import {PriceList} from "./pricelist";
 import {Room} from "./room";
 import {User} from "../user";
+import {HotelServices} from "./hotel-services";
 
 export class Hotel {
   id: number;
@@ -11,4 +12,5 @@ export class Hotel {
   priceLists: PriceList[];
   rooms: Room[];
   admin: User;
+  hotelServices: HotelServices[];
 }
