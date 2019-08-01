@@ -9,6 +9,7 @@ import {HotelProfileComponent} from "./hotel-profile/hotel-profile.component";
 import {HotelReservationComponent} from "./hotel-reservation/hotel-reservation.component";
 import {HotelEditComponent} from "./hotel-edit/hotel-edit.component";
 import {SystemAdministratorComponent} from "./system-administrator/system-administrator.component";
+import {HotelRoomEditComponent} from "./hotel-room-edit/hotel-room-edit.component";
 
 const routes: Routes = [
   {path: '', component : HomeComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'hotels/:id/pricelist', component: HotelProfileComponent},
   {path: 'hotels/:id/reservation', component: HotelReservationComponent},
   {path: 'hotels/:id/edit', component: HotelEditComponent},
+  {path: 'hotels/:hotelId/room/:roomId/edit', component: HotelRoomEditComponent},
   {path: 'sa', component: SystemAdministratorComponent}
 ];
 

@@ -145,7 +145,7 @@
           <td>{{priceListItem.price}} €</td>
           <td><input type="checkbox"></td>
           <td>
-            <a href="#" class="btn btn-sm btn-info mr-1">Edit</a>
+            <a href="#" routerLink="room/{{priceListItem.room.id}}/edit" class="btn btn-sm btn-info mr-1">Edit</a>
             <button class="btn btn-sm btn-danger" (click)="deletePriceListItem(priceListItem.id)">Delete</button>
           </td>
         </tr>

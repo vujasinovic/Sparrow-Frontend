@@ -22,6 +22,7 @@ import {HotelEditComponent} from "./hotel-edit/hotel-edit.component";
 import {SystemAdministratorComponent} from "./system-administrator/system-administrator.component";
 import {HotelService} from "./hotels/hotel.service";
 import {HotelProfileService} from "./hotel-profile/hotel-profile.service";
+import {HotelRoomEditComponent} from "./hotel-room-edit/hotel-room-edit.component";
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {HotelProfileService} from "./hotel-profile/hotel-profile.service";
     HotelProfileComponent,
     HotelReservationComponent,
     HotelEditComponent,
-    SystemAdministratorComponent
+    SystemAdministratorComponent,
+    HotelRoomEditComponent
   ],
   imports: [
     BrowserModule,

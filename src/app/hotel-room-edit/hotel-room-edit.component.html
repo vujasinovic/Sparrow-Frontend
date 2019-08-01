@@ -1,0 +1,50 @@
+<div class="container-sparrow">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-8 col-lg-6 col-xl-6 mx-auto mt-auto ml-auto">
+        <div class="card bg-primary mt-5 mb-5">
+          <div class="card-header text-white">
+            <h5><i class="fa fa-edit mr-2"></i>Edit room configuration</h5>
+          </div>
+          <div class="card-body bg-light text-black-50">
+            <form>
+              <div class="form-group">
+                <label for="inputHotelName">Room name</label>
+                <input [(ngModel)]="room.name" class="form-control" id="inputHotelName" placeholder="Room name"
+                       name="hotelName">
+              </div>
+              <div class="form-group">
+                <label for="inputState">Capacity</label>
+                <select [(ngModel)]="room.bedsNo" name = "bedsNo" id="inputState" class="form-control">
+                  <option selected>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="inputState2">Floor</label>
+                <select [(ngModel)]="room.floor" name = "floor" id="inputState2" class="form-control">
+                  <option selected>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                </select>
+              </div>
+              <div class="form-check">
+                <label for="autoSizingCheck">
+                  Has balcony?
+                </label>
+                <input [(ngModel)]="room.balcony" name = "balcony" class="form-control" type="checkbox" id="autoSizingCheck">
+              </div>
+              <button type="submit" class="btn btn-success float-right mt-5" (click)="updateRoom()">Confirm</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

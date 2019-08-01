@@ -4,17 +4,24 @@ import {Hotel} from "../models-hotel/hotel";
 import {Observable} from "rxjs";
 import {PriceListItem} from "../models-hotel/pricelist-item";
 import {HotelServices} from "../models-hotel/hotel-services";
+import {Room} from "../models-hotel/room";
 
 @Injectable()
 export class HotelProfileService {
   private readonly hotelsUrl: string;
+  private readonly adminUrl: string;
 
   constructor (private http: HttpClient) {
     this.hotelsUrl = 'http://localhost:8080/api/hotels/';
+    this.adminUrl = 'http://localhost:8080/api/ha/hotels/'
   }
 
   public findOne(id: number) : Observable<Hotel> {
     return this.http.get<Hotel>(this.hotelsUrl + id);
+  }
+
+  public findRoom(id: number): Observable<Room> {
+    return this.http.get<Room>(this.hotelsUrl + 'room/' + id);
   }
 
   public findPriceList(id: number): Observable<PriceListItem[]> {
@@ -26,10 +33,10 @@ export class HotelProfileService {
   }
 
   public createPriceListItem(priceListItem: PriceListItem, id: number): Observable<PriceListItem> {
-    return this.http.post<PriceListItem>(this.hotelsUrl + id + '/pricelistitem', priceListItem);
+    return this.http.post<PriceListItem>(this.adminUrl + id + '/pricelistitem', priceListItem);
   }
 
   public deletePriceListItem(priceListItemId: number): Observable<PriceListItem> {
-    return this.http.delete<PriceListItem>(this.hotelsUrl + 'pricelistitem/' + priceListItemId);
+    return this.http.delete<PriceListItem>(this.adminUrl + 'pricelistitem/' + priceListItemId);
   }
 }

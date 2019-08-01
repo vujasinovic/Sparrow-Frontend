@@ -50,6 +50,7 @@ export class HotelProfileComponent implements OnInit {
   public findPriceList() {
     this.hotelProfileService.findPriceList(+this.url).subscribe(data => {
       this.priceListItems = data;
+
       console.log('PriceListItems');
       console.log(this.priceListItems);
     })
