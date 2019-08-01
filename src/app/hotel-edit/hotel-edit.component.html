@@ -10,20 +10,20 @@
             <form>
               <div class="form-group">
                 <label for="inputHotelName">Hotel name</label>
-                <input class="form-control" id="inputHotelName" placeholder="Hotel name"
+                <input [(ngModel)]="editHotel.name" class="form-control" id="inputHotelName" placeholder="Hotel name"
                        name="hotelName">
               </div>
               <div class="form-group">
                 <label for="inputAddress">Address</label>
-                <input class="form-control" id="inputAddress"
+                <input [(ngModel)]="editHotel.address.address" class="form-control" id="inputAddress"
                        placeholder="Address" name="address">
               </div>
               <div class="form-group">
                 <label for="inputDescription">Description</label>
-                <textarea class="form-control" id="inputDescription"
+                <textarea [(ngModel)]="editHotel.description" class="form-control" id="inputDescription"
                           placeholder="Description" name="description" rows="5"> </textarea>
               </div>
-              <button type="submit" class="btn btn-success">Confirm</button>
+              <button type="submit" class="btn btn-success" (click)="update()">Confirm</button>
             </form>
           </div>
         </div>

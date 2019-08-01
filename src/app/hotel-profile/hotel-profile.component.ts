@@ -5,6 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {PriceListItem} from "../models-hotel/pricelist-item";
 import {HotelServices} from "../models-hotel/hotel-services";
 import {Address} from "../models-hotel/address";
+import {Room} from "../models-hotel/room";
 
 @Component({
   selector: 'hotel-profile',
@@ -12,15 +13,18 @@ import {Address} from "../models-hotel/address";
 })
 export class HotelProfileComponent implements OnInit {
   hotel: Hotel = new Hotel();
+  priceListItem: PriceListItem = new PriceListItem();
   priceListItems: PriceListItem[];
   hotelServices: HotelServices[];
   freeRooms: number;
   freeBeds: number;
+  priceListItemId: number;
 
   url: string;
 
   constructor (private hotelProfileService: HotelProfileService, private activatedRoute: ActivatedRoute) {
     this.hotel.address = new Address();
+    this.priceListItem.room = new Room();
     this.url = this.activatedRoute.snapshot.paramMap.get("id");
     this.freeBeds = 0;
     this.freeRooms = 0;
@@ -56,6 +60,18 @@ export class HotelProfileComponent implements OnInit {
       this.hotelServices = data;
       console.log('Hotel services: ');
       console.log(this.hotelServices);
+    })
+  }
+
+  public createPriceListItem() {
+    this.hotelProfileService.createPriceListItem(this.priceListItem, +this.url).subscribe(value => {
+      this.findPriceList();
+    })
+  }
+
+  public deletePriceListItem(id: number) {
+    this.hotelProfileService.deletePriceListItem(id).subscribe(value => {
+      this.findPriceList();
     })
   }
 }

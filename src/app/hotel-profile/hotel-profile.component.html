@@ -4,7 +4,7 @@
       <hr class="my-2">
       <h5 class="text-white font-weight-bold">{{hotel.name}}
         <button class="btn btn-sm btn-info float-right ml-2"><i class="fa fa-chart-line mr-1"></i>statistics</button>
-        <a class="btn btn-sm btn-info float-right ml-2" href="hotels/1/edit"><i class="fa fa-edit mr-1"></i>edit</a>
+        <a class="btn btn-sm btn-info float-right ml-2" href="#" routerLink="edit"><i class="fa fa-edit mr-1"></i>edit</a>
       </h5>
       <p class="text-white"><i class="fa fa-map-marker-alt mr-2"></i>{{hotel.address.address}}
 
@@ -27,6 +27,7 @@
          class="text-white">
         <p class="text-white font-weight-bold">Additional services</p>
       </a>
+      <span *ngFor = "let hotelService of hotelServices" class="badge badge-pill badge-primary font-weight-bold mr-1">{{hotelService.extraService.name}}</span>
     </div>
   </div>
   <div class="row mt-3 collapse" id = "collapse2">
@@ -38,7 +39,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let hotelService of hotelServices">
-          <td>{{hotelService.extraService}}</td>
+          <td>{{hotelService.extraService.name}}</td>
           <td><a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a></td>
         </tr>
         </tbody>
@@ -81,11 +82,11 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputAddress">Room name</label>
-              <input  type="text" class="form-control form-control-sm" id="inputAddress" placeholder="Enter room name">
+              <input [(ngModel)]="priceListItem.room.name" name = "roomName" type="text" class="form-control form-control-sm" id="inputAddress" placeholder="Enter room name">
             </div>
             <div class="form-group col-md-1">
               <label for="inputState">Capacity</label>
-              <select  id="inputState" class="form-control form-control-sm">
+              <select [(ngModel)]="priceListItem.room.bedsNo" name = "bedsNo" id="inputState" class="form-control form-control-sm">
                 <option selected>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -96,7 +97,7 @@
             </div>
             <div class="form-group col-md-1">
               <label for="inputState2">Floor</label>
-              <select  id="inputState2" class="form-control form-control-sm">
+              <select [(ngModel)]="priceListItem.room.floor" name = "floor" id="inputState2" class="form-control form-control-sm">
                 <option selected>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -107,17 +108,17 @@
             </div>
             <div class="form-group col-md-1">
               <label for="numberInput">Price</label>
-              <input class="form-control form-control-sm" id="numberInput" type="number" name="quantity" min="1"
+              <input [(ngModel)]="priceListItem.price" name = "price" class="form-control form-control-sm" id="numberInput" type="number" name="quantity" min="1"
                      max="1000000">
             </div>
             <div class="form-check mb-2 col-md-1">
               <label class="form-check-label mb-1" for="autoSizingCheck">
                 Has balcony?
               </label>
-              <input class="form-check-input form-control form-control-sm mt-1" type="checkbox" id="autoSizingCheck">
+              <input [(ngModel)]="priceListItem.room.balcony" name = "balcony" class="form-check-input form-control form-control-sm mt-1" type="checkbox" id="autoSizingCheck">
             </div>
             <div class="col-md-2">
-              <button type="submit" class="btn btn-primary mt-4 float-right">Submit<i
+              <button type="submit" class="btn btn-primary mt-4 float-right" (click)="createPriceListItem()">Submit<i
                 class="fa fa-arrow-alt-circle-right ml-5"></i></button>
             </div>
           </div>
@@ -145,7 +146,7 @@
           <td><input type="checkbox"></td>
           <td>
             <a href="#" class="btn btn-sm btn-info mr-1">Edit</a>
-            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+            <button class="btn btn-sm btn-danger" (click)="deletePriceListItem(priceListItem.id)">Delete</button>
           </td>
         </tr>
         </tbody>
