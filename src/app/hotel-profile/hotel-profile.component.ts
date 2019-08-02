@@ -6,6 +6,9 @@ import {PriceListItem} from "../models-hotel/pricelist-item";
 import {HotelServices} from "../models-hotel/hotel-services";
 import {Address} from "../models-hotel/address";
 import {Room} from "../models-hotel/room";
+import {ExtraService} from "../models-hotel/extra-service";
+import {catchError} from "rxjs/operators";
+import {throwError} from 'rxjs';
 
 @Component({
   selector: 'hotel-profile',
@@ -18,16 +21,25 @@ export class HotelProfileComponent implements OnInit {
   hotelServices: HotelServices[];
   freeRooms: number;
   freeBeds: number;
-  priceListItemId: number;
+  extraServices: ExtraService[];
+  es: ExtraService = new ExtraService();
+  hotelService: HotelServices = new HotelServices();
+  selectedExtraService : ExtraService = new ExtraService();
 
+  flag: boolean;
   url: string;
+  serviceExistError: string;
 
-  constructor (private hotelProfileService: HotelProfileService, private activatedRoute: ActivatedRoute) {
+  constructor(private hotelProfileService: HotelProfileService, private activatedRoute: ActivatedRoute) {
     this.hotel.address = new Address();
     this.priceListItem.room = new Room();
+    this.hotelService.extraService = new ExtraService();
+    this.es = new ExtraService();
+    this.hotelService.extraService = this.es;
     this.url = this.activatedRoute.snapshot.paramMap.get("id");
     this.freeBeds = 0;
     this.freeRooms = 0;
+    this.hotelService.hotel = new Hotel();
   }
 
   ngOnInit(): void {
@@ -46,7 +58,36 @@ export class HotelProfileComponent implements OnInit {
     });
     this.findPriceList();
     this.findHotelServices();
+    this.findExtraServices();
   }
+
+  public findExtraServices() {
+    this.hotelProfileService.findExtraServices().subscribe(data => {
+      this.extraServices = data;
+      this.selectedExtraService = data[0];
+      console.log('Extra services: ');
+      console.log(this.extraServices);
+
+
+    })
+  }
+
+
+  public addHotelService() {
+    this.serviceExistError = null;
+    if (this.hotelService.extraService.name == null || this.hotelService.extraService.name == undefined) {
+      this.hotelService.extraService.name = this.selectedExtraService.name;
+    }
+
+    this.hotelProfileService.addHotelService(this.hotelService, +this.url).pipe(catchError(err => {
+        this.serviceExistError = err.error.message;
+        return throwError(err);
+      })
+    ).subscribe(value => {
+      this.findHotelServices();
+    })
+  }
+
   public findPriceList() {
     this.hotelProfileService.findPriceList(+this.url).subscribe(data => {
       this.priceListItems = data;
@@ -57,7 +98,7 @@ export class HotelProfileComponent implements OnInit {
   }
 
   public findHotelServices() {
-    this.hotelProfileService.findExtraServices(+this.url).subscribe(data => {
+    this.hotelProfileService.findHotelServices(+this.url).subscribe(data => {
       this.hotelServices = data;
       console.log('Hotel services: ');
       console.log(this.hotelServices);
@@ -73,6 +114,12 @@ export class HotelProfileComponent implements OnInit {
   public deletePriceListItem(id: number) {
     this.hotelProfileService.deletePriceListItem(id).subscribe(value => {
       this.findPriceList();
+    })
+  }
+
+  public deleteHotelService(id: number) {
+    this.hotelProfileService.deleteHotelService(id, +this.url).subscribe(value => {
+      this.findHotelServices();
     })
   }
 }

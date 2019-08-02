@@ -40,7 +40,7 @@
         <tbody>
         <tr *ngFor="let hotelService of hotelServices">
           <td>{{hotelService.extraService.name}}</td>
-          <td><a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a></td>
+          <td><button class="btn btn-sm btn-danger" (click)="deleteHotelService(hotelService.extraService.id)"><i class="fa fa-trash-alt"></i></button></td>
         </tr>
         </tbody>
       </table>
@@ -51,14 +51,18 @@
         <div class="card-body">
           <form>
             <div class="form-group col-md-12">
-              <select id="inputState3" class="form-control form-control">
-                <option>Wellness & Spa</option>
-                <option>Swimming pool</option>
-                <option>Restaurant</option>
-                <option>Breakfast</option>
-                <option>Room service</option>
+              <select [(ngModel)]="hotelService.extraService.name"  id="inputState3" class="form-control form-control" name = "extraServiceName" >
+                <option *ngFor = "let extraService of extraServices">{{extraService.name}}</option>
               </select>
-              <button type="submit" class="btn  mt-1 btn-success float-right pl-4 pr-4">Add</button>
+              <div class="form-group">
+                <label for="numberInput" class="text-white">Price</label>
+                <input [(ngModel)]="hotelService.price" name = "price" class="form-control" id="priceInput" type="number" min="1"
+                       max="1000000">
+              </div>
+              <div *ngIf="serviceExistError" class="text-white bg-danger border-danger p-2">
+                {{serviceExistError}}!
+              </div>
+              <button type="submit" class="btn  mt-1 btn-success float-right pl-4 pr-4" (click)="addHotelService()">Add</button>
             </div>
           </form>
         </div>
