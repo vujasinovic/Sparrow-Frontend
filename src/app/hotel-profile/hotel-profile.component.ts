@@ -8,7 +8,9 @@ import {Address} from "../models-hotel/address";
 import {Room} from "../models-hotel/room";
 import {ExtraService} from "../models-hotel/extra-service";
 import {catchError} from "rxjs/operators";
-import {throwError} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
+import {User} from "../user";
+import {AuthService} from "../login/auth.service";
 
 @Component({
   selector: 'hotel-profile',
@@ -30,7 +32,9 @@ export class HotelProfileComponent implements OnInit {
   url: string;
   serviceExistError: string;
 
-  constructor(private hotelProfileService: HotelProfileService, private activatedRoute: ActivatedRoute) {
+  public user: User;
+
+  constructor(private hotelProfileService: HotelProfileService, private activatedRoute: ActivatedRoute, private authService: AuthService) {
     this.hotel.address = new Address();
     this.priceListItem.room = new Room();
     this.hotelService.extraService = new ExtraService();
@@ -40,12 +44,12 @@ export class HotelProfileComponent implements OnInit {
     this.freeBeds = 0;
     this.freeRooms = 0;
     this.hotelService.hotel = new Hotel();
+    this.user = this.authService.getLoggedUser();
   }
 
   ngOnInit(): void {
     this.hotelProfileService.findOne(+this.url).subscribe(data => {
       this.hotel = data;
-
       this.freeRooms = this.hotel.rooms.length;
       console.log('Hotels');
       console.log(this.hotel);
