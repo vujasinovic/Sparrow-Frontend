@@ -28,11 +28,10 @@ export class HotelProfileComponent implements OnInit {
   hotelService: HotelServices = new HotelServices();
   selectedExtraService : ExtraService = new ExtraService();
 
-  flag: boolean;
   url: string;
   serviceExistError: string;
 
-  public user: User;
+  public user: User = new User();
 
   constructor(private hotelProfileService: HotelProfileService, private activatedRoute: ActivatedRoute, private authService: AuthService) {
     this.hotel.address = new Address();

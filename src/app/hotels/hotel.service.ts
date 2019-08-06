@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Hotel} from "../models-hotel/hotel";
 import {EditHotel} from "../dto/edit-hotel";
 import {Room} from "../models-hotel/room";
+import {HotelSearchDto} from "../dto/hotel-search-dto";
 
 @Injectable()
 export class HotelService {
@@ -41,4 +42,22 @@ export class HotelService {
     return this.http.put<Room>(this.hotelAdminUrl + '/' + hotelId + '/room/' + roomId, room);
   }
 
+  public search(searchDto: HotelSearchDto): Observable<Hotel[]> {
+    return this.http.get<Hotel[]>(this.hotelsUrl + '/search', {params: this.clone(searchDto)})
+  }
+
+  public clone(obj: any): any {
+    // tslint:disable-next-line:prefer-const
+    let cloneObj = {};
+    for (let attribute in obj) {
+      if (obj[attribute]) {
+        if (typeof obj[attribute] === 'object') {
+          cloneObj[attribute] = this.clone(obj[attribute]);
+        } else {
+          cloneObj[attribute] = obj[attribute];
+        }
+      }
+    }
+    return cloneObj;
+  }
 }

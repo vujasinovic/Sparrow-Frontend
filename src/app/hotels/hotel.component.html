@@ -6,25 +6,31 @@
   </h5>
   <div class="row ml-2 mr-2">
     <div class="col-md-12 collapse" id = "collapse">
+      <div *ngIf="errorMsgRequired.length != 0">
+        <div class="alert alert-dismissible alert-danger">
+          <button type="button" class="close" data-dismiss="alert" (click)="clearErrorMsgRequired()">&times;</button>
+          <strong>All fields are required</strong>
+        </div>
+      </div>
       <form>
         <div class="form-group">
-          <label for="inputAddress">Name</label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="Enter hotel or destination name">
+          <label for="place">Name</label>
+          <input [(ngModel)]="hotelSearchDto.place" required name="place" type="text" class="form-control" id="place" placeholder="Enter hotel or destination name">
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputEmail4">Check-In</label>
-            <input type="date" class="form-control" id="inputEmail4">
+            <input [(ngModel)]="hotelSearchDto.start" name = "start" type="date" class="form-control" id="inputEmail4">
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword4">Check-out</label>
-            <input type="date" class="form-control" id="inputPassword4">
+            <input [(ngModel)]="hotelSearchDto.end" name = "end" type="date" class="form-control" id="inputPassword4">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="inputState1">Rooms</label>
-            <select id="inputState1" class="form-control">
+            <select [(ngModel)]="hotelSearchDto.rooms" name = "rooms" id="inputState1" class="form-control">
               <option selected>1</option>
               <option>2</option>
               <option>3</option>
@@ -34,7 +40,7 @@
           </div>
           <div class="form-group col-md-6">
             <label for="inputState">Guests</label>
-            <select id="inputState" class="form-control">
+            <select [(ngModel)]="hotelSearchDto.guests" name = "guests" id="inputState" class="form-control">
               <option selected>1</option>
               <option>2</option>
               <option>3</option>
@@ -44,13 +50,16 @@
             </select>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary mb-3"><i class="fa fa-search mr-2"></i>Search</button>
+        <button type="submit" class="btn btn-primary mb-3" (click)="search()"><i class="fa fa-search mr-2"></i>Search</button>
       </form>
     </div>
   </div>
 </div>
 <div class="container-sparrow p-3">
-  <h3 class="ml-2 text-white">Hotels</h3>
+  <div *ngIf="errorMsg.length != 0">
+    <h3 class="ml-2 text-white">{{errorMsg}}</h3>
+  </div>
+  <h3 *ngIf="errorMsg.length == 0" class="ml-2 text-white">Hotels</h3>
   <hr class="my-4">
   <div *ngFor="let hotel of hotels" class="row bg-primary pl-1 pt-3 pb-3 m-1 mb-3">
     <div class="col-md-3">
