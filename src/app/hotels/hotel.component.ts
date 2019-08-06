@@ -3,6 +3,7 @@ import {Hotel} from "../models-hotel/hotel";
 import {HotelService} from "./hotel.service";
 import {HotelSearchDto} from "../dto/hotel-search-dto";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {NgbRatingConfig} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'hotels',
@@ -13,8 +14,11 @@ export class HotelComponent implements OnInit {
   hotelSearchDto: HotelSearchDto = new HotelSearchDto();
   errorMsg: string = '';
   errorMsgRequired: string = '';
+  currentRate: number;
 
-  constructor(private hotelService: HotelService, private fb: FormBuilder) {
+  constructor(private hotelService: HotelService, private fb: FormBuilder, private config: NgbRatingConfig) {
+    config.max = 5;
+    config.readonly = true;
     this.initSearchDto();
   }
 

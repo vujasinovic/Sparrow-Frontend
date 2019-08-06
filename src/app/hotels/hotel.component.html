@@ -66,9 +66,7 @@
       <img src="airplane.jpg" class="img-thumbnail" alt="plaza">
     </div>
     <div class="col-md-6">
-      <h3 class="text-white">{{hotel.name}}<i class="fa fa-sm fa-star ml-2"></i>
-        <i class="fa fa-sm fa-star"></i><i class="fa fa-sm fa-star"></i>
-        <i class="fa fa-sm fa-star"></i><i class="fa fa-sm fa-star-half-alt"></i>
+      <h3 class="text-white">{{hotel.name}}<ngb-rating [rate]="3"></ngb-rating>
       </h3>
       <p class="lead text-white"><i class="fa fa-map-marker-alt"></i> {{hotel.address.address}}</p>
       <a class="text-white" href = "#">Show on map</a>
