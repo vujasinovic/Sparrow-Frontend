@@ -29,6 +29,8 @@ import {HotelRoomEditComponent} from './hotel-room-edit/hotel-room-edit.componen
 import {AuthenticatedGuardService} from './login/auth-guard';
 import {UserListComponent} from './user/user-list.component';
 import {UserService} from './user/user.service';
+import {AgmCoreModule} from '@agm/core';
+
 
 @NgModule({
   declarations: [
@@ -55,7 +57,10 @@ import {UserService} from './user/user.service';
     NgbModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: ''
+    })
   ],
   providers: [Globals, AuthService, AuthenticatedGuardService, LoginGuardService, RegisterService, HotelService, HotelProfileService
     , FriendsService, UserService,
