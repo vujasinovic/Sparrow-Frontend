@@ -1,0 +1,22 @@
+<div class="container-sparrow p-3">
+  <div class="row">
+    <div class="col-6 ml-auto mr-auto">
+      <div class="card">
+        <div class="card-header text-center text-primary">
+          Friendship Requests
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li *ngFor="let request of requests" class="list-group-item">
+              {{request.sender.firstName}} {{request.sender.firstName}} - {{request.sender.email}}
+            </li>
+            <li class="list-group-item text-center" *ngIf="requests.length === 0">
+              There are currently no friend requests for you.<br>
+              <a href="#">Search</a> for more friends.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

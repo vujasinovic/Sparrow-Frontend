@@ -13,16 +13,22 @@ import {AuthService} from './login/auth.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttpConfigInterceptor} from './httpconfig.interceptor';
 import {LoginGuardService} from './login/login-guard';
-import {HotelComponent} from "./hotels/hotel.component";
-import {HotelProfileComponent} from "./hotel-profile/hotel-profile.component";
+import {HotelComponent} from './hotels/hotel.component';
+import {HotelProfileComponent} from './hotel-profile/hotel-profile.component';
 import {RegisterComponent} from './register/register.component';
 import {RegisterService} from './register/register.service';
-import {HotelReservationComponent} from "./hotel-reservation/hotel-reservation.component";
-import {HotelEditComponent} from "./hotel-edit/hotel-edit.component";
-import {SystemAdministratorComponent} from "./system-administrator/system-administrator.component";
-import {HotelService} from "./hotels/hotel.service";
-import {HotelProfileService} from "./hotel-profile/hotel-profile.service";
-import {HotelRoomEditComponent} from "./hotel-room-edit/hotel-room-edit.component";
+import {HotelReservationComponent} from './hotel-reservation/hotel-reservation.component';
+import {HotelEditComponent} from './hotel-edit/hotel-edit.component';
+import {SystemAdministratorComponent} from './system-administrator/system-administrator.component';
+import {HotelService} from './hotels/hotel.service';
+import {HotelProfileService} from './hotel-profile/hotel-profile.service';
+import {FriendsComponent} from './friends/friends.component';
+import {FriendsService} from './friends/friends.service';
+import {FriendRequestComponent} from './friends/friend-request.component';
+import {HotelRoomEditComponent} from './hotel-room-edit/hotel-room-edit.component';
+import {AuthenticatedGuardService} from './login/auth-guard';
+import {UserListComponent} from './user/user-list.component';
+import {UserService} from './user/user.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +43,11 @@ import {HotelRoomEditComponent} from "./hotel-room-edit/hotel-room-edit.componen
     HotelReservationComponent,
     HotelEditComponent,
     SystemAdministratorComponent,
-    HotelRoomEditComponent
+    FriendsComponent,
+    FriendRequestComponent,
+    SystemAdministratorComponent,
+    HotelRoomEditComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +57,8 @@ import {HotelRoomEditComponent} from "./hotel-room-edit/hotel-room-edit.componen
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [Globals, AuthService, LoginGuardService, RegisterService, HotelService, HotelProfileService,
+  providers: [Globals, AuthService, AuthenticatedGuardService, LoginGuardService, RegisterService, HotelService, HotelProfileService
+    , FriendsService, UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpConfigInterceptor,
