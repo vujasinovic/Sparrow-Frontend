@@ -31,6 +31,8 @@ export class HotelProfileComponent implements OnInit {
   url: string;
   serviceExistError: string;
 
+  address : Address;
+
   public user: User = new User();
 
   constructor(private hotelProfileService: HotelProfileService, private activatedRoute: ActivatedRoute, private authService: AuthService) {
@@ -43,6 +45,9 @@ export class HotelProfileComponent implements OnInit {
     this.freeBeds = 0;
     this.freeRooms = 0;
     this.hotelService.hotel = new Hotel();
+    this.user.role = '';
+    console.log(this.user);
+
     this.user = this.authService.getLoggedUser();
   }
 
@@ -70,7 +75,6 @@ export class HotelProfileComponent implements OnInit {
       this.selectedExtraService = data[0];
       console.log('Extra services: ');
       console.log(this.extraServices);
-
 
     })
   }

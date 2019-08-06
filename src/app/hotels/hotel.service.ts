@@ -31,7 +31,7 @@ export class HotelService {
   }
 
   public delete(id: number) : Observable<Hotel> {
-    return this.http.delete<Hotel>(this.saHotelsUrl + id);
+    return this.http.delete<Hotel>(this.saHotelsUrl + '/' + id);
   }
 
   public update(hotel: EditHotel): Observable<Hotel> {

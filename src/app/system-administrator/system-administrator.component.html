@@ -32,9 +32,13 @@
                 </div>
                 <div class="form-group">
                   <label for="inputAddress">Address</label>
-                  <input [(ngModel)]="hotel.address.address" class="form-control" id="inputAddress"
-                         placeholder="Address" name="address">
+                  <input [(ngModel)]="hotel.address.address" (keydown.enter)="$event.preventDefault()" class="form-control" id="inputAddress"
+                         placeholder="Address" name="address" value="{{address.address}}" #search>
                 </div>
+                <agm-map [latitude]="address.latitude" [longitude]="address.longitude" [zoom]="zoom">
+                  <agm-marker [latitude]="address.latitude" [longitude]="address.longitude" [markerDraggable]="true"
+                              (dragEnd)="markerDragEnd($event)"></agm-marker>
+                </agm-map>
                 <div class="form-group">
                   <label for="inputDescription">Description</label>
                   <textarea [(ngModel)]="hotel.description" class="form-control" id="inputDescription"
