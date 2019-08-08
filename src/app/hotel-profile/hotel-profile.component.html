@@ -151,7 +151,9 @@
           <td>{{priceListItem.room.floor}}</td>
           <td>{{priceListItem.room.balcony}}</td>
           <td>{{priceListItem.price}} €</td>
-          <td *ngIf = "user == null || user.role.toString() != 'ROLE_HOTEL_ADMIN'"><input type="checkbox"></td>
+          <td *ngIf = "user == null || user.role.toString() != 'ROLE_HOTEL_ADMIN'">
+            <input (change)="toggleRoomStatus($event, priceListItem)" type="checkbox">
+          </td>
           <td *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'">
             <a href="#" routerLink="room/{{priceListItem.room.id}}/edit" class="btn btn-sm btn-info mr-1">Edit</a>
             <button class="btn btn-sm btn-danger" (click)="deletePriceListItem(priceListItem.id)">Delete</button>
@@ -159,7 +161,7 @@
         </tr>
         </tbody>
       </table>
-      <button *ngIf="user == null || user.role.toString() == 'ROLE_USER'" class="btn btn-success font-weight-bold float-right ml-2 pl-3 pr-3">Make reservation</button>
+      <button *ngIf="user == null || user.role.toString() == 'ROLE_USER'" class="btn btn-success font-weight-bold float-right ml-2 pl-3 pr-3" routerLink="reservation">Make reservation</button>
       <button *ngIf="user == null || user.role.toString() == 'ROLE_USER'" class="btn btn-warning float-right pl-3 pr-3">Deselect all</button>
       <hr class="my-2">
 

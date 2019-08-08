@@ -11,6 +11,8 @@ import {catchError} from "rxjs/operators";
 import {Observable, throwError} from 'rxjs';
 import {User} from "../user";
 import {AuthService} from "../login/auth.service";
+import {RoomReservation} from "../models-hotel/room-reservation";
+import {HotelReservationComponent} from "../hotel-reservation/hotel-reservation.component";
 
 @Component({
   selector: 'hotel-profile',
@@ -35,6 +37,9 @@ export class HotelProfileComponent implements OnInit {
 
   public user: User = new User();
 
+  plItems: PriceListItem[];
+  roomReservation: RoomReservation = new RoomReservation();
+
   constructor(private hotelProfileService: HotelProfileService, private activatedRoute: ActivatedRoute, private authService: AuthService) {
     this.hotel.address = new Address();
     this.priceListItem.room = new Room();
@@ -49,6 +54,7 @@ export class HotelProfileComponent implements OnInit {
     console.log(this.user);
 
     this.user = this.authService.getLoggedUser();
+    this.plItems = [];
   }
 
   ngOnInit(): void {
@@ -128,5 +134,23 @@ export class HotelProfileComponent implements OnInit {
     this.hotelProfileService.deleteHotelService(id, +this.url).subscribe(value => {
       this.findHotelServices();
     })
+  }
+
+  toggleRoomStatus(e, priceListItem: PriceListItem) {
+    this.roomReservation.priceListItem = priceListItem;
+    this.roomReservation.checked = e.target.checked;
+    console.log('Checked: ', this.roomReservation.priceListItem.room.name, '[', this.roomReservation.checked, ']');
+
+    if (this.roomReservation.checked) {
+      this.plItems.push(priceListItem);
+    }
+    else {
+      const index: number = this.plItems.indexOf(priceListItem);
+      if (index !== -1) {
+        this.plItems.splice(index, 1);
+      }
+    }
+    console.log('Reservation status: ', this.plItems);
+    HotelReservationComponent.prototype.priceListItems = this.plItems;
   }
 }

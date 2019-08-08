@@ -8,40 +8,62 @@
         <div class="card-body bg-light text-black-50">
           <div class="row">
             <div class="col-md-6">
-              <form class="text-left">
-                <input type="checkbox" id="smece" class="checkbox"> WiFi <br>
-                <input type="checkbox" class="checkbox"> Wellness <br>
-                <input type="checkbox" class="checkbox"> Spa <br>
-                <input type="checkbox" class="checkbox"> Swimming pool<br>
-                <input type="checkbox" class="checkbox"> Restaurant <br>
-                <input type="checkbox" class="checkbox"> Breakfast <br>
-                <input type="checkbox" class="checkbox"> Transport to/from airport <br>
-              </form>
+              <table class="table table-hover table-primary mr-3">
+                <thead>
+                <th>Room name</th>
+                <th>Price</th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let plItem of priceListItems">
+                  <td>
+                    {{plItem.room.name}}
+                  </td>
+                  <td>
+                    {{plItem.price}}€
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <hr class="my-4">
+              <div class="row ml-2">
+                <p class="font-weight-bold">Choose additional services</p>
+              </div>
+              <div class="row ml-2">
+                <form class="text-left">
+                  <div *ngFor="let hs of hotelServices">
+                    <input type="checkbox" (change)="toggleExtraServices($event, hs)"
+                           class="checkbox"> {{hs.extraService.name}} {{hs.price}}€
+                  </div>
+                  <br>
+                </form>
+              </div>
             </div>
             <div class="col-md-6">
               <div class="row">
-                <table class="table table-hover table-primary mr-3">
+                <table class="table table-hover table-warning table-striped mr-3">
                   <thead>
                   <th>Service name</th>
                   <th>Price</th>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>Wellness</td>
-                    <td>15 euros</td>
-                  </tr>
-                  <tr>
-                    <td>Restaurant</td>
-                    <td>7 euros</td>
+                  <tr *ngFor="let hs of checkedHotelServices">
+                    <td>
+                      {{hs.extraService.name}}
+                    </td>
+                    <td>
+                      {{hs.price}}€
+                    </td>
                   </tr>
                   </tbody>
                 </table>
               </div>
               <div class="row">
-                <p class="float-left">Room price: 100 euros</p>
-                <p class="float-left">Additional services: 22 euros</p>
+                <p class="float-left">Room(s) price: {{roomsPrice}} €</p>
+                <p class="float-left">Additional services: {{additionalServicesPrice}} €</p>
                 <hr class="my-1">
-                <p class="lead float-left font-weight-bold">Total: 122 euros</p>
+              </div>
+              <div class="row">
+                <p class="lead float-left font-weight-bold">Total: {{totalPrice}} €</p>
               </div>
             </div>
           </div>
