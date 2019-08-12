@@ -2,21 +2,20 @@ import {Component, OnInit} from "@angular/core";
 import {Hotel} from "../models-hotel/hotel";
 import {HotelService} from "./hotel.service";
 import {HotelSearchDto} from "../dto/hotel-search-dto";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {NgbRatingConfig} from "@ng-bootstrap/ng-bootstrap";
+import {FormBuilder} from "@angular/forms";
+import {NgbModal, NgbRatingConfig} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'hotels',
-  templateUrl: './hotel.component.html'
+  templateUrl: './hotel.component.html',
 })
 export class HotelComponent implements OnInit {
   hotels: Hotel[];
   hotelSearchDto: HotelSearchDto = new HotelSearchDto();
   errorMsg: string = '';
   errorMsgRequired: string = '';
-  currentRate: number;
 
-  constructor(private hotelService: HotelService, private fb: FormBuilder, private config: NgbRatingConfig) {
+  constructor(private hotelService: HotelService, private fb: FormBuilder, private config: NgbRatingConfig, private modalService: NgbModal) {
     config.max = 5;
     config.readonly = true;
     this.initSearchDto();
@@ -24,6 +23,7 @@ export class HotelComponent implements OnInit {
 
   ngOnInit(): void {
     this.findAll();
+
   }
 
   public findAll() {
@@ -37,10 +37,10 @@ export class HotelComponent implements OnInit {
     console.log(this.hotelSearchDto);
 
     if (this.hotelSearchDto.place === '' ||
-        this.hotelSearchDto.start === null ||
-        this.hotelSearchDto.end === null ||
-        this.hotelSearchDto.rooms === -1 ||
-        this.hotelSearchDto.guests === -1) {
+      this.hotelSearchDto.start === null ||
+      this.hotelSearchDto.end === null ||
+      this.hotelSearchDto.rooms === -1 ||
+      this.hotelSearchDto.guests === -1) {
       this.errorMsgRequired = 'All fields are required';
       return;
     }
@@ -66,5 +66,9 @@ export class HotelComponent implements OnInit {
 
   public clearErrorMsgRequired() {
     this.errorMsgRequired = '';
+  }
+
+  open(content) {
+    this.modalService.open(content, {windowClass: 'mapsModal', ariaLabelledBy: 'modal-basic-title'});
   }
 }

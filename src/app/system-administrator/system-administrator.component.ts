@@ -3,14 +3,15 @@ import {Hotel} from "../models-hotel/hotel";
 import {HotelService} from "../hotels/hotel.service";
 import {Address} from "../models-hotel/address";
 import {ActivatedRoute, Router} from "@angular/router";
-import {MapsAPILoader} from "@agm/core";
-import {MouseEvent as AGMMouseEvent} from "@agm/core";
+import {MapsAPILoader, MouseEvent as AGMMouseEvent} from "@agm/core";
 
 @Component({
   selector: 'system-administrator',
   templateUrl: './system-administrator.component.html'
 })
 export class SystemAdministratorComponent implements OnInit {
+  BASE64_MARKER = ';base64,';
+
   hotel: Hotel = new Hotel();
   hotels: Hotel[];
   url: string;
@@ -18,6 +19,7 @@ export class SystemAdministratorComponent implements OnInit {
   address: Address = new Address();
   zoom: number;
   private geoCoder;
+  private imageSrc: string = '';
 
   @ViewChild('search', {static: false})
   public searchElementRef: ElementRef;
@@ -72,7 +74,7 @@ export class SystemAdministratorComponent implements OnInit {
   }
 
   getAddress(latitude, longitude) {
-    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+    this.geoCoder.geocode({'location': {lat: latitude, lng: longitude}}, (results, status) => {
       console.log(results);
       console.log(status);
       if (status === 'OK') {
@@ -110,4 +112,24 @@ export class SystemAdministratorComponent implements OnInit {
       this.findAll();
     })
   }
+
+  onFileSelect(event) {
+    let file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
+    let pattern = /image-*/;
+    let reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      alert('Invalid format');
+      return;
+    }
+    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.readAsDataURL(file);
+  }
+
+  _handleReaderLoaded(e) {
+    let reader = e.target;
+    this.imageSrc = reader.result;
+    this.hotel.image = this.imageSrc;
+    console.log(this.imageSrc);
+  }
+
 }

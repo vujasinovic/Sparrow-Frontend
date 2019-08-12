@@ -13,4 +13,5 @@ export class Hotel {
   rooms: Room[];
   admin: User;
   hotelServices: HotelServices[];
+  image: string;
 }

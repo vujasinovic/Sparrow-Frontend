@@ -8,7 +8,7 @@ import {Address} from "../models-hotel/address";
 import {Room} from "../models-hotel/room";
 import {ExtraService} from "../models-hotel/extra-service";
 import {catchError} from "rxjs/operators";
-import {Observable, throwError} from 'rxjs';
+import {throwError} from 'rxjs';
 import {User} from "../user";
 import {AuthService} from "../login/auth.service";
 import {RoomReservation} from "../models-hotel/room-reservation";
@@ -28,12 +28,12 @@ export class HotelProfileComponent implements OnInit {
   extraServices: ExtraService[];
   es: ExtraService = new ExtraService();
   hotelService: HotelServices = new HotelServices();
-  selectedExtraService : ExtraService = new ExtraService();
+  selectedExtraService: ExtraService = new ExtraService();
 
   url: string;
   serviceExistError: string;
 
-  address : Address;
+  address: Address;
 
   public user: User = new User();
 
@@ -143,8 +143,7 @@ export class HotelProfileComponent implements OnInit {
 
     if (this.roomReservation.checked) {
       this.plItems.push(priceListItem);
-    }
-    else {
+    } else {
       const index: number = this.plItems.indexOf(priceListItem);
       if (index !== -1) {
         this.plItems.splice(index, 1);

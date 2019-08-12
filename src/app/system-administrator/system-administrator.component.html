@@ -32,7 +32,8 @@
                 </div>
                 <div class="form-group">
                   <label for="inputAddress">Address</label>
-                  <input [(ngModel)]="hotel.address.address" (keydown.enter)="$event.preventDefault()" class="form-control" id="inputAddress"
+                  <input [(ngModel)]="hotel.address.address" (keydown.enter)="$event.preventDefault()"
+                         class="form-control" id="inputAddress"
                          placeholder="Address" name="address" value="{{address.address}}" #search>
                 </div>
                 <agm-map [latitude]="address.latitude" [longitude]="address.longitude" [zoom]="zoom">
@@ -44,6 +45,10 @@
                   <textarea [(ngModel)]="hotel.description" class="form-control" id="inputDescription"
                             placeholder="Description" name="description" rows="5"> </textarea>
                 </div>
+                <div class="form-group">
+                  <input id="fileChooser" type="file" name="image" accept="image/*" #file
+                         (change)="onFileSelect($event)">
+                </div>
                 <button type="submit" class="btn btn-success float-right" (click)="create()">Save</button>
               </form>
             </div>
@@ -52,26 +57,26 @@
         <div class="col-md-6">
           <table class="table table-primary table-hover">
             <thead>
-              <th>Name</th>
-              <th>Address</th>
-              <th>Description</th>
-              <th></th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Description</th>
+            <th></th>
             </thead>
             <tbody>
-              <tr *ngFor = "let hotel of hotels">
-                <td>
-                  {{hotel.name}}
-                </td>
-                <td>
-                  {{hotel.address.address}}
-                </td>
-                <td>
-                  {{hotel.description}}
-                </td>
-                <td>
-                  <button class="btn btn-sm btn-danger" (click)="delete(hotel.id)">Delete</button>
-                </td>
-              </tr>
+            <tr *ngFor="let hotel of hotels">
+              <td>
+                {{hotel.name}}
+              </td>
+              <td>
+                {{hotel.address.address}}
+              </td>
+              <td>
+                {{hotel.description}}
+              </td>
+              <td>
+                <button class="btn btn-sm btn-danger" (click)="delete(hotel.id)">Delete</button>
+              </td>
+            </tr>
             </tbody>
           </table>
         </div>

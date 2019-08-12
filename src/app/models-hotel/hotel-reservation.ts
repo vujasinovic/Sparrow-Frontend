@@ -4,7 +4,8 @@ import {Room} from "./room";
 export class HotelReservation {
   id: number;
   user: User;
-  room: Room;
+  room: Room[];
   start: Date;
   end: Date;
+  totalPrice: number;
 }
