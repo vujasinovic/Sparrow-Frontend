@@ -30,6 +30,19 @@ export class HotelComponent implements OnInit {
     this.hotelService.findAll().subscribe(data => {
       this.hotels = data;
       console.log('Retrieved hotels: ', this.hotels);
+      this.hotels.forEach(function (hotel) {
+        let prices = [];
+        if (hotel.priceLists.length === 0) {
+          console.log('Hotel', hotel.name, ' dont have any pricelists');
+          hotel.minRoomPrice = 0;
+        } else {
+          hotel.priceLists[0].items.forEach(function (item) {
+            prices.push(item.price);
+          });
+          hotel.minRoomPrice = Math.min(...prices);
+          console.log('Minimum room price: ', hotel.minRoomPrice);
+        }
+      });
     })
   }
 

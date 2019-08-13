@@ -14,4 +14,5 @@ export class Hotel {
   admin: User;
   hotelServices: HotelServices[];
   image: string;
+  minRoomPrice: number;
 }

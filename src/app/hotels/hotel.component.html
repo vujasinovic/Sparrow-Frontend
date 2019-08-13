@@ -66,15 +66,20 @@
     </div>
     <div class="col-md-6">
       <h3 class="text-white">{{hotel.name}}
+        <h1 class="text-white font-weight-bold">
+          <ngb-rating [rate]="3"></ngb-rating>
+        </h1>
       </h3>
       <p class="lead text-white"><i class="fa fa-map-marker-alt"></i> {{hotel.address.address}}</p>
       <button class="btn btn-sm btn-warning" (click)="open(content)">Show on map</button>
     </div>
     <div class="col-md-3 text-center">
-      <p class="lead text-white ml-1">rating</p>
-      <h1 class="text-white font-weight-bold">
-        <ngb-rating [rate]="3"></ngb-rating>
-      </h1>
+      <p *ngIf="hotel.minRoomPrice != 0" class="lead text-white ml-1">from</p>
+      <h1 *ngIf="hotel.minRoomPrice != 0; else undefinedPriceList" class="text-white font-weight-bold">{{hotel.minRoomPrice}}€</h1>
+      <ng-template #undefinedPriceList>
+        <h5 class="text-white font-weight-bold mb-5 mt-5">No pricelists available</h5>
+      </ng-template>
+      <p *ngIf="hotel.minRoomPrice != 0" class="lead text-white ml-1">(price for 1 night)</p>
       <a class="btn btn-lg btn-success mb-2 text-white" routerLink="{{hotel.id}}">Select</a>
     </div>
   </div>
