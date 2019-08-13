@@ -7,6 +7,7 @@ import {HotelServices} from "../models-hotel/hotel-services";
 import {Room} from "../models-hotel/room";
 import {ExtraService} from "../models-hotel/extra-service";
 import {Globals} from "../globals";
+import {RoomsSearchDto} from "../dto/rooms-search-dto";
 
 @Injectable()
 export class HotelProfileService {
@@ -54,5 +55,24 @@ export class HotelProfileService {
 
   public deleteHotelService(hotelServiceId: number, hotelId: number) : Observable<Hotel> {
     return this.http.delete<Hotel>(this.extraServicesApi + '/' + hotelServiceId + /hotel/ + hotelId);
+  }
+
+  public searchRooms(roomsSearchDto: RoomsSearchDto, hotelId: number): Observable<PriceListItem[]> {
+    return this.http.get<PriceListItem[]>(this.hotelsApi + hotelId + '/rooms/search', {params: this.clone(roomsSearchDto)} );
+  }
+
+  public clone(obj: any): any {
+    // tslint:disable-next-line:prefer-const
+    let cloneObj = {};
+    for (let attribute in obj) {
+      if (obj[attribute]) {
+        if (typeof obj[attribute] === 'object') {
+          cloneObj[attribute] = this.clone(obj[attribute]);
+        } else {
+          cloneObj[attribute] = obj[attribute];
+        }
+      }
+    }
+    return cloneObj;
   }
 }

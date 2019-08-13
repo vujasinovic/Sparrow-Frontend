@@ -6,6 +6,7 @@ import {EditHotel} from "../dto/edit-hotel";
 import {Room} from "../models-hotel/room";
 import {HotelSearchDto} from "../dto/hotel-search-dto";
 import {Globals} from "../globals";
+import {HotelReservation} from "../models-hotel/hotel-reservation";
 
 @Injectable()
 export class HotelService {
@@ -24,19 +25,23 @@ export class HotelService {
   }
 
   public findOne(id: number): Observable<Hotel> {
-    return this.http.get<Hotel>(this.hotelsApi + '/' + id )
+    return this.http.get<Hotel>(this.hotelsApi + '/' + id)
   }
 
   public create(hotel: Hotel): Observable<Hotel> {
     return this.http.post<Hotel>(this.systemAdminApi, hotel);
   }
 
-  public delete(id: number) : Observable<Hotel> {
+  public delete(id: number): Observable<Hotel> {
     return this.http.delete<Hotel>(this.systemAdminApi + '/' + id);
   }
 
   public update(hotel: EditHotel): Observable<Hotel> {
     return this.http.put<Hotel>(this.hotelAdminApi, hotel);
+  }
+
+  public makeReservation(hotelReservation: HotelReservation): Observable<HotelReservation> {
+    return this.http.post<HotelReservation>(this.hotelsApi + '/reservation', hotelReservation);
   }
 
   public updateRoom(room: Room, hotelId: number, roomId: number): Observable<Room> {

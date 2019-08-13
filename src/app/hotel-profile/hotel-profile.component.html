@@ -3,8 +3,12 @@
     <div class="col-md-7">
       <hr class="my-2">
       <h5 class="text-white font-weight-bold">{{hotel.name}}
-        <button *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'" class="btn btn-sm btn-info float-right ml-2"><i class="fa fa-chart-line mr-1"></i>statistics</button>
-        <a *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'" class="btn btn-sm btn-info float-right ml-2" href="#" routerLink="edit"><i class="fa fa-edit mr-1"></i>edit</a>
+        <button *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'"
+                class="btn btn-sm btn-info float-right ml-2"><i class="fa fa-chart-line mr-1"></i>statistics
+        </button>
+        <a *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'"
+           class="btn btn-sm btn-info float-right ml-2" href="#" routerLink="edit"><i
+          class="fa fa-edit mr-1"></i>edit</a>
       </h5>
       <p class="text-white"><i class="fa fa-map-marker-alt mr-2"></i>{{hotel.address.address}}
 
@@ -17,8 +21,8 @@
       <p class="text-white"><i class="fa fa-bed mr-2"></i>Beds: {{freeBeds}}</p>
     </div>
     <div class="col-md-5 text-center mt-2">
-      <agm-map [latitude] = "hotel.address.latitude" [longitude] = "hotel.address.longitude">
-        <agm-marker [latitude] = "hotel.address.latitude" [longitude] = "hotel.address.longitude">
+      <agm-map [latitude]="hotel.address.latitude" [longitude]="hotel.address.longitude">
+        <agm-marker [latitude]="hotel.address.latitude" [longitude]="hotel.address.longitude">
           <agm-info-window>{{hotel.address.address}}</agm-info-window>
         </agm-marker>
       </agm-map>
@@ -27,24 +31,31 @@
   <hr class="my-2">
   <div class="row mb-2">
     <div class="col-md-12">
-      <a *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2"
+      <a *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'" data-toggle="collapse" href="#collapse2"
+         role="button" aria-expanded="false" aria-controls="collapse2"
          class="text-white"> Add services
       </a>
       <p class="text-white font-weight-bold">Additional services</p>
-      <span *ngFor = "let hotelService of hotelServices" class="badge badge-pill badge-primary font-weight-bold mr-1">{{hotelService.extraService.name}}</span>
+      <span *ngFor="let hotelService of hotelServices"
+            class="badge badge-pill badge-primary font-weight-bold mr-1">{{hotelService.extraService.name}}</span>
     </div>
   </div>
-  <div class="row mt-3 collapse" id = "collapse2">
+  <div class="row mt-3 collapse" id="collapse2">
     <div class="col-md-4">
       <table class="table table-hover table-primary text-center table-bordered">
         <thead>
         <th>Service name</th>
+        <th>Price</th>
         <th>Actions</th>
         </thead>
         <tbody>
         <tr *ngFor="let hotelService of hotelServices">
           <td>{{hotelService.extraService.name}}</td>
-          <td><button class="btn btn-sm btn-danger" (click)="deleteHotelService(hotelService.extraService.id)"><i class="fa fa-trash-alt"></i></button></td>
+          <td>{{hotelService.price}} €</td>
+          <td>
+            <button class="btn btn-sm btn-danger" (click)="deleteHotelService(hotelService.extraService.id)"><i
+              class="fa fa-trash-alt"></i></button>
+          </td>
         </tr>
         </tbody>
       </table>
@@ -55,18 +66,22 @@
         <div class="card-body">
           <form>
             <div class="form-group col-md-12">
-              <select [(ngModel)]="hotelService.extraService.name"  id="inputState3" class="form-control form-control" name = "extraServiceName" >
-                <option *ngFor = "let extraService of extraServices">{{extraService.name}}</option>
+              <select [(ngModel)]="hotelService.extraService.name" id="inputState3" class="form-control form-control"
+                      name="extraServiceName">
+                <option *ngFor="let extraService of extraServices">{{extraService.name}}</option>
               </select>
               <div class="form-group">
                 <label for="numberInput" class="text-white">Price</label>
-                <input [(ngModel)]="hotelService.price" name = "price" class="form-control" id="priceInput" type="number" min="1"
+                <input [(ngModel)]="hotelService.price" name="price" class="form-control" id="priceInput" type="number"
+                       min="1"
                        max="1000000">
               </div>
               <div *ngIf="serviceExistError" class="text-white bg-danger border-danger p-2">
                 {{serviceExistError}}!
               </div>
-              <button type="submit" class="btn  mt-1 btn-success float-right pl-4 pr-4" (click)="addHotelService()">Add</button>
+              <button type="submit" class="btn  mt-1 btn-success float-right pl-4 pr-4" (click)="addHotelService()">
+                Add
+              </button>
             </div>
           </form>
         </div>
@@ -81,20 +96,78 @@
       <h5 class="font-weight-bold text-white ml-0">
         <i class="fa fa-euro-sign mr-2"></i>Rooms and price list
       </h5>
-      <a *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'" data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapse"
+      <a *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'" data-toggle="collapse" href="#collapse"
+         role="button" aria-expanded="false" aria-controls="collapse"
          class="text-white">
         <button class="btn btn-success text-white"><i class="fa fa-plus mr-2"></i>Add item</button>
       </a>
+      <a data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapse3"
+         class="text-white">
+        <button class="btn btn-info text-white"><i class="fa fa-search mr-2"></i>Search rooms</button>
+      </a>
+      <div id="collapse3" class="collapse">
+        <form class="bg-info text-center pl-3 pr-3 pt-2  text-white font-weight-bold">
+          <div class="form-row">
+            <div class="form-group col-md-2">
+              <label for="inputStartDate"><i class="fa fa-sign-in-alt mr-1"></i>Check-In</label>
+              <input [(ngModel)]="roomsSearchDto.start" name="start" type="date" class="form-control-sm"
+                     id="inputStartDate">
+            </div>
+            <div class="form-group col-md-2">
+              <label for="inputEndDate"><i class="fa fa-sign-out-alt mr-1"></i>Check-Out</label>
+              <input [(ngModel)]="roomsSearchDto.end" name="start" type="date" class="form-control-sm"
+                     id="inputEndDate">
+            </div>
+            <div class="form-group col-md-1">
+              <label for="inputGuests"><i class="fa fa-user-friends mr-1"></i>Guests</label>
+              <input [(ngModel)]="roomsSearchDto.guests" name="guests" class="form-control form-control-sm"
+                     id="inputGuests" type="number" min="1"
+                     max="200">
+            </div>
+            <div class="form-group col-md-1">
+              <label for="inputNights">Rooms</label>
+              <input [(ngModel)]="roomsSearchDto.rooms" class="form-control form-control-sm" id="inputNights"
+                     type="number" name="rooms" min="1"
+                     max="40">
+            </div>
+            <div class="form-group col-md-1">
+              <label for="inputCapacity"><i class="fa fa-bed mr-1"></i>Capacity</label>
+              <input [(ngModel)]="roomsSearchDto.capacity" class="form-control form-control-sm" id="inputCapacity"
+                     type="number" name="rooms" min="1"
+                     max="10">
+            </div>
+            <div class="col-md-3">
+              <div *ngIf="roomSearchErrorMessage.length != 0" class="alert alert-dismissible alert-danger mt-2 ml-5">
+                <button type="button" class="close" data-dismiss="alert" (click)="roomSearchErrorMessage = ''">&times;
+                </button>
+                <strong>{{roomSearchErrorMessage}}</strong>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <button type="submit" class="btn btn-primary mt-4 float-right" (click)="searchRooms()"><i
+                class="fa fa-search mr-1"></i>Search<i
+                class="fa fa-arrow-alt-circle-right ml-5"></i></button>
+            </div>
+          </div>
+          <div *ngIf="roomSearchInfoMessage.length != 0" class="row text-center bg-warning">
+            <div class="col-md-12">
+              <p class="text-white m-3"><i class="fa fa-info-circle mr-5"></i>{{roomSearchInfoMessage}}</p>
+            </div>
+          </div>
+        </form>
+      </div>
       <div id="collapse" class="collapse">
         <form class="bg-info text-center pl-3 pr-3 pt-2  text-white font-weight-bold">
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputAddress">Room name</label>
-              <input [(ngModel)]="priceListItem.room.name" name = "roomName" type="text" class="form-control form-control-sm" id="inputAddress" placeholder="Enter room name">
+              <input [(ngModel)]="priceListItem.room.name" name="roomName" type="text"
+                     class="form-control form-control-sm" id="inputAddress" placeholder="Enter room name">
             </div>
             <div class="form-group col-md-1">
               <label for="inputState">Capacity</label>
-              <select [(ngModel)]="priceListItem.room.bedsNo" name = "bedsNo" id="inputState" class="form-control form-control-sm">
+              <select [(ngModel)]="priceListItem.room.bedsNo" name="bedsNo" id="inputState"
+                      class="form-control form-control-sm">
                 <option selected>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -105,7 +178,8 @@
             </div>
             <div class="form-group col-md-1">
               <label for="inputState2">Floor</label>
-              <select [(ngModel)]="priceListItem.room.floor" name = "floor" id="inputState2" class="form-control form-control-sm">
+              <select [(ngModel)]="priceListItem.room.floor" name="floor" id="inputState2"
+                      class="form-control form-control-sm">
                 <option selected>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -116,14 +190,16 @@
             </div>
             <div class="form-group col-md-1">
               <label for="numberInput">Price</label>
-              <input [(ngModel)]="priceListItem.price" name = "price" class="form-control form-control-sm" id="numberInput" type="number" name="quantity" min="1"
+              <input [(ngModel)]="priceListItem.price" name="price" class="form-control form-control-sm"
+                     id="numberInput" type="number" name="quantity" min="1"
                      max="1000000">
             </div>
             <div class="form-check mb-2 col-md-1">
               <label class="form-check-label mb-1" for="autoSizingCheck">
                 Has balcony?
               </label>
-              <input [(ngModel)]="priceListItem.room.balcony" name = "balcony" class="form-check-input form-control form-control-sm mt-1" type="checkbox" id="autoSizingCheck">
+              <input [(ngModel)]="priceListItem.room.balcony" name="balcony"
+                     class="form-check-input form-control form-control-sm mt-1" type="checkbox" id="autoSizingCheck">
             </div>
             <div class="col-md-2">
               <button type="submit" class="btn btn-primary mt-4 float-right" (click)="createPriceListItem()">Submit<i
@@ -140,7 +216,7 @@
           <th scope="col">Floor</th>
           <th scope="col">Balcony</th>
           <th scope="col">Price per night</th>
-          <th *ngIf = "user == null || user.role.toString() != 'ROLE_HOTEL_ADMIN'" scope="col">Select</th>
+          <th *ngIf="user == null || user.role.toString() != 'ROLE_HOTEL_ADMIN'" scope="col">Select</th>
           <th *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'" scope="col">Actions</th>
         </tr>
         </thead>
@@ -151,7 +227,7 @@
           <td>{{priceListItem.room.floor}}</td>
           <td>{{priceListItem.room.balcony}}</td>
           <td>{{priceListItem.price}} €</td>
-          <td *ngIf = "user == null || user.role.toString() != 'ROLE_HOTEL_ADMIN'">
+          <td *ngIf="user == null || user.role.toString() != 'ROLE_HOTEL_ADMIN'">
             <input (change)="toggleRoomStatus($event, priceListItem)" type="checkbox">
           </td>
           <td *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'">
@@ -161,8 +237,13 @@
         </tr>
         </tbody>
       </table>
-      <button *ngIf="user == null || user.role.toString() == 'ROLE_USER'" class="btn btn-success font-weight-bold float-right ml-2 pl-3 pr-3" routerLink="reservation">Make reservation</button>
-      <button *ngIf="user == null || user.role.toString() == 'ROLE_USER'" class="btn btn-warning float-right pl-3 pr-3">Deselect all</button>
+      <button *ngIf="user == null || user.role.toString() == 'ROLE_USER'"
+              class="btn btn-success font-weight-bold float-right ml-2 pl-3 pr-3" routerLink="reservation"
+              (click)="sendDates()">Make reservation
+      </button>
+      <button *ngIf="user == null || user.role.toString() == 'ROLE_USER'" class="btn btn-warning float-right pl-3 pr-3">
+        Deselect all
+      </button>
       <hr class="my-2">
 
     </div>

@@ -1,11 +1,13 @@
 import {User} from "../user";
 import {Room} from "./room";
+import {HotelServices} from "./hotel-services";
 
 export class HotelReservation {
   id: number;
   user: User;
-  room: Room[];
+  rooms: Room[];
   start: Date;
   end: Date;
-  totalPrice: number;
+  hotelServices: HotelServices[];
+  price: number;
 }

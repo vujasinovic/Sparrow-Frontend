@@ -33,7 +33,7 @@ export class HotelComponent implements OnInit {
       this.hotels.forEach(function (hotel) {
         let prices = [];
         if (hotel.priceLists.length === 0) {
-          console.log('Hotel', hotel.name, ' dont have any pricelists');
+          console.log('Hotel', hotel.name, ' doesnt have any pricelists');
           hotel.minRoomPrice = 0;
         } else {
           hotel.priceLists[0].items.forEach(function (item) {
