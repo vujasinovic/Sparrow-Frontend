@@ -38,9 +38,7 @@ export class HotelComponent implements OnInit {
 
     if (this.hotelSearchDto.place === '' ||
       this.hotelSearchDto.start === null ||
-      this.hotelSearchDto.end === null ||
-      this.hotelSearchDto.rooms === -1 ||
-      this.hotelSearchDto.guests === -1) {
+      this.hotelSearchDto.end === null) {
       this.errorMsgRequired = 'All fields are required';
       return;
     }
@@ -57,8 +55,6 @@ export class HotelComponent implements OnInit {
   }
 
   public initSearchDto() {
-    this.hotelSearchDto.guests = -1;
-    this.hotelSearchDto.rooms = -1;
     this.hotelSearchDto.end = null;
     this.hotelSearchDto.start = null;
     this.hotelSearchDto.place = '';

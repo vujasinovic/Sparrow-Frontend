@@ -28,29 +28,6 @@
             <input [(ngModel)]="hotelSearchDto.end" name="end" type="date" class="form-control" id="inputPassword4">
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="inputState1">Rooms</label>
-            <select [(ngModel)]="hotelSearchDto.rooms" name="rooms" id="inputState1" class="form-control">
-              <option selected>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </div>
-          <div class="form-group col-md-6">
-            <label for="inputState">Guests</label>
-            <select [(ngModel)]="hotelSearchDto.guests" name="guests" id="inputState" class="form-control">
-              <option selected>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-            </select>
-          </div>
-        </div>
         <button type="submit" class="btn btn-primary mb-3" (click)="search()"><i class="fa fa-search mr-2"></i>Search
         </button>
       </form>
