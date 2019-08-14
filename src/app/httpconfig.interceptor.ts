@@ -107,6 +107,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
           }),
 
           catchError(err => {
+            console.log('LOGGING OUT: unable to refresh token');
             localStorage.removeItem(this.globals.localStorageTokenName);
             localStorage.removeItem(this.globals.localStorageUser);
             return throwError(err);
