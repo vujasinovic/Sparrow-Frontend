@@ -25,7 +25,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#"><i class="fa fa-clipboard-list mr-1"></i>My Reservations
+        <a class="nav-link" routerLink="reservations"><i class="fa fa-clipboard-list mr-1"></i>My Reservations
         </a>
       </li>
     </ul>
@@ -52,7 +52,7 @@
                   </strong>
                 </span>
               </a>
-              <a *ngIf="user.role === 'ROLE_USER'" class="dropdown-item" href="#">Reservations</a>
+              <a *ngIf="user.role === 'ROLE_USER'" class="dropdown-item" routerLink="reservations">Reservations</a>
               <a class="dropdown-item" href="#" (click)="authService.logout()">Logout</a>
             </div>
           </div>

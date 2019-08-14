@@ -13,6 +13,7 @@ import {HotelEditComponent} from './hotel-edit/hotel-edit.component';
 import {SystemAdministratorComponent} from './system-administrator/system-administrator.component';
 import {HotelRoomEditComponent} from './hotel-room-edit/hotel-room-edit.component';
 import {AuthenticatedGuardService} from './login/auth-guard';
+import {UserReservationsComponent} from "./user-reservations/user-reservations.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path: 'sa', component: SystemAdministratorComponent},
   {path: 'requests', component: FriendRequestComponent, canActivate: [AuthenticatedGuardService]},
   {path: 'friends', component: FriendsComponent, canActivate: [AuthenticatedGuardService]},
+  {path: 'reservations', component: UserReservationsComponent}
 ];
 
 @NgModule({

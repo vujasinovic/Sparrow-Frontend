@@ -1,0 +1,97 @@
+<ngb-tabset>
+  <ngb-tab>
+    <ng-template ngbTabTitle><b>Flights</b></ng-template>
+    <ng-template ngbTabContent>
+      <p>Implement</p>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle><b>Hotels</b></ng-template>
+    <ng-template ngbTabContent>
+      <div class="container mt-4">
+        <div class="row mt-2">
+          <div class="col-md-12 mr-auto">
+            <h3>Active reservations</h3>
+            <table class="table table-primary table-hover text-center">
+              <thead>
+              <th>Hotel</th>
+              <th>Room</th>
+              <th>Check-In</th>
+              <th>Check-Out</th>
+              <th>Price</th>
+              <th></th>
+              </thead>
+              <tbody>
+              <tr *ngFor="let hotelReservation of hotelReservationsActive">
+                <td>
+                  {{hotelReservation.hotelName}}
+                </td>
+                <td>
+                  <p *ngFor="let room of hotelReservation.rooms"> {{room.name}}</p>
+                </td>
+                <td>
+                  {{hotelReservation.start}}
+                </td>
+                <td>
+                  {{hotelReservation.end}}
+                </td>
+                <td>
+                  {{hotelReservation.price}} €
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-danger flex-grow-1"><i class="fa fa-times-circle mr-2"></i>Cancel</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <div *ngIf="hotelReservationsActive.length === 0">
+              There are no any active reservations yet. Make one <a href="*" routerLink="../hotels">here</a>
+            </div>
+          </div>
+        </div>
+        <div class="row  mt-2">
+          <div class="col-md-12">
+            <h3>Finished reservations</h3>
+            <table *ngIf="hotelReservationsFinished.length !== 0" class="table table-light table-hover text-center">
+              <thead>
+              <th>Hotel</th>
+              <th>Room</th>
+              <th>Date</th>
+              <th>Paid</th>
+              <th></th>
+              </thead>
+              <tbody>
+              <tr *ngFor = "let hotelReservation of hotelReservationsFinished">
+                <td>
+                  {{hotelReservation.hotelName}}
+                </td>
+                <td>
+                  <p *ngFor="let room of hotelReservation.rooms"> {{room.name}}</p>
+                </td>
+                <td>
+                  from <strong>{{hotelReservation.start}}</strong> to <strong>{{hotelReservation.end}}</strong>
+                </td>
+                <td>
+                  {{hotelReservation.price}} €
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-info"><i class="fa fa-star mr-2"></i>Rate</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <div *ngIf="hotelReservationsFinished.length === 0">
+              There are no any finished reservations yet.
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle><b>Rent-a-car</b></ng-template>
+    <ng-template ngbTabContent>
+      <p>Implement</p>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>

@@ -29,7 +29,7 @@ export class HotelProfileService {
     return this.http.get<Room>(this.hotelsApi + 'room/' + id);
   }
 
-  public findPriceList(id: number): Observable<PriceListItem[]> {
+  public findPriceListItems(id: number): Observable<PriceListItem[]> {
     return this.http.get<PriceListItem[]>(this.hotelsApi+ id + '/pricelist');
   }
 

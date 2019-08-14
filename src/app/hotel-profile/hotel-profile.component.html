@@ -17,8 +17,9 @@
       <hr class="my-2">
       <p class="text-white"><i class="fa fa-file-alt mr-2"></i>{{hotel.description}}
       </p>
-      <p class="text-white"><i class="fa fa-concierge-bell mr-2"></i>Rooms: {{freeRooms}}</p>
-      <p class="text-white"><i class="fa fa-bed mr-2"></i>Beds: {{freeBeds}}</p>
+      <p class="text-white"><i class="fa fa-concierge-bell mr-2"></i>Rooms: {{rooms}}</p>
+      <p class="text-white"><i class="fa fa-bed mr-2"></i>Beds: {{beds}}</p>
+      <p class="text-white">At the moment, we have {{freeRooms}} free rooms ({{freeBeds}} free beds in total)</p>
     </div>
     <div class="col-md-5 text-center mt-2">
       <agm-map [latitude]="hotel.address.latitude" [longitude]="hotel.address.longitude">
@@ -149,9 +150,11 @@
                 class="fa fa-arrow-alt-circle-right ml-5"></i></button>
             </div>
           </div>
-          <div *ngIf="roomSearchInfoMessage.length != 0" class="row text-center bg-warning">
-            <div class="col-md-12">
-              <p class="text-white m-3"><i class="fa fa-info-circle mr-5"></i>{{roomSearchInfoMessage}}</p>
+          <div *ngIf="roomSearchInfoMessage.length != 0" class="row text-center bg-info">
+            <div class="col-md-12 mt-2">
+              <ngb-alert [dismissible]="false">
+                <strong><i class="fa fa-info-circle mr-5"></i></strong>{{roomSearchInfoMessage}}
+              </ngb-alert>
             </div>
           </div>
         </form>
@@ -225,7 +228,7 @@
           <td>{{priceListItem.room.name}}</td>
           <td>{{priceListItem.room.bedsNo}}</td>
           <td>{{priceListItem.room.floor}}</td>
-          <td>{{priceListItem.room.balcony}}</td>
+          <td><p *ngIf="priceListItem.room.balcony">Yes</p><p *ngIf="!priceListItem.room.balcony">No</p></td>
           <td>{{priceListItem.price}} €</td>
           <td *ngIf="user == null || user.role.toString() != 'ROLE_HOTEL_ADMIN'">
             <input (change)="toggleRoomStatus($event, priceListItem)" type="checkbox">
@@ -239,7 +242,7 @@
       </table>
       <button *ngIf="user == null || user.role.toString() == 'ROLE_USER'"
               class="btn btn-success font-weight-bold float-right ml-2 pl-3 pr-3" routerLink="reservation"
-              (click)="sendDates()">Make reservation
+              (click)="sendDates()" [disabled]="plItems.length === 0">Make reservation
       </button>
       <button *ngIf="user == null || user.role.toString() == 'ROLE_USER'" class="btn btn-warning float-right pl-3 pr-3">
         Deselect all

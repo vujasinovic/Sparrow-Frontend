@@ -24,12 +24,15 @@ export class HotelProfileComponent implements OnInit {
   priceListItem: PriceListItem = new PriceListItem();
   priceListItems: PriceListItem[];
   hotelServices: HotelServices[];
-  freeRooms: number;
-  freeBeds: number;
+  rooms: number;
+  beds: number;
   extraServices: ExtraService[];
   es: ExtraService = new ExtraService();
   hotelService: HotelServices = new HotelServices();
   selectedExtraService: ExtraService = new ExtraService();
+
+  freeRooms: number;
+  freeBeds: number;
 
   hotelId: string;
   serviceExistError: string;
@@ -52,8 +55,10 @@ export class HotelProfileComponent implements OnInit {
     this.es = new ExtraService();
     this.hotelService.extraService = this.es;
     this.hotelId = this.activatedRoute.snapshot.paramMap.get("id");
-    this.freeBeds = 0;
+    this.beds = 0;
+    this.rooms = 0;
     this.freeRooms = 0;
+    this.freeBeds = 0;
     this.hotelService.hotel = new Hotel();
     this.user.role = '';
     this.user = this.authService.getLoggedUser();
@@ -65,17 +70,14 @@ export class HotelProfileComponent implements OnInit {
   ngOnInit(): void {
     this.hotelProfileService.findOne(+this.hotelId).subscribe(data => {
       this.hotel = data;
-      this.freeRooms = this.hotel.rooms.length;
-      console.log('Hotels');
-      console.log(this.hotel);
+      this.rooms = this.hotel.rooms.length;
 
       for (let i = 0; i < this.hotel.rooms.length; i++) {
-        console.log(this.hotel.rooms[i]);
-        this.freeBeds += this.hotel.rooms[i].bedsNo;
+        this.beds += this.hotel.rooms[i].bedsNo;
       }
 
     });
-    this.findPriceList();
+    this.findPriceListItems();
     this.findHotelServices();
     this.findExtraServices();
   }
@@ -84,9 +86,6 @@ export class HotelProfileComponent implements OnInit {
     this.hotelProfileService.findExtraServices().subscribe(data => {
       this.extraServices = data;
       this.selectedExtraService = data[0];
-      console.log('Extra services: ');
-      console.log(this.extraServices);
-
     })
   }
 
@@ -106,32 +105,31 @@ export class HotelProfileComponent implements OnInit {
     })
   }
 
-  public findPriceList() {
-    this.hotelProfileService.findPriceList(+this.hotelId).subscribe(data => {
+  public findPriceListItems() {
+    this.hotelProfileService.findPriceListItems(+this.hotelId).subscribe(data => {
+      this.freeRooms = data.length;
+      for (let i = 0; i < data.length; i++) {
+        this.freeBeds += data[i].room.bedsNo;
+      }
       this.priceListItems = data;
-
-      console.log('PriceListItems');
-      console.log(this.priceListItems);
     })
   }
 
   public findHotelServices() {
     this.hotelProfileService.findHotelServices(+this.hotelId).subscribe(data => {
       this.hotelServices = data;
-      console.log('Hotel services: ');
-      console.log(this.hotelServices);
     })
   }
 
   public createPriceListItem() {
     this.hotelProfileService.createPriceListItem(this.priceListItem, +this.hotelId).subscribe(value => {
-      this.findPriceList();
+      this.findPriceListItems();
     })
   }
 
   public deletePriceListItem(id: number) {
     this.hotelProfileService.deletePriceListItem(id).subscribe(value => {
-      this.findPriceList();
+      this.findPriceListItems();
     })
   }
 
@@ -176,6 +174,8 @@ export class HotelProfileComponent implements OnInit {
       if (rooms.length < this.roomsSearchDto.rooms) {
         if (rooms.length === 1) {
           this.roomSearchInfoMessage = 'Unfortunately, there is only ' + rooms.length + ' available room with provided configuration. Here are other available rooms that can fit your number of guests.'
+        } else if (rooms.length === 0) {
+          this.roomSearchInfoMessage = 'Unfortunately, there no available room(s) with provided configuration. Here are other available rooms that can fit your number of guests.'
         } else {
           this.roomSearchInfoMessage = 'Unfortunately, there are only ' + rooms.length + ' available rooms with provided configuration. Here are other available rooms that can fit your number of guests.'
         }

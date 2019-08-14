@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {HotelProfileService} from "../hotel-profile/hotel-profile.service";
 import {HotelServices} from "../models-hotel/hotel-services";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {PriceListItem} from "../models-hotel/pricelist-item";
 import {HotelReservation} from "../models-hotel/hotel-reservation";
 import {AuthService} from "../login/auth.service";
@@ -45,10 +45,10 @@ export class HotelReservationComponent implements OnInit {
     console.log('Reservation status: ', this.hotelReservation);
   }
 
-  constructor(private hotelService: HotelService, private hotelProfileService: HotelProfileService, private activatedRoute: ActivatedRoute, private authService: AuthService) {
+  constructor(private router: Router, private hotelService: HotelService, private hotelProfileService: HotelProfileService, private activatedRoute: ActivatedRoute, private authService: AuthService) {
     this.url = this.activatedRoute.snapshot.paramMap.get("id");
     this.user.role = '';
-    this.user = new User();
+    this.user = this.authService.getLoggedUser();
     console.log(this.user);
   }
 
@@ -80,9 +80,9 @@ export class HotelReservationComponent implements OnInit {
   public makeReservation() {
     this.hotelReservation.price = this.totalPrice;
     this.hotelReservation.user = this.user;
-    console.log('Reservation status', this.hotelReservation);
+
     this.hotelService.makeReservation(this.hotelReservation).subscribe(data => {
-      console.log('Opicio sam post');
+      this.router.navigateByUrl('reservations');
     });
   }
 }

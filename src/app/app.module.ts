@@ -30,6 +30,8 @@ import {AuthenticatedGuardService} from './login/auth-guard';
 import {UserListComponent} from './user/user-list.component';
 import {UserService} from './user/user.service';
 import {AgmCoreModule} from '@agm/core';
+import {UserReservationsComponent} from "./user-reservations/user-reservations.component";
+import {UserReservationsService} from "./user-reservations/user-reservations.service";
 
 
 @NgModule({
@@ -49,7 +51,8 @@ import {AgmCoreModule} from '@agm/core';
     FriendRequestComponent,
     SystemAdministratorComponent,
     HotelRoomEditComponent,
-    UserListComponent
+    UserListComponent,
+    UserReservationsComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,7 @@ import {AgmCoreModule} from '@agm/core';
     })
   ],
   providers: [Globals, AuthService, AuthenticatedGuardService, LoginGuardService, RegisterService, HotelService, HotelProfileService
-    , FriendsService, UserService,
+    , FriendsService, UserService, UserReservationsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpConfigInterceptor,
