@@ -46,12 +46,11 @@ export class AuthService {
   }
 
   public refresh() {
-    return this.http.get(this.refreshUrl).pipe();
+    return this.http.get(this.refreshUrl);
   }
 
   public logout() {
     return this.http.get(this.logoutUrl).subscribe(value => {
-      console.log('LOGGING OUT: user request');
       localStorage.removeItem(this.globals.localStorageTokenName);
       this.reloadLoggedUser();
       window.location.href = '/login';
@@ -85,7 +84,6 @@ export class AuthService {
     if (user) {
       localStorage.setItem(this.globals.localStorageUser, JSON.stringify(user));
     } else {
-      console.log('LOGGING OUT: user is null')
       localStorage.removeItem(this.globals.localStorageUser);
     }
     this.notifySubscribers();
