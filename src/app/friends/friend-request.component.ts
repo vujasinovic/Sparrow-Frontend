@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {FriendsService} from './friends.service';
 import {FriendRequest} from '../dto/friend-request';
+import {Globals} from '../globals';
 
 @Component({
   selector: 'app-friendships',
@@ -11,6 +12,7 @@ export class FriendRequestComponent {
 
   constructor(private friendsService: FriendsService) {
     friendsService.getRequests().subscribe(value => this.requests = value);
+
   }
 
 }

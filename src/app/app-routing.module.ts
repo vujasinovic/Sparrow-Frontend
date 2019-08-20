@@ -14,6 +14,7 @@ import {SystemAdministratorComponent} from './system-administrator/system-admini
 import {HotelRoomEditComponent} from './hotel-room-edit/hotel-room-edit.component';
 import {AuthenticatedGuardService} from './login/auth-guard';
 import {UserReservationsComponent} from "./user-reservations/user-reservations.component";
+import {UserSearchComponent} from './user/user-search.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path: 'sa', component: SystemAdministratorComponent},
   {path: 'requests', component: FriendRequestComponent, canActivate: [AuthenticatedGuardService]},
   {path: 'friends', component: FriendsComponent, canActivate: [AuthenticatedGuardService]},
+  {path: 'friends/search', component: UserSearchComponent, canActivate: [AuthenticatedGuardService]},
   {path: 'reservations', component: UserReservationsComponent}
 ];
 

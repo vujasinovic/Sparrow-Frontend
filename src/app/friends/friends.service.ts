@@ -10,11 +10,13 @@ import {FriendRequest} from '../dto/friend-request';
 })
 export class FriendsService {
   readonly friendsApi;
-  readonly requestsApi;
+  readonly userApi;
+  readonly requestApi;
 
   constructor(private httpClient: HttpClient, private globals: Globals) {
     this.friendsApi = globals.apiRoot + 'api/user/friends/';
-    this.requestsApi = this.friendsApi + 'request/';
+    this.userApi = this.friendsApi + 'user/';
+    this.requestApi = this.friendsApi + 'request/';
   }
 
   public getFriends(): Observable<User[]> {
@@ -26,15 +28,19 @@ export class FriendsService {
   }
 
   public acceptRequest(senderEmail: string): Observable<any> {
-    return this.httpClient.post(this.requestsApi + senderEmail + '/accept', {});
+    return this.httpClient.post(this.userApi + senderEmail + '/accept', {});
   }
 
   public declineRequest(senderEmail: string): Observable<any> {
-    return this.httpClient.post(this.requestsApi + senderEmail + '/decline', {});
+    return this.httpClient.post(this.userApi + senderEmail + '/decline', {});
   }
 
   public getRequests(): Observable<FriendRequest[]> {
-    return this.httpClient.get<FriendRequest[]>(this.requestsApi);
+    return this.httpClient.get<FriendRequest[]>(this.requestApi);
+  }
+
+  public sendRequest(username: string): Observable<any> {
+    return this.httpClient.put(this.requestApi + username, {});
   }
 
 }

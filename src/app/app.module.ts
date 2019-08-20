@@ -27,8 +27,8 @@ import {FriendsService} from './friends/friends.service';
 import {FriendRequestComponent} from './friends/friend-request.component';
 import {HotelRoomEditComponent} from './hotel-room-edit/hotel-room-edit.component';
 import {AuthenticatedGuardService} from './login/auth-guard';
-import {UserListComponent} from './user/user-list.component';
-import {UserService} from './user/user.service';
+import {UserSearchComponent} from './user/user-search.component';
+import {UserSearchService} from './user/user-search.service';
 import {AgmCoreModule} from '@agm/core';
 import {UserReservationsComponent} from "./user-reservations/user-reservations.component";
 import {UserReservationsService} from "./user-reservations/user-reservations.service";
@@ -51,7 +51,7 @@ import {UserReservationsService} from "./user-reservations/user-reservations.ser
     FriendRequestComponent,
     SystemAdministratorComponent,
     HotelRoomEditComponent,
-    UserListComponent,
+    UserSearchComponent,
     UserReservationsComponent
   ],
   imports: [
@@ -68,7 +68,7 @@ import {UserReservationsService} from "./user-reservations/user-reservations.ser
     })
   ],
   providers: [Globals, AuthService, AuthenticatedGuardService, LoginGuardService, RegisterService, HotelService, HotelProfileService
-    , FriendsService, UserService, UserReservationsService,
+    , FriendsService, UserSearchService, UserReservationsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpConfigInterceptor,
