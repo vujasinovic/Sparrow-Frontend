@@ -52,6 +52,10 @@ export class HotelService {
     return this.http.get<Hotel[]>(this.hotelsApi + '/search', {params: this.clone(searchDto)})
   }
 
+  public findAllReservations(id: number): Observable<HotelReservation[]> {
+    return this.http.get<HotelReservation[]>(this.hotelsApi + '/reservations/' + id);
+  }
+
   public clone(obj: any): any {
     // tslint:disable-next-line:prefer-const
     let cloneObj = {};

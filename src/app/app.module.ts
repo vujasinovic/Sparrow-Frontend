@@ -32,6 +32,8 @@ import {UserService} from './user/user.service';
 import {AgmCoreModule} from '@agm/core';
 import {UserReservationsComponent} from "./user-reservations/user-reservations.component";
 import {UserReservationsService} from "./user-reservations/user-reservations.service";
+import {ChartsModule} from "ng2-charts";
+import {HotelStatisticComponent} from "./hotel-statistic/hotel-statistic.component";
 
 
 @NgModule({
@@ -52,7 +54,8 @@ import {UserReservationsService} from "./user-reservations/user-reservations.ser
     SystemAdministratorComponent,
     HotelRoomEditComponent,
     UserListComponent,
-    UserReservationsComponent
+    UserReservationsComponent,
+    HotelStatisticComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +64,7 @@ import {UserReservationsService} from "./user-reservations/user-reservations.ser
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    ChartsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA1BgogjhmzldHi2f-6sUqGkmYKFOwjOaA',
       language: 'en',

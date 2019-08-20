@@ -4,11 +4,12 @@
       <hr class="my-2">
       <h5 class="text-white font-weight-bold">{{hotel.name}}
         <button *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'"
-                class="btn btn-sm btn-info float-right ml-2"><i class="fa fa-chart-line mr-1"></i>statistics
+                class="btn btn-sm btn-info float-right ml-2" routerLink="stats">
+          <i class="fa fa-chart-line mr-1"></i>statistics
         </button>
         <a *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'"
-           class="btn btn-sm btn-info float-right ml-2" href="#" routerLink="edit"><i
-          class="fa fa-edit mr-1"></i>edit</a>
+           class="btn btn-sm btn-info float-right ml-2" href="#" routerLink="edit">
+          <i class="fa fa-edit mr-1"></i>edit</a>
       </h5>
       <p class="text-white"><i class="fa fa-map-marker-alt mr-2"></i>{{hotel.address.address}}
 
@@ -228,7 +229,8 @@
           <td>{{priceListItem.room.name}}</td>
           <td>{{priceListItem.room.bedsNo}}</td>
           <td>{{priceListItem.room.floor}}</td>
-          <td><p *ngIf="priceListItem.room.balcony">Yes</p><p *ngIf="!priceListItem.room.balcony">No</p></td>
+          <td><p *ngIf="priceListItem.room.balcony">Yes</p>
+            <p *ngIf="!priceListItem.room.balcony">No</p></td>
           <td>{{priceListItem.price}} €</td>
           <td *ngIf="user == null || user.role.toString() != 'ROLE_HOTEL_ADMIN'">
             <input (change)="toggleRoomStatus($event, priceListItem)" type="checkbox">
