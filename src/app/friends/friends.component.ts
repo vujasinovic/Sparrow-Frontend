@@ -3,6 +3,8 @@ import {User} from '../user';
 import {FriendsService} from './friends.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ConfirmDialogComponent} from '../dialog/confirm-dialog.component';
+import {FriendRequest} from '../dto/friend-request';
+import {AuthService} from '../login/auth.service';
 
 @Component({
   selector: 'app-friends',
@@ -10,13 +12,14 @@ import {ConfirmDialogComponent} from '../dialog/confirm-dialog.component';
 })
 export class FriendsComponent implements OnInit {
   friends: User[] = [];
-  closeResult: string;
+  requests: FriendRequest[] = [];
 
-  constructor(private friendsService: FriendsService, private modalService: NgbModal) {
+  constructor(private friendsService: FriendsService, private modalService: NgbModal, private authService: AuthService) {
   }
 
   ngOnInit(): void {
     this.loadFriends();
+    this.loadRequests();
   }
 
   loadFriends() {
@@ -37,6 +40,25 @@ export class FriendsComponent implements OnInit {
           this.loadFriends();
         });
       }
+    });
+  }
+
+  loadRequests() {
+    this.friendsService.getRequests().subscribe(value => this.requests = value);
+  }
+
+  accept(request: FriendRequest) {
+    this.friendsService.acceptRequest(request.sender.username).subscribe(value => {
+      this.authService.getLoggedUser().friendRequests--;
+      this.loadRequests();
+      this.loadFriends();
+    });
+  }
+
+  decline(request: FriendRequest) {
+    this.friendsService.declineRequest(request.sender.username).subscribe(value => {
+      this.authService.getLoggedUser().friendRequests--;
+      this.loadRequests();
     });
   }
 

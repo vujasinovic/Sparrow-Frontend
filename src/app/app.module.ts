@@ -24,7 +24,6 @@ import {HotelService} from './hotels/hotel.service';
 import {HotelProfileService} from './hotel-profile/hotel-profile.service';
 import {FriendsComponent} from './friends/friends.component';
 import {FriendsService} from './friends/friends.service';
-import {FriendRequestComponent} from './friends/friend-request.component';
 import {HotelRoomEditComponent} from './hotel-room-edit/hotel-room-edit.component';
 import {AuthenticatedGuardService} from './login/auth-guard';
 import {UserSearchComponent} from './user/user-search.component';
@@ -33,6 +32,8 @@ import {AgmCoreModule} from '@agm/core';
 import {UserReservationsComponent} from "./user-reservations/user-reservations.component";
 import {UserReservationsService} from "./user-reservations/user-reservations.service";
 import {ConfirmDialogComponent} from './dialog/confirm-dialog.component';
+import {UserProfileComponent} from './profile/user-profile.component';
+import {ChangePasswordDialogComponent} from './dialog/change-password-dialog.component';
 
 
 @NgModule({
@@ -49,12 +50,13 @@ import {ConfirmDialogComponent} from './dialog/confirm-dialog.component';
     HotelEditComponent,
     SystemAdministratorComponent,
     FriendsComponent,
-    FriendRequestComponent,
     SystemAdministratorComponent,
     HotelRoomEditComponent,
     UserSearchComponent,
     UserReservationsComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    UserProfileComponent,
+    ChangePasswordDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +80,8 @@ import {ConfirmDialogComponent} from './dialog/confirm-dialog.component';
     }],
   bootstrap: [AppComponent],
   entryComponents: [
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ChangePasswordDialogComponent
   ]
 })
 export class AppModule {
