@@ -27,12 +27,12 @@ export class FriendsService {
     return this.httpClient.delete(this.friendsApi + email);
   }
 
-  public acceptRequest(senderEmail: string): Observable<any> {
-    return this.httpClient.post(this.userApi + senderEmail + '/accept', {});
+  public acceptRequest(sender: string): Observable<any> {
+    return this.httpClient.post(this.requestApi + sender + '/accept', {});
   }
 
-  public declineRequest(senderEmail: string): Observable<any> {
-    return this.httpClient.post(this.userApi + senderEmail + '/decline', {});
+  public declineRequest(sender: string): Observable<any> {
+    return this.httpClient.post(this.requestApi + sender + '/decline', {});
   }
 
   public getRequests(): Observable<FriendRequest[]> {

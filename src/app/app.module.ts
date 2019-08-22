@@ -32,6 +32,7 @@ import {UserSearchService} from './user/user-search.service';
 import {AgmCoreModule} from '@agm/core';
 import {UserReservationsComponent} from "./user-reservations/user-reservations.component";
 import {UserReservationsService} from "./user-reservations/user-reservations.service";
+import {ConfirmDialogComponent} from './dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import {UserReservationsService} from "./user-reservations/user-reservations.ser
     SystemAdministratorComponent,
     HotelRoomEditComponent,
     UserSearchComponent,
-    UserReservationsComponent
+    UserReservationsComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +76,10 @@ import {UserReservationsService} from "./user-reservations/user-reservations.ser
       useClass: HttpConfigInterceptor,
       multi: true
     }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ConfirmDialogComponent
+  ]
 })
 export class AppModule {
 }
