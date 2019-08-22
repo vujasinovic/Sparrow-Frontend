@@ -50,11 +50,10 @@ export class AuthService {
   }
 
   public logout() {
-    return this.http.get(this.logoutUrl).subscribe(value => {
-      localStorage.removeItem(this.globals.localStorageTokenName);
-      this.reloadLoggedUser();
-      window.location.href = '/login';
-    });
+    localStorage.removeItem(this.globals.localStorageTokenName);
+    this.setLoggedUser(null);
+    this.reloadLoggedUser();
+    window.location.href = '/login';
   }
 
   public getLoggedUserObservable(): Observable<User> {
