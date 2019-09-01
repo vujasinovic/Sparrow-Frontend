@@ -24,16 +24,16 @@ import {HotelService} from './hotels/hotel.service';
 import {HotelProfileService} from './hotel-profile/hotel-profile.service';
 import {FriendsComponent} from './friends/friends.component';
 import {FriendsService} from './friends/friends.service';
-import {FriendRequestComponent} from './friends/friend-request.component';
 import {HotelRoomEditComponent} from './hotel-room-edit/hotel-room-edit.component';
 import {AuthenticatedGuardService} from './login/auth-guard';
-import {UserListComponent} from './user/user-list.component';
-import {UserService} from './user/user.service';
+import {UserSearchComponent} from './user/user-search.component';
+import {UserSearchService} from './user/user-search.service';
 import {AgmCoreModule} from '@agm/core';
 import {UserReservationsComponent} from "./user-reservations/user-reservations.component";
 import {UserReservationsService} from "./user-reservations/user-reservations.service";
-import {ChartsModule} from "ng2-charts";
-import {HotelStatisticComponent} from "./hotel-statistic/hotel-statistic.component";
+import {ConfirmDialogComponent} from './dialog/confirm-dialog.component';
+import {UserProfileComponent} from './profile/user-profile.component';
+import {ChangePasswordDialogComponent} from './dialog/change-password-dialog.component';
 
 
 @NgModule({
@@ -50,12 +50,13 @@ import {HotelStatisticComponent} from "./hotel-statistic/hotel-statistic.compone
     HotelEditComponent,
     SystemAdministratorComponent,
     FriendsComponent,
-    FriendRequestComponent,
     SystemAdministratorComponent,
     HotelRoomEditComponent,
-    UserListComponent,
+    UserSearchComponent,
     UserReservationsComponent,
-    HotelStatisticComponent
+    ConfirmDialogComponent,
+    UserProfileComponent,
+    ChangePasswordDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +65,6 @@ import {HotelStatisticComponent} from "./hotel-statistic/hotel-statistic.compone
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    ChartsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA1BgogjhmzldHi2f-6sUqGkmYKFOwjOaA',
       language: 'en',
@@ -72,13 +72,17 @@ import {HotelStatisticComponent} from "./hotel-statistic/hotel-statistic.compone
     })
   ],
   providers: [Globals, AuthService, AuthenticatedGuardService, LoginGuardService, RegisterService, HotelService, HotelProfileService
-    , FriendsService, UserService, UserReservationsService,
+    , FriendsService, UserSearchService, UserReservationsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpConfigInterceptor,
       multi: true
     }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ConfirmDialogComponent,
+    ChangePasswordDialogComponent
+  ]
 })
 export class AppModule {
 }

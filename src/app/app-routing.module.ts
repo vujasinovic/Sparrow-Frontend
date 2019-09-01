@@ -4,8 +4,6 @@ import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
 import {LoginGuardService} from './login/login-guard';
 import {RegisterComponent} from './register/register.component';
-import {FriendsComponent} from './friends/friends.component';
-import {FriendRequestComponent} from './friends/friend-request.component';
 import {HotelComponent} from './hotels/hotel.component';
 import {HotelProfileComponent} from './hotel-profile/hotel-profile.component';
 import {HotelReservationComponent} from './hotel-reservation/hotel-reservation.component';
@@ -14,7 +12,8 @@ import {SystemAdministratorComponent} from './system-administrator/system-admini
 import {HotelRoomEditComponent} from './hotel-room-edit/hotel-room-edit.component';
 import {AuthenticatedGuardService} from './login/auth-guard';
 import {UserReservationsComponent} from "./user-reservations/user-reservations.component";
-import {HotelStatisticComponent} from "./hotel-statistic/hotel-statistic.component";
+import {UserSearchComponent} from './user/user-search.component';
+import {UserProfileComponent} from './profile/user-profile.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -28,10 +27,9 @@ const routes: Routes = [
   {path: 'hotels/:id/edit', component: HotelEditComponent},
   {path: 'hotels/:hotelId/room/:roomId/edit', component: HotelRoomEditComponent},
   {path: 'sa', component: SystemAdministratorComponent},
-  {path: 'requests', component: FriendRequestComponent, canActivate: [AuthenticatedGuardService]},
-  {path: 'friends', component: FriendsComponent, canActivate: [AuthenticatedGuardService]},
+  {path: 'friends/search', component: UserSearchComponent, canActivate: [AuthenticatedGuardService]},
   {path: 'reservations', component: UserReservationsComponent},
-  {path: 'hotels/:id/stats', component: HotelStatisticComponent}
+  {path: 'user/profile', component: UserProfileComponent, canActivate: [AuthenticatedGuardService]}
 ];
 
 @NgModule({

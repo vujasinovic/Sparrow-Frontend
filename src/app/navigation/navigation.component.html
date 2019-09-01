@@ -42,16 +42,7 @@
             </button>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-              <a *ngIf="user.role === 'ROLE_USER'" class="dropdown-item" href="#">Profile</a>
-              <a *ngIf="user.role === 'ROLE_USER'" class="dropdown-item" routerLink="friends" href="#">Friends</a>
-              <a *ngIf="user.role === 'ROLE_USER'" class="dropdown-item" routerLink="requests" href="#">Friendship Requests
-                <span *ngIf="user.friendRequests" class="fa-stack">
-                  <span class="fa fa-circle-o fa-stack-2x"></span>
-                  <strong class="fa-stack-1x">
-                    {{user.friendRequests}}
-                  </strong>
-                </span>
-              </a>
+              <a *ngIf="user.role === 'ROLE_USER'" class="dropdown-item" routerLink="/user/profile">Profile</a>
               <a *ngIf="user.role === 'ROLE_USER'" class="dropdown-item" routerLink="reservations">Reservations</a>
               <a class="dropdown-item" href="#" (click)="authService.logout()">Logout</a>
             </div>

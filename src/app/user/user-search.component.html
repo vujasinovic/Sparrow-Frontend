@@ -1,0 +1,34 @@
+<div class="container-sparrow p-3">
+  <div class="row">
+    <div class="col-6 ml-auto mr-auto">
+      <div class="card">
+        <div class="card-header text-center text-primary">
+          <i class="fa fa-search"></i>
+          Search Users
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item text-center">
+              <input type="text" class="form-control" [(ngModel)]="query" (keyup)="search()" placeholder="Search users...">
+            </li>
+
+            <li *ngFor="let user of users" class="list-group-item">
+              <div class="row">
+                <div class="col-9">
+                  {{user.firstName}} {{user.lastName}}<br>
+                </div>
+                <div class="col-3 text-right ml-auto">
+                  <div class="btn btn-success" (click)="sendRequest(user.username)">Add Friend</div>
+                </div>
+              </div>
+            </li>
+
+            <li class="list-group-item text-center" *ngIf="users && users.length === 0">
+              No search results.<br>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
