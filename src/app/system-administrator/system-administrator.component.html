@@ -13,8 +13,82 @@
 <!-- Tab panes -->
 <div class="tab-content">
   <div class="tab-pane container active" id="flight-companies">
-    TODO: implement
+    <div class="container">
+      <div class="row mt-2">
+        <div class="col-md-6 mr-auto">
+          <div class="card bg-primary">
+            <div class="card-header text-white text-center">
+              <h5>Create new airline</h5>
+            </div>
+            <div class="card-body bg-light">
+                <div class="form-group">
+                  <label for="inputHotelName">Airline Name</label>
+                  <input [(ngModel)]="airline.name" class="form-control" id="inputAirlineName"
+                         placeholder="Airline name"
+                         name="airlineName">
+                </div>
+                <div class="form-group">
+                  <label for="inputAddress">Address</label>
+                  <input [(ngModel)]="airline.address.address"
+                         class="form-control" id="inputairline.address"
+                         placeholder="Address" name="address" value="{{address.address}}" #search>
+                </div>
+                <agm-map [latitude]="airline.address.latitude" [longitude]="airline.address.longitude" [zoom]="zoom">
+                  <agm-marker [latitude]="airline.address.latitude" [longitude]="airline.address.longitude"
+                              [markerDraggable]="true"
+                              (dragEnd)="markerDragEnd($event, airline.address)"></agm-marker>
+                </agm-map>
+                <div class="form-group">
+                  <label for="inputDescription">Description</label>
+                  <textarea [(ngModel)]="airline.description" class="form-control" id="inputAirlineDescription"
+                            placeholder="Description" name="description" rows="5"> </textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="inputDescription">Administrator</label>
+
+                  <ng-select [items]="airlineAdmins" bindLabel="username" autofocus
+                             [(ngModel)]="airline.admin"></ng-select>
+                </div>
+
+                <button type="submit" class="btn btn-success float-right" (click)="createAirline()">Save</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <table class="table table-primary table-hover">
+            <thead>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Description</th>
+            <th>Admin</th>
+            <th></th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let airline of airlines">
+              <td>
+                {{airline.name}}
+              </td>
+              <td>
+                {{airline.address.address}}
+              </td>
+              <td>
+                {{airline.description}}
+              </td>
+              <td>
+                {{airline.admin.username}}
+              </td>
+              <td>
+                <button class="btn btn-sm btn-danger" (click)="delete(hotel.id)">Delete</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
+
   <div class="tab-pane container fade" id="hotels">
     <div class="container">
       <div class="row mt-2">
@@ -38,7 +112,7 @@
                 </div>
                 <agm-map [latitude]="address.latitude" [longitude]="address.longitude" [zoom]="zoom">
                   <agm-marker [latitude]="address.latitude" [longitude]="address.longitude" [markerDraggable]="true"
-                              (dragEnd)="markerDragEnd($event)"></agm-marker>
+                              (dragEnd)="markerDragEnd($event, address)"></agm-marker>
                 </agm-map>
                 <div class="form-group">
                   <label for="inputDescription">Description</label>

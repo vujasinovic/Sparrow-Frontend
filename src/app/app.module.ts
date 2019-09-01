@@ -7,6 +7,7 @@ import {NavigationComponent} from './navigation/navigation.component';
 import {AppRoutingModule} from './app-routing.module';
 import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Globals} from './globals';
 import {AuthService} from './login/auth.service';
@@ -35,7 +36,6 @@ import {ConfirmDialogComponent} from './dialog/confirm-dialog.component';
 import {UserProfileComponent} from './profile/user-profile.component';
 import {ChangePasswordDialogComponent} from './dialog/change-password-dialog.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +63,7 @@ import {ChangePasswordDialogComponent} from './dialog/change-password-dialog.com
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
+    NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({

@@ -4,6 +4,10 @@ import {HotelService} from "../hotels/hotel.service";
 import {Address} from "../models-hotel/address";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MapsAPILoader, MouseEvent as AGMMouseEvent} from "@agm/core";
+import {Airline} from '../models-airline/airline';
+import {UserService} from '../user/user.service';
+import {UserSearchService} from '../user/user-search.service';
+import {User} from '../user';
 
 @Component({
   selector: 'system-administrator',
@@ -17,14 +21,21 @@ export class SystemAdministratorComponent implements OnInit {
   url: string;
 
   address: Address = new Address();
+
+  airlineAdmins: User[] = [];
+  airline: Airline = new Airline();
+  airlines: Airline[] = [];
+
   zoom: number;
   private geoCoder;
-  private imageSrc: string = '';
+  private imageSrc = '';
 
   @ViewChild('search', {static: false})
   public searchElementRef: ElementRef;
+  airlineAdmin: any;
 
-  constructor(private hotelService: HotelService, private router: Router, private activatedRoute: ActivatedRoute, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
+  constructor(private hotelService: HotelService, private router: Router, private activatedRoute: ActivatedRoute
+              , private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private userSearchService: UserSearchService) {
     this.hotel.address = new Address();
     this.hotel.rooms = [];
     this.url = this.activatedRoute.snapshot.paramMap.get("id");
@@ -33,7 +44,8 @@ export class SystemAdministratorComponent implements OnInit {
   ngOnInit(): void {
     this.findAll();
     this.mapsAPILoader.load().then(() => {
-      this.setCurrentLocation();
+      this.setCurrentLocation(this.address);
+      this.setCurrentLocation(this.airline.address);
       this.geoCoder = new google.maps.Geocoder;
 
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
@@ -52,25 +64,28 @@ export class SystemAdministratorComponent implements OnInit {
         });
       });
     });
+
+    this.userSearchService.getAllByRole('ROLE_AIRLINE_ADMIN').subscribe(value => this.airlineAdmins = value);
+
   }
 
-  private setCurrentLocation() {
+  private setCurrentLocation(address) {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.address.latitude = position.coords.latitude;
-        this.address.longitude = position.coords.longitude;
+        address.latitude = position.coords.latitude;
+        address.longitude = position.coords.longitude;
         this.zoom = 8;
-        this.getAddress(this.address.latitude, this.address.longitude); //possible shit
+        this.getAddress(address.latitude, address.longitude); //possible shit
       });
     }
   }
 
-  markerDragEnd($event: AGMMouseEvent) {
+  markerDragEnd($event: AGMMouseEvent, address) {
     console.log($event.coords.lat);
     console.log($event.coords.lng);
-    this.address.latitude = $event.coords.lat;
-    this.address.longitude = $event.coords.lng;
-    this.getAddress(this.address.latitude, this.address.longitude);
+    address.latitude = $event.coords.lat;
+    address.longitude = $event.coords.lng;
+    this.getAddress(address.latitude, address.longitude);
   }
 
   getAddress(latitude, longitude) {
@@ -130,6 +145,14 @@ export class SystemAdministratorComponent implements OnInit {
     this.imageSrc = reader.result;
     this.hotel.image = this.imageSrc;
     console.log(this.imageSrc);
+  }
+
+  createAirline() {
+
+  }
+
+  log($event) {
+    console.log($event);
   }
 
 }
