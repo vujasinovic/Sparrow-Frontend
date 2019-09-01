@@ -16,6 +16,8 @@
     "npm": "6.4.1"
   },
   "dependencies": {
+    "@angular/cli": "~8.1.2",
+    "@angular/compiler-cli": "~8.1.2",
     "@agm/core": "^1.0.0-beta.7",
     "@angular/animations": "~8.1.2",
     "@angular/common": "~8.1.2",
@@ -39,8 +41,6 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.801.2",
-    "@angular/cli": "~8.1.2",
-    "@angular/compiler-cli": "~8.1.2",
     "@angular/language-service": "~8.1.2",
     "@types/googlemaps": "^3.37.1",
     "@types/jasmine": "~3.3.8",
