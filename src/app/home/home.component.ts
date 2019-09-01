@@ -10,7 +10,7 @@ import {User} from '../user';
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
-  private user: Observable<User>;
+  user: Observable<User>;
 
   constructor(private client: HttpClient, private globals: Globals, private authService: AuthService) {
     this.user = authService.getLoggedUserObservable();

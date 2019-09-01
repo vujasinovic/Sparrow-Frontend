@@ -11,7 +11,7 @@ export class NavigationComponent implements OnInit {
 
   public user: Observable<User>;
 
-  constructor(private authService: AuthService) {
+  constructor(public authService: AuthService) {
     this.user = authService.getLoggedUserObservable();
   }
 
