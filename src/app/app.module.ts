@@ -38,6 +38,7 @@ import {UserSearchComponent} from './user/user-search.component';
 import {HotelStatisticComponent} from "./hotel-statistic/hotel-statistic.component";
 import {UserListComponent} from "./user/user-list.component";
 import {NgSelectModule} from '@ng-select/ng-select';
+import {ChartsModule} from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
+    ChartsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA1BgogjhmzldHi2f-6sUqGkmYKFOwjOaA',
       language: 'en',
