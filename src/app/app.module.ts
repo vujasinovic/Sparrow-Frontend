@@ -7,7 +7,6 @@ import {NavigationComponent} from './navigation/navigation.component';
 import {AppRoutingModule} from './app-routing.module';
 import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
-import { NgSelectModule } from '@ng-select/ng-select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Globals} from './globals';
 import {AuthService} from './login/auth.service';
@@ -64,7 +63,6 @@ import {UserSearchComponent} from './user/user-search.component';
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
