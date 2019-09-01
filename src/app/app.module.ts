@@ -37,6 +37,7 @@ import {UserService} from './user/user.service';
 import {UserSearchComponent} from './user/user-search.component';
 import {HotelStatisticComponent} from "./hotel-statistic/hotel-statistic.component";
 import {UserListComponent} from "./user/user-list.component";
+import {NgSelectModule} from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import {UserListComponent} from "./user/user-list.component";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgSelectModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA1BgogjhmzldHi2f-6sUqGkmYKFOwjOaA',
       language: 'en',
