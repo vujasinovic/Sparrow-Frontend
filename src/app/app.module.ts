@@ -35,6 +35,8 @@ import {ChangePasswordDialogComponent} from './dialog/change-password-dialog.com
 import {UserSearchService} from './user/user-search.service';
 import {UserService} from './user/user.service';
 import {UserSearchComponent} from './user/user-search.component';
+import {HotelStatisticComponent} from "./hotel-statistic/hotel-statistic.component";
+import {UserListComponent} from "./user/user-list.component";
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import {UserSearchComponent} from './user/user-search.component';
     ConfirmDialogComponent,
     UserProfileComponent,
     ChangePasswordDialogComponent,
-    UserSearchComponent
+    UserSearchComponent,
+    HotelStatisticComponent,
+    UserListComponent,
   ],
   imports: [
     BrowserModule,
