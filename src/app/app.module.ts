@@ -27,14 +27,15 @@ import {FriendsComponent} from './friends/friends.component';
 import {FriendsService} from './friends/friends.service';
 import {HotelRoomEditComponent} from './hotel-room-edit/hotel-room-edit.component';
 import {AuthenticatedGuardService} from './login/auth-guard';
-import {UserSearchComponent} from './user/user-search.component';
-import {UserSearchService} from './user/user-search.service';
 import {AgmCoreModule} from '@agm/core';
-import {UserReservationsComponent} from "./user-reservations/user-reservations.component";
-import {UserReservationsService} from "./user-reservations/user-reservations.service";
+import {UserReservationsComponent} from './user-reservations/user-reservations.component';
+import {UserReservationsService} from './user-reservations/user-reservations.service';
 import {ConfirmDialogComponent} from './dialog/confirm-dialog.component';
 import {UserProfileComponent} from './profile/user-profile.component';
 import {ChangePasswordDialogComponent} from './dialog/change-password-dialog.component';
+import {UserSearchService} from './user/user-search.service';
+import {UserService} from './user/user.service';
+import {UserSearchComponent} from './user/user-search.component';
 
 @NgModule({
   declarations: [
@@ -52,11 +53,11 @@ import {ChangePasswordDialogComponent} from './dialog/change-password-dialog.com
     FriendsComponent,
     SystemAdministratorComponent,
     HotelRoomEditComponent,
-    UserSearchComponent,
     UserReservationsComponent,
     ConfirmDialogComponent,
     UserProfileComponent,
-    ChangePasswordDialogComponent
+    ChangePasswordDialogComponent,
+    UserSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +74,7 @@ import {ChangePasswordDialogComponent} from './dialog/change-password-dialog.com
     })
   ],
   providers: [Globals, AuthService, AuthenticatedGuardService, LoginGuardService, RegisterService, HotelService, HotelProfileService
-    , FriendsService, UserSearchService, UserReservationsService,
+    , FriendsService, UserReservationsService, UserService, UserSearchService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpConfigInterceptor,

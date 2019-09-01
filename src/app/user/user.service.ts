@@ -1,42 +1,33 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Globals} from '../globals';
-import {Observable} from 'rxjs';
 import {User} from '../user';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {AuthService} from '../login/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserSearchService {
-  readonly searchApi;
+export class UserService {
   readonly userApi;
 
-  constructor(private httpClient: HttpClient, private globals: Globals) {
-    this.userApi = globals.apiRoot + 'api/user/';
-    this.searchApi = this.userApi + 'search/';
+  constructor(private http: HttpClient, private globals: Globals, private authService: AuthService) {
+    this.userApi = globals.apiRoot + 'api/user';
   }
 
-  getAllByRole(role: string): Observable<User[]> {
-    return this.httpClient.get<User[]>(this.userApi, {
-      params: {
-        role
-      }
-    });
-  }
-
-  search(keyword: string) {
-    this.httpClient.get(this.searchApi + keyword);
-  }
-
-  searchAdvanced(keyword: string, isFriend = false, canAddFriend = false): Observable<User[]> {
-    return this.httpClient.get<User[]>(this.searchApi + keyword, {
-      params: new HttpParams({
-        fromObject: {
-          isFriend: String(isFriend),
-          canAddFriend: String(canAddFriend),
-        }
-      })
-    });
+  public update(user: User): Observable<User> {
+    return this.http.put<User>(this.userApi, {
+      username: user.username,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      address: user.address,
+      password: user.password
+    }).pipe(map(value => {
+      this.authService.reloadLoggedUser();
+      return value;
+    }));
   }
 
 }

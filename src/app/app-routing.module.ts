@@ -12,8 +12,8 @@ import {SystemAdministratorComponent} from './system-administrator/system-admini
 import {HotelRoomEditComponent} from './hotel-room-edit/hotel-room-edit.component';
 import {AuthenticatedGuardService} from './login/auth-guard';
 import {UserReservationsComponent} from "./user-reservations/user-reservations.component";
-import {UserSearchComponent} from './user/user-search.component';
 import {UserProfileComponent} from './profile/user-profile.component';
+import {UserSearchComponent} from './user/user-search.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},

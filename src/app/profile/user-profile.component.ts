@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../login/auth.service';
 import {User} from '../user';
-import {UserService} from '../user/user.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ChangePasswordDialogComponent} from '../dialog/change-password-dialog.component';
+import {UserService} from '../user/user.service';
 
 @Component({
   selector: 'app-profile',
