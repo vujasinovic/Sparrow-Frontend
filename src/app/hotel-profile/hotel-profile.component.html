@@ -3,11 +3,11 @@
     <div class="col-md-7">
       <hr class="my-2">
       <h5 class="text-white font-weight-bold">{{hotel.name}}
-        <button *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'"
+        <button *ngIf="hotel.admin.username === user.username"
                 class="btn btn-sm btn-info float-right ml-2" routerLink="stats">
           <i class="fa fa-chart-line mr-1"></i>statistics
         </button>
-        <a *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'"
+        <a *ngIf="hotel.admin.username === user.username"
            class="btn btn-sm btn-info float-right ml-2" href="#" routerLink="edit">
           <i class="fa fa-edit mr-1"></i>edit</a>
       </h5>
@@ -33,7 +33,7 @@
   <hr class="my-2">
   <div class="row mb-2">
     <div class="col-md-12">
-      <a *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'" data-toggle="collapse" href="#collapse2"
+      <a *ngIf="hotel.admin.username === user.username" data-toggle="collapse" href="#collapse2"
          role="button" aria-expanded="false" aria-controls="collapse2"
          class="text-white"> Add services
       </a>
@@ -98,7 +98,7 @@
       <h5 class="font-weight-bold text-white ml-0">
         <i class="fa fa-euro-sign mr-2"></i>Rooms and price list
       </h5>
-      <a *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'" data-toggle="collapse" href="#collapse"
+      <a *ngIf="hotel.admin.username === user.username" data-toggle="collapse" href="#collapse"
          role="button" aria-expanded="false" aria-controls="collapse"
          class="text-white">
         <button class="btn btn-success text-white"><i class="fa fa-plus mr-2"></i>Add item</button>
@@ -220,8 +220,8 @@
           <th scope="col">Floor</th>
           <th scope="col">Balcony</th>
           <th scope="col">Price per night</th>
-          <th *ngIf="user == null || user.role.toString() != 'ROLE_HOTEL_ADMIN'" scope="col">Select</th>
-          <th *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'" scope="col">Actions</th>
+          <th *ngIf="hotel.admin.username !== user.username" scope="col">Select</th>
+          <th *ngIf="hotel.admin.username === user.username" scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>

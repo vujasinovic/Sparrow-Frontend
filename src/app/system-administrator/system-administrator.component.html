@@ -98,7 +98,6 @@
               <h5>Create new hotel</h5>
             </div>
             <div class="card-body bg-light">
-              <form>
                 <div class="form-group">
                   <label for="inputHotelName">Hotel name</label>
                   <input [(ngModel)]="hotel.name" class="form-control" id="inputHotelName" placeholder="Hotel name"
@@ -120,11 +119,15 @@
                             placeholder="Description" name="description" rows="5"> </textarea>
                 </div>
                 <div class="form-group">
+                  <label for="inputDescription">Administrator</label>
+                  <ng-select [items]="hotelAdmins" bindLabel="username" autofocus
+                             [(ngModel)]="hotel.admin"></ng-select>
+                </div>
+                <div class="form-group">
                   <input id="fileChooser" type="file" name="image" accept="image/*" #file
                          (change)="onFileSelect($event)">
                 </div>
                 <button type="submit" class="btn btn-success float-right" (click)="create()">Save</button>
-              </form>
             </div>
           </div>
         </div>

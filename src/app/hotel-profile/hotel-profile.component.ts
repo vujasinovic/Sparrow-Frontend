@@ -70,6 +70,7 @@ export class HotelProfileComponent implements OnInit {
   ngOnInit(): void {
     this.hotelProfileService.findOne(+this.hotelId).subscribe(data => {
       this.hotel = data;
+      console.log('Logged user: ', this.user, ' and hotel admin ', this.hotel.admin, ' equal=', this.user.username === this.hotel.admin.username);
       this.rooms = this.hotel.rooms.length;
 
       for (let i = 0; i < this.hotel.rooms.length; i++) {

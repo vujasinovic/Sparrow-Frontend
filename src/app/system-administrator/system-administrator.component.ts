@@ -17,6 +17,7 @@ export class SystemAdministratorComponent implements OnInit {
   BASE64_MARKER = ';base64,';
 
   hotel: Hotel = new Hotel();
+  hotelAdmins: User[] = [];
   hotels: Hotel[];
   url: string;
 
@@ -35,8 +36,9 @@ export class SystemAdministratorComponent implements OnInit {
   airlineAdmin: any;
 
   constructor(private hotelService: HotelService, private router: Router, private activatedRoute: ActivatedRoute
-              , private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private userSearchService: UserSearchService) {
+    , private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private userSearchService: UserSearchService) {
     this.hotel.address = new Address();
+    this.hotel.admin = new User();
     this.hotel.rooms = [];
     this.url = this.activatedRoute.snapshot.paramMap.get("id");
   }
@@ -66,7 +68,10 @@ export class SystemAdministratorComponent implements OnInit {
     });
 
     this.userSearchService.getAllByRole('ROLE_AIRLINE_ADMIN').subscribe(value => this.airlineAdmins = value);
-
+    this.userSearchService.getAllByRole('ROLE_HOTEL_ADMIN').subscribe(value => {
+        this.hotelAdmins = value;
+        console.log('hotel admins', this.hotelAdmins);
+    });
   }
 
   private setCurrentLocation(address) {
@@ -144,7 +149,6 @@ export class SystemAdministratorComponent implements OnInit {
     let reader = e.target;
     this.imageSrc = reader.result;
     this.hotel.image = this.imageSrc;
-    console.log(this.imageSrc);
   }
 
   createAirline() {
