@@ -8,7 +8,7 @@ import {HotelProfileService} from "../hotel-profile/hotel-profile.service";
   selector: 'hotel-room-edit',
   templateUrl: './hotel-room-edit.component.html'
 })
-export class HotelRoomEditComponent implements OnInit{
+export class HotelRoomEditComponent implements OnInit {
   room: Room = new Room();
   hotelId: string;
   roomId: string;
@@ -29,8 +29,13 @@ export class HotelRoomEditComponent implements OnInit{
   }
 
   public updateRoom() {
-    this.hotelService.updateRoom(this.room, +this.hotelId, +this.roomId).subscribe(value => {
-      this.router.navigateByUrl('hotels/' + this.hotelId);
-    });
+    this.hotelService.updateRoom(this.room, +this.hotelId, +this.roomId).subscribe(
+      value => {
+        this.router.navigateByUrl('hotels/' + this.hotelId);
+      },
+      error => {
+        alert('Cannot update room. Room is reserved!');
+        this.router.navigateByUrl('hotels/' + this.hotelId);
+      });
   }
 }

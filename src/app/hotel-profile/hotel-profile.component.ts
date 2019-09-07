@@ -130,7 +130,10 @@ export class HotelProfileComponent implements OnInit {
   public deletePriceListItem(id: number) {
     this.hotelProfileService.deletePriceListItem(id).subscribe(value => {
       this.findPriceListItems();
-    })
+    },
+      error => {
+        alert('Cannot delete room which is reserved');
+      })
   }
 
   public deleteHotelService(id: number) {
