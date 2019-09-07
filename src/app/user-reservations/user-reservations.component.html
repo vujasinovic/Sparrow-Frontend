@@ -39,7 +39,7 @@
                   {{hotelReservation.price}} €
                 </td>
                 <td>
-                  <button class="btn btn-sm btn-danger flex-grow-1"><i class="fa fa-times-circle mr-2"></i>Cancel</button>
+                  <button (click)="cancelReservation(hotelReservation)" class="btn btn-sm btn-danger flex-grow-1"><i class="fa fa-times-circle mr-2"></i>Cancel</button>
                 </td>
               </tr>
               </tbody>

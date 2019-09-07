@@ -44,6 +44,10 @@ export class HotelService {
     return this.http.post<HotelReservation>(this.hotelsApi + '/reservation', hotelReservation);
   }
 
+  public deleteReservation(id: number): Observable<HotelReservation> {
+    return this.http.delete<HotelReservation>(this.hotelsApi + '/reservation/' + id);
+  }
+
   public updateRoom(room: Room, hotelId: number, roomId: number): Observable<Room> {
     return this.http.put<Room>(this.hotelAdminApi + '/' + hotelId + '/room/' + roomId, room);
   }
