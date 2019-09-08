@@ -251,6 +251,78 @@
       </button>
       <hr class="my-2">
 
+      <div class="row">
+        <div class="col-md-12">
+          <h5 class="font-weight-bold text-white ml-0">
+            <i class="fa fa-cash-register mr-2"></i><a data-toggle="collapse" href="#collapse4"
+                                                       role="button" aria-expanded="false" aria-controls="collapse4"
+                                                       class="text-white">Rooms on discount</a>
+          </h5>
+          <div class="card bg-primary collapse" id="collapse4">
+            <div class="card-header text-white text-center">
+              <h5>Create discounts</h5>
+            </div>
+            <div class="card-body bg-light">
+              <div class="form-group">
+                <label for="inputRoom">Room</label>
+                <ng-select id="inputRoom" autofocus [(ngModel)]="hotelRoomDiscount.priceListItem">
+                  <ng-option *ngFor="let priceListItem of priceListItems"
+                             [value]="priceListItem">{{priceListItem.room.name}}</ng-option>
+                </ng-select>
+              </div>
+              <div class="form-group">
+                <label for="inputValidFrom">Valid from</label>
+                <input class="form-control ml-auto" type="date" name="validFrom" id="inputValidFrom"
+                       [(ngModel)]="hotelRoomDiscount.validFrom"/>
+              </div>
+              <div class="form-group">
+                <label for="inputValidTo">Valid to</label>
+                <input class="form-control" type="date" name="validTo" id="inputValidTo"
+                       [(ngModel)]="hotelRoomDiscount.validTo"/>
+              </div>
+              <div class="form-group">
+                <label for="inputDiscount">Discount</label>
+                <input class="form-control" type="number" step="0.01" min=0 max=1 name="discount" id="inputDiscount"
+                       [(ngModel)]="hotelRoomDiscount.discount"/>
+              </div>
+              <button type="submit" class="btn btn-success float-right" (click)="createDiscount()">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-2">
+
+      <div *ngIf="tripStart !== undefined && tripEnd !== undefined" class="row">
+        <div class="col-md-12">
+          <table class="table table-hover table-primary text-center">
+            <thead>
+            <tr>
+              <th scope="col">Room</th>
+              <th scope="col">From</th>
+              <th scope="col">To</th>
+              <th scope="col">Price</th>
+              <th scope="col">Discount</th>
+              <th scope="col">Total</th>
+              <th *ngIf="hotel.admin.username !== user.username" scope="col">Select</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let hrDiscount of hrDiscounts">
+              <td>{{hrDiscount.priceListItem.room.name}}</td>
+              <td>{{hrDiscount.validFrom}}</td>
+              <td>{{hrDiscount.validTo}}</td>
+              <td>{{hrDiscount.priceListItem.price}}€</td>
+              <td>{{hrDiscount.discount * 100}} %</td>
+              <td>{{hrDiscount.priceListItem.price - (hrDiscount.priceListItem.price * hrDiscount.discount)}} €</td>
+              <td>
+                <button class="btn btn-sm btn-primary" routerLink="reservation">Make reservation</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 

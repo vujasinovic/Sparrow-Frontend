@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Hotel} from "../models-hotel/hotel";
 import {Observable} from "rxjs";
 import {PriceListItem} from "../models-hotel/pricelist-item";
@@ -8,6 +8,7 @@ import {Room} from "../models-hotel/room";
 import {ExtraService} from "../models-hotel/extra-service";
 import {Globals} from "../globals";
 import {RoomsSearchDto} from "../dto/rooms-search-dto";
+import {HotelRoomDiscount} from "../models-hotel/hotelRoomDiscount";
 
 @Injectable()
 export class HotelProfileService {
@@ -31,6 +32,17 @@ export class HotelProfileService {
 
   public findPriceListItems(id: number): Observable<PriceListItem[]> {
     return this.http.get<PriceListItem[]>(this.hotelsApi+ id + '/pricelist');
+  }
+
+  public findPriceListItemsByDate(id: number, tripStart: Date, tripEnd: Date): Observable<PriceListItem[]> {
+    return this.http.get<PriceListItem[]>(this.hotelsApi + id + '/pricelist/dates', {
+      params: new HttpParams({
+        fromObject: {
+          tripStart: String(tripStart),
+          tripEnd: String(tripEnd)
+        }
+      })
+    });
   }
 
   public findHotelServices(id: number): Observable<HotelServices[]> {
@@ -59,6 +71,14 @@ export class HotelProfileService {
 
   public searchRooms(roomsSearchDto: RoomsSearchDto, hotelId: number): Observable<PriceListItem[]> {
     return this.http.get<PriceListItem[]>(this.hotelsApi + hotelId + '/rooms/search', {params: this.clone(roomsSearchDto)} );
+  }
+
+  public createDiscount(hotelRoomDiscount: HotelRoomDiscount): Observable<HotelRoomDiscount> {
+    return this.http.post<HotelRoomDiscount>(this.adminApi + 'discount', hotelRoomDiscount);
+  }
+
+  public findDiscounts(hotelId: number): Observable<HotelRoomDiscount[]> {
+    return this.http.get<HotelRoomDiscount[]>(this.adminApi + hotelId + '/discount');
   }
 
   public clone(obj: any): any {

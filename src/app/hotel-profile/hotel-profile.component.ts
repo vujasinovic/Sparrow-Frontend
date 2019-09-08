@@ -7,13 +7,14 @@ import {HotelServices} from "../models-hotel/hotel-services";
 import {Address} from "../models-hotel/address";
 import {Room} from "../models-hotel/room";
 import {ExtraService} from "../models-hotel/extra-service";
-import {catchError} from "rxjs/operators";
+import {catchError, subscribeOn} from "rxjs/operators";
 import {throwError} from 'rxjs';
 import {User} from "../user";
 import {AuthService} from "../login/auth.service";
 import {RoomReservation} from "../models-hotel/room-reservation";
 import {HotelReservationComponent} from "../hotel-reservation/hotel-reservation.component";
 import {RoomsSearchDto} from "../dto/rooms-search-dto";
+import {HotelRoomDiscount} from "../models-hotel/hotelRoomDiscount";
 
 @Component({
   selector: 'hotel-profile',
@@ -48,6 +49,12 @@ export class HotelProfileComponent implements OnInit {
   roomSearchErrorMessage: string = '';
   roomSearchInfoMessage: string = '';
 
+  hotelRoomDiscount: HotelRoomDiscount = new HotelRoomDiscount();
+  hrDiscounts: HotelRoomDiscount[] = [];
+
+  tripStart: Date;
+  tripEnd: Date;
+
   constructor(private hotelProfileService: HotelProfileService, private activatedRoute: ActivatedRoute, private authService: AuthService) {
     this.hotel.address = new Address();
     this.priceListItem.room = new Room();
@@ -64,7 +71,17 @@ export class HotelProfileComponent implements OnInit {
     this.user = this.authService.getLoggedUser();
     console.log(this.user);
 
+    this.hotelRoomDiscount.priceListItem = new PriceListItem();
+
     this.plItems = [];
+    console.log('before init ', this.tripStart);
+
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.tripStart = params['tripStart'];
+      this.tripEnd = params['tripEnd'];
+
+      console.log('Trip start: ', this.tripStart, 'Trip end: ', this.tripEnd);
+    })
   }
 
   ngOnInit(): void {
@@ -78,6 +95,7 @@ export class HotelProfileComponent implements OnInit {
       }
 
     });
+    this.findDiscounts();
     this.findPriceListItems();
     this.findHotelServices();
     this.findExtraServices();
@@ -107,13 +125,21 @@ export class HotelProfileComponent implements OnInit {
   }
 
   public findPriceListItems() {
-    this.hotelProfileService.findPriceListItems(+this.hotelId).subscribe(data => {
-      this.freeRooms = data.length;
-      for (let i = 0; i < data.length; i++) {
-        this.freeBeds += data[i].room.bedsNo;
-      }
-      this.priceListItems = data;
-    })
+    if (this.tripStart != undefined && this.tripEnd != undefined) {
+      console.log('Ispaljujem');
+      this.hotelProfileService.findPriceListItemsByDate(+this.hotelId, this.tripStart, this.tripEnd).subscribe(data => {
+        this.priceListItems = data;
+      });
+    } else {
+      this.hotelProfileService.findPriceListItems(+this.hotelId).subscribe(data => {
+        this.freeRooms = data.length;
+        for (let i = 0; i < data.length; i++) {
+          this.freeBeds += data[i].room.bedsNo;
+        }
+        this.priceListItems = data;
+
+      })
+    }
   }
 
   public findHotelServices() {
@@ -130,8 +156,8 @@ export class HotelProfileComponent implements OnInit {
 
   public deletePriceListItem(id: number) {
     this.hotelProfileService.deletePriceListItem(id).subscribe(value => {
-      this.findPriceListItems();
-    },
+        this.findPriceListItems();
+      },
       error => {
         alert('Cannot delete room which is reserved');
       })
@@ -191,5 +217,17 @@ export class HotelProfileComponent implements OnInit {
   public sendDates() {
     HotelReservationComponent.prototype.start = this.roomsSearchDto.start;
     HotelReservationComponent.prototype.end = this.roomsSearchDto.end;
+  }
+
+  createDiscount() {
+    this.hotelProfileService.createDiscount(this.hotelRoomDiscount).subscribe(data => {
+      this.findDiscounts();
+    })
+  }
+
+  public findDiscounts() {
+    this.hotelProfileService.findDiscounts(+this.hotelId).subscribe(data => {
+      this.hrDiscounts = data;
+    })
   }
 }
