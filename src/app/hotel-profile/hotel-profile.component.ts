@@ -1,20 +1,22 @@
 import {Component, OnInit} from "@angular/core";
 import {Hotel} from "../models-hotel/hotel";
 import {HotelProfileService} from "./hotel-profile.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {PriceListItem} from "../models-hotel/pricelist-item";
 import {HotelServices} from "../models-hotel/hotel-services";
 import {Address} from "../models-hotel/address";
 import {Room} from "../models-hotel/room";
 import {ExtraService} from "../models-hotel/extra-service";
-import {catchError, subscribeOn} from "rxjs/operators";
-import {throwError} from 'rxjs';
+import {catchError} from "rxjs/operators";
+import {Observable, throwError} from 'rxjs';
 import {User} from "../user";
 import {AuthService} from "../login/auth.service";
 import {RoomReservation} from "../models-hotel/room-reservation";
 import {HotelReservationComponent} from "../hotel-reservation/hotel-reservation.component";
 import {RoomsSearchDto} from "../dto/rooms-search-dto";
 import {HotelRoomDiscount} from "../models-hotel/hotelRoomDiscount";
+import {HotelReservation} from "../models-hotel/hotel-reservation";
+import {HotelService} from "../hotels/hotel.service";
 
 @Component({
   selector: 'hotel-profile',
@@ -40,7 +42,7 @@ export class HotelProfileComponent implements OnInit {
 
   address: Address;
 
-  public user: User = new User();
+  public user: User;
 
   plItems: PriceListItem[];
   roomReservation: RoomReservation = new RoomReservation();
@@ -54,8 +56,11 @@ export class HotelProfileComponent implements OnInit {
 
   tripStart: Date;
   tripEnd: Date;
+  checkedHotelServices: HotelServices[];
 
-  constructor(private hotelProfileService: HotelProfileService, private activatedRoute: ActivatedRoute, private authService: AuthService) {
+  hotelReservation: HotelReservation = new HotelReservation();
+
+  constructor(private hotelProfileService: HotelProfileService, private hs: HotelService, private router: Router, private activatedRoute: ActivatedRoute, private authService: AuthService) {
     this.hotel.address = new Address();
     this.priceListItem.room = new Room();
     this.hotelService.extraService = new ExtraService();
@@ -67,14 +72,14 @@ export class HotelProfileComponent implements OnInit {
     this.freeRooms = 0;
     this.freeBeds = 0;
     this.hotelService.hotel = new Hotel();
-    this.user.role = '';
-    this.user = this.authService.getLoggedUser();
-    console.log(this.user);
+    this.user = authService.getLoggedUser();
 
     this.hotelRoomDiscount.priceListItem = new PriceListItem();
 
     this.plItems = [];
-    console.log('before init ', this.tripStart);
+
+    this.checkedHotelServices = [];
+    this.hotelReservation.rooms = [];
 
     this.activatedRoute.queryParams.subscribe(params => {
       this.tripStart = params['tripStart'];
@@ -87,7 +92,6 @@ export class HotelProfileComponent implements OnInit {
   ngOnInit(): void {
     this.hotelProfileService.findOne(+this.hotelId).subscribe(data => {
       this.hotel = data;
-      console.log('Logged user: ', this.user, ' and hotel admin ', this.hotel.admin, ' equal=', this.user.username === this.hotel.admin.username);
       this.rooms = this.hotel.rooms.length;
 
       for (let i = 0; i < this.hotel.rooms.length; i++) {
@@ -126,7 +130,6 @@ export class HotelProfileComponent implements OnInit {
 
   public findPriceListItems() {
     if (this.tripStart != undefined && this.tripEnd != undefined) {
-      console.log('Ispaljujem');
       this.hotelProfileService.findPriceListItemsByDate(+this.hotelId, this.tripStart, this.tripEnd).subscribe(data => {
         this.priceListItems = data;
       });
@@ -172,7 +175,6 @@ export class HotelProfileComponent implements OnInit {
   toggleRoomStatus(e, priceListItem: PriceListItem) {
     this.roomReservation.priceListItem = priceListItem;
     this.roomReservation.checked = e.target.checked;
-    console.log('Checked: ', this.roomReservation.priceListItem.room.name, '[', this.roomReservation.checked, ']');
 
     if (this.roomReservation.checked) {
       this.plItems.push(priceListItem);
@@ -182,7 +184,6 @@ export class HotelProfileComponent implements OnInit {
         this.plItems.splice(index, 1);
       }
     }
-    console.log('Reservation status: ', this.plItems);
     HotelReservationComponent.prototype.priceListItems = this.plItems;
   }
 
@@ -192,7 +193,6 @@ export class HotelProfileComponent implements OnInit {
       return;
     }
     this.hotelProfileService.searchRooms(this.roomsSearchDto, +this.hotelId).subscribe(data => {
-      console.log('Results: ', data);
       let capacity = this.roomsSearchDto.capacity;
 
       let rooms = [];
@@ -226,8 +226,33 @@ export class HotelProfileComponent implements OnInit {
   }
 
   public findDiscounts() {
-    this.hotelProfileService.findDiscounts(+this.hotelId).subscribe(data => {
+    this.hotelProfileService.findDiscounts(+this.hotelId, this.tripStart, this.tripEnd).subscribe(data => {
       this.hrDiscounts = data;
     })
+  }
+
+  toggleExtraServices(e, hs: HotelServices) {
+    if (e.target.checked) {
+      this.checkedHotelServices.push(hs);
+    } else {
+      const index: number = this.checkedHotelServices.indexOf(hs);
+      if (index !== -1) {
+        this.checkedHotelServices.splice(index, 1);
+      }
+    }
+    this.hotelRoomDiscount.hotelServices = this.checkedHotelServices;
+  }
+
+  makeReservation(hrDiscount: HotelRoomDiscount) {
+    this.hotelReservation.start = this.tripStart;
+    this.hotelReservation.end = this.tripEnd;
+    this.hotelReservation.hotelServices = hrDiscount.hotelServices;
+    this.hotelReservation.price = hrDiscount.priceListItem.price;
+    this.hotelReservation.rooms.push(hrDiscount.priceListItem.room);
+    this.hotelReservation.user = this.user;
+
+    this.hs.makeReservation(this.hotelReservation).subscribe(data => {
+      this.router.navigateByUrl('reservations');
+    });
   }
 }

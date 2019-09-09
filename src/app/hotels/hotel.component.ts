@@ -29,25 +29,21 @@ export class HotelComponent implements OnInit {
   public findAll() {
     this.hotelService.findAll().subscribe(data => {
       this.hotels = data;
-      console.log('Retrieved hotels: ', this.hotels);
       this.hotels.forEach(function (hotel) {
         let prices = [];
         if (hotel.priceLists.length === 0) {
-          console.log('Hotel', hotel.name, ' doesnt have any pricelists');
           hotel.minRoomPrice = 0;
         } else {
           hotel.priceLists[0].items.forEach(function (item) {
             prices.push(item.price);
           });
           hotel.minRoomPrice = Math.min(...prices);
-          console.log('Minimum room price: ', hotel.minRoomPrice);
         }
       });
     })
   }
 
   public search() {
-    console.log(this.hotelSearchDto);
 
     if (this.hotelSearchDto.place === '' ||
       this.hotelSearchDto.start === null ||
@@ -63,7 +59,6 @@ export class HotelComponent implements OnInit {
         this.errorMsg = 'No results found.';
       }
       this.hotels = data;
-      console.log('Search results: ', this.hotels);
     })
   }
 

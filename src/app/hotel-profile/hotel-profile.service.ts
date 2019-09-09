@@ -16,13 +16,13 @@ export class HotelProfileService {
   private readonly adminApi: string;
   private readonly extraServicesApi: string;
 
-  constructor (private http: HttpClient, private globals: Globals) {
+  constructor(private http: HttpClient, private globals: Globals) {
     this.hotelsApi = globals.apiRoot + 'api/hotels/';
     this.adminApi = globals.apiRoot + 'api/ha/hotels/';
     this.extraServicesApi = globals.apiRoot + 'api/extra-services';
   }
 
-  public findOne(id: number) : Observable<Hotel> {
+  public findOne(id: number): Observable<Hotel> {
     return this.http.get<Hotel>(this.hotelsApi + id);
   }
 
@@ -31,7 +31,7 @@ export class HotelProfileService {
   }
 
   public findPriceListItems(id: number): Observable<PriceListItem[]> {
-    return this.http.get<PriceListItem[]>(this.hotelsApi+ id + '/pricelist');
+    return this.http.get<PriceListItem[]>(this.hotelsApi + id + '/pricelist');
   }
 
   public findPriceListItemsByDate(id: number, tripStart: Date, tripEnd: Date): Observable<PriceListItem[]> {
@@ -65,21 +65,29 @@ export class HotelProfileService {
     return this.http.post<HotelServices>(this.extraServicesApi + '/' + id, hotelService);
   }
 
-  public deleteHotelService(hotelServiceId: number, hotelId: number) : Observable<Hotel> {
+  public deleteHotelService(hotelServiceId: number, hotelId: number): Observable<Hotel> {
     return this.http.delete<Hotel>(this.extraServicesApi + '/' + hotelServiceId + /hotel/ + hotelId);
   }
 
   public searchRooms(roomsSearchDto: RoomsSearchDto, hotelId: number): Observable<PriceListItem[]> {
-    return this.http.get<PriceListItem[]>(this.hotelsApi + hotelId + '/rooms/search', {params: this.clone(roomsSearchDto)} );
+    return this.http.get<PriceListItem[]>(this.hotelsApi + hotelId + '/rooms/search', {params: this.clone(roomsSearchDto)});
   }
 
   public createDiscount(hotelRoomDiscount: HotelRoomDiscount): Observable<HotelRoomDiscount> {
     return this.http.post<HotelRoomDiscount>(this.adminApi + 'discount', hotelRoomDiscount);
   }
 
-  public findDiscounts(hotelId: number): Observable<HotelRoomDiscount[]> {
-    return this.http.get<HotelRoomDiscount[]>(this.adminApi + hotelId + '/discount');
+  public findDiscounts(hotelId: number, tripStart: Date, tripEnd: Date): Observable<HotelRoomDiscount[]> {
+    return this.http.get<HotelRoomDiscount[]>(this.adminApi + hotelId + '/discount', {
+      params: new HttpParams({
+        fromObject: {
+          tripStart: String(tripStart),
+          tripEnd: String(tripEnd)
+        }
+      })
+    });
   }
+
 
   public clone(obj: any): any {
     // tslint:disable-next-line:prefer-const
