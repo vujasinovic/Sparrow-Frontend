@@ -14,6 +14,7 @@ import {AuthenticatedGuardService} from './login/auth-guard';
 import {UserReservationsComponent} from "./user-reservations/user-reservations.component";
 import {UserProfileComponent} from './profile/user-profile.component';
 import {UserSearchComponent} from './user/user-search.component';
+import {HotelStatisticComponent} from "./hotel-statistic/hotel-statistic.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -29,7 +30,8 @@ const routes: Routes = [
   {path: 'sa', component: SystemAdministratorComponent},
   {path: 'friends/search', component: UserSearchComponent, canActivate: [AuthenticatedGuardService]},
   {path: 'reservations', component: UserReservationsComponent},
-  {path: 'user/profile', component: UserProfileComponent, canActivate: [AuthenticatedGuardService]}
+  {path: 'user/profile', component: UserProfileComponent, canActivate: [AuthenticatedGuardService]},
+  {path: 'hotels/:id/statistic', component: HotelStatisticComponent}
 ];
 
 @NgModule({
