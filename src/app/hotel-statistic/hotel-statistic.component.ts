@@ -9,8 +9,11 @@ import {HotelReservation} from "../models-hotel/hotel-reservation";
 })
 export class HotelStatisticComponent implements OnInit {
   hotelReservations: HotelReservation[];
+  public prices: number[];
+  public endDates: Date[];
 
   ngOnInit(): void {
+    this.hotelReservations = [];
     this.findAllReservations();
   }
 
@@ -18,8 +21,8 @@ export class HotelStatisticComponent implements OnInit {
 
   }
 
-  public labels: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  public data: number[] = [0, 0, 0, 0, 0, 0, 0, 102, 0, 0, 0, 0];
+  public labels: string[] = [];
+  public data: number[] = [];
   public type: string = 'bar';
 
   // events on slice click
@@ -35,8 +38,13 @@ export class HotelStatisticComponent implements OnInit {
   public findAllReservations() {
     this.hotelService.findAllReservations(+this.activatedRoute.snapshot.paramMap.get('id')).subscribe(data => {
       this.hotelReservations = data;
-      console.log(data);
+      for (let i = 0; i < this.hotelReservations.length; i++) {
+        this.labels.push(this.hotelReservations[i].end.toString());
+        this.data.push(this.hotelReservations[i].price);
+      }
+      console.log(this.labels);
     });
   }
+
 
 }

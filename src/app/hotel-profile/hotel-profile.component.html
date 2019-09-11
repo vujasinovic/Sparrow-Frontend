@@ -307,7 +307,40 @@
 
 <!--      <div *ngIf="tripStart !== undefined && tripEnd !== undefined" class="row">-->
       <div class="row">
-        <div *ngIf="(tripStart !== undefined && tripEnd !== undefined) || user.role === 'ROLE_HOTEL_ADMIN'" class="col-md-12">
+        <div *ngIf="(tripStart !== undefined && tripEnd !== undefined) && user.role === 'ROLE_USER'" class="col-md-12">
+          <table class="table table-hover table-primary text-center">
+            <thead>
+            <tr>
+              <th scope="col">Room</th>
+              <th scope="col">From</th>
+              <th scope="col">To</th>
+              <th scope="col">Price</th>
+              <th scope="col">Discount</th>
+              <th scope="col">Extra services</th>
+              <th scope="col">Total</th>
+              <th *ngIf="hotel.admin.username !== user.username" scope="col">Select</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let hrDiscount of hrDiscounts">
+              <td>{{hrDiscount.priceListItem.room.name}}</td>
+              <td>{{hrDiscount.validFrom}}</td>
+              <td>{{hrDiscount.validTo}}</td>
+              <td>{{hrDiscount.priceListItem.price}}€</td>
+              <td>{{hrDiscount.discount * 100}} %</td>
+              <td><p *ngFor="let hs of hrDiscount.hotelServices"> {{hs.extraService.name}}</p></td>
+              <td>{{hrDiscount.priceListItem.price - (hrDiscount.priceListItem.price * hrDiscount.discount)}} €</td>
+              <td>
+                <button class="btn btn-sm btn-primary" (click)="makeReservation(hrDiscount)">Make reservation</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div *ngIf="user.role === 'ROLE_HOTEL_ADMIN'" class="col-md-12">
           <table class="table table-hover table-primary text-center">
             <thead>
             <tr>

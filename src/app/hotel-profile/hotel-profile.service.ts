@@ -88,6 +88,10 @@ export class HotelProfileService {
     });
   }
 
+  public findAllDiscounts(hotelId: number): Observable<HotelRoomDiscount[]> {
+    return this.http.get<HotelRoomDiscount[]>(this.adminApi + hotelId + '/allDiscounts');
+  }
+
 
   public clone(obj: any): any {
     // tslint:disable-next-line:prefer-const

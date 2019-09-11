@@ -100,6 +100,7 @@ export class HotelProfileComponent implements OnInit {
 
     });
     this.findDiscounts();
+    this.findAllDiscounts();
     this.findPriceListItems();
     this.findHotelServices();
     this.findExtraServices();
@@ -221,12 +222,20 @@ export class HotelProfileComponent implements OnInit {
 
   createDiscount() {
     this.hotelProfileService.createDiscount(this.hotelRoomDiscount).subscribe(data => {
-      this.findDiscounts();
+      this.findAllDiscounts();
     })
   }
 
   public findDiscounts() {
-    this.hotelProfileService.findDiscounts(+this.hotelId, this.tripStart, this.tripEnd).subscribe(data => {
+    if (this.tripStart !== undefined && this.tripEnd !== undefined) {
+      this.hotelProfileService.findDiscounts(+this.hotelId, this.tripStart, this.tripEnd).subscribe(data => {
+        this.hrDiscounts = data;
+      })
+    }
+  }
+
+  public findAllDiscounts() {
+    this.hotelProfileService.findAllDiscounts(+this.hotelId).subscribe(data => {
       this.hrDiscounts = data;
     })
   }
