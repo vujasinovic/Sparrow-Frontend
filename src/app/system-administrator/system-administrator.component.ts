@@ -1,13 +1,14 @@
-import {Component, ElementRef, NgZone, OnInit, ViewChild} from "@angular/core";
-import {Hotel} from "../models-hotel/hotel";
-import {HotelService} from "../hotels/hotel.service";
-import {Address} from "../models-hotel/address";
-import {ActivatedRoute, Router} from "@angular/router";
-import {MapsAPILoader, MouseEvent as AGMMouseEvent} from "@agm/core";
+import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
+import {Hotel} from '../models-hotel/hotel';
+import {HotelService} from '../hotels/hotel.service';
+import {Address} from '../models-hotel/address';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MapsAPILoader, MouseEvent as AGMMouseEvent} from '@agm/core';
 import {Airline} from '../models-airline/airline';
 import {UserService} from '../user/user.service';
 import {UserSearchService} from '../user/user-search.service';
 import {User} from '../user';
+import {AirlineService} from '../airline/airline.service';
 
 @Component({
   selector: 'system-administrator',
@@ -35,27 +36,29 @@ export class SystemAdministratorComponent implements OnInit {
   public searchElementRef: ElementRef;
   airlineAdmin: any;
 
-  constructor(private hotelService: HotelService, private router: Router, private activatedRoute: ActivatedRoute
-    , private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private userSearchService: UserSearchService) {
+  constructor(private hotelService: HotelService, private router: Router, private activatedRoute: ActivatedRoute,
+              private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private userSearchService: UserSearchService,
+              private airlineService: AirlineService) {
     this.hotel.address = new Address();
     this.hotel.admin = new User();
     this.hotel.rooms = [];
-    this.url = this.activatedRoute.snapshot.paramMap.get("id");
+    this.url = this.activatedRoute.snapshot.paramMap.get('id');
   }
 
   ngOnInit(): void {
     this.findAll();
+    this.loadAirlines();
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation(this.address);
       this.setCurrentLocation(this.airline.address);
-      this.geoCoder = new google.maps.Geocoder;
+      this.geoCoder = new google.maps.Geocoder();
 
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ["address"]
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+        types: ['address']
       });
-      autocomplete.addListener("place_changed", () => {
+      autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
           if (place.geometry === undefined || place.geometry === null) {
             return;
@@ -80,7 +83,7 @@ export class SystemAdministratorComponent implements OnInit {
         address.latitude = position.coords.latitude;
         address.longitude = position.coords.longitude;
         this.zoom = 8;
-        this.getAddress(address.latitude, address.longitude); //possible shit
+        this.getAddress(address.latitude, address.longitude); // possible shit
       });
     }
   }
@@ -94,7 +97,7 @@ export class SystemAdministratorComponent implements OnInit {
   }
 
   getAddress(latitude, longitude) {
-    this.geoCoder.geocode({'location': {lat: latitude, lng: longitude}}, (results, status) => {
+    this.geoCoder.geocode({location: {lat: latitude, lng: longitude}}, (results, status) => {
       console.log(results);
       console.log(status);
       if (status === 'OK') {
@@ -115,7 +118,7 @@ export class SystemAdministratorComponent implements OnInit {
   public findAll() {
     this.hotelService.findAll().subscribe(data => {
       this.hotels = data;
-    })
+    });
   }
 
   public create() {
@@ -130,13 +133,13 @@ export class SystemAdministratorComponent implements OnInit {
   public delete(id: number) {
     this.hotelService.delete(id).subscribe(value => {
       this.findAll();
-    })
+    });
   }
 
   onFileSelect(event) {
-    let file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
-    let pattern = /image-*/;
-    let reader = new FileReader();
+    const file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
+    const pattern = /image-*/;
+    const reader = new FileReader();
     if (!file.type.match(pattern)) {
       alert('Invalid format');
       return;
@@ -146,13 +149,20 @@ export class SystemAdministratorComponent implements OnInit {
   }
 
   _handleReaderLoaded(e) {
-    let reader = e.target;
+    const reader = e.target;
     this.imageSrc = reader.result;
     this.hotel.image = this.imageSrc;
+    console.log(this.imageSrc);
+  }
+
+  loadAirlines() {
+    this.airlineService.getAll().subscribe(value => this.airlines = value);
   }
 
   createAirline() {
-
+    this.airlineService.create(this.airline).subscribe(value => {
+      this.loadAirlines();
+    });
   }
 
   log($event) {

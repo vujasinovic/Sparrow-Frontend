@@ -1,0 +1,200 @@
+<div *ngIf="flight">
+  <div class="container-sparrow">
+    <div class="container pt-5 pb-5">
+
+      <div class="card">
+        <div class="card-header">
+          Flight Info
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-6">
+              <!--            LEFT-->
+              <div class="row mt-1">
+                <div class="col-6">
+                  From:
+                </div>
+                <div class="col-6">
+                  <ng-select [items]="airline.destinations" bindLabel="name" autofocus
+                             [(ngModel)]="flight.from"></ng-select>
+
+                </div>
+              </div>
+
+
+              <div class="row mt-1">
+                <div class="col-6">
+                  Departure Date:
+                </div>
+                <div class="col-6">
+                  <input class="form-control" type="date" [(ngModel)]="flight.departureDate">
+                </div>
+              </div>
+
+              <div class="row mt-1">
+                <div class="col-6">
+                  Departure Time:
+                </div>
+                <div class="col-6">
+                  <input class="form-control" type="time" [(ngModel)]="flight.departureTime">
+                </div>
+              </div>
+
+
+<!--
+              <div class="row mt-1">
+                <div class="col-6">
+                  Duration in minutes:
+                </div>
+                <div class="col-6">
+                  <input class="form-control" type="number" min="1" [(ngModel)]="flight.duration">
+                </div>
+              </div>
+-->
+
+              <div class="row mt-1">
+                <div class="col-6">
+                  Quick Reservation Discount:
+                </div>
+                <div class="col-6">
+                  <input class="form-control" type="number" min="0" [(ngModel)]="flight.discount">
+                </div>
+              </div>
+
+              <div class="row mt-1">
+                <div class="col-6">
+                  Free Luggage:
+                </div>
+                <div class="col-6">
+                  <input class="form-control" type="checkbox" [(ngModel)]="flight.luggage">
+                </div>
+              </div>
+
+
+              <label class="mt-5">Changeovers:</label>
+              <div class="row">
+                <ul class="list-group col-12">
+                  <li class="list-group-item" *ngFor="let destinatin of airline.destinations">
+                    <div class="row">
+                      <div class="col-6">
+                        {{destinatin.name}}
+                      </div>
+                      <div class="col-6 text-left">
+                        <input [checked]="selectedDsts[destinatin.id]" type="checkbox" class="w-100"
+                               (click)="dstClicked(destinatin)"/>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+            <div class="col-6">
+              <!--              RIGHT-->
+              <div class="row mt-1">
+                <div class="col-6">
+                  To:
+                </div>
+                <div class="col-6">
+                  <ng-select [items]="airline.destinations" bindLabel="name" autofocus
+                             [(ngModel)]="flight.to"></ng-select>
+                </div>
+              </div>
+
+              <div class="row mt-1">
+                <div class="col-6">
+                  Arrival Date:
+                </div>
+                <div class="col-6">
+                  <input class="form-control" type="date" [(ngModel)]="flight.arrivalDate">
+                </div>
+              </div>
+
+              <div class="row mt-1">
+                <div class="col-6">
+                  Arrival Time:
+                </div>
+                <div class="col-6">
+                  <input class="form-control" type="time" [(ngModel)]="flight.arrivalTime">
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          New Segment
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-2">Name:</div>
+            <div class="col-3"><input [(ngModel)]="segName" required="" class="form-control" min="1" type="text"/></div>
+          </div>
+          <div class="row">
+            <div class="col-2">Rows:</div>
+            <div class="col-3"><input [(ngModel)]="segRow" class="form-control" min="1" type="number"/></div>
+          </div>
+          <div class="row">
+            <div class="col-2">Columns:</div>
+            <div class="col-3"><input [(ngModel)]="segCol" class="form-control" min="1" type="number"/></div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <div class="btn btn-success" (click)="addSegment()">Add Segment</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          Seats<br>
+          <small>*Select seats available for quick reservation</small>
+        </div>
+
+        <div class="card-body">
+
+
+          <div class="d-flex flex-wrap">
+            <div *ngFor="let segment of flight.segments">
+
+              <div class="text-center container p-2 ml-4 mr-4">
+                <div class="">
+                  {{segment.name}}
+                </div>
+                <div class="">
+                  <div *ngFor="let seat of segment.seats; let i = index">
+                    <div *ngIf="i % segment.cols == 0" class="row">
+                      <div *ngFor="let c of range(segment.cols)">
+                        <div class="bd-highlight">
+                          <input type="checkbox" [(ngModel)]="segment.seats[i + c].quickReservation" [disabled]="!seat.available" d/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <a class="text-danger" role="button" (click)="removeSegment(segment);">Remove</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="btn btn-success" (click)="save()">
+            Save
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
