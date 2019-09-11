@@ -144,7 +144,7 @@
           </div>
         </form>
       </div>
-      <table class="table table-hover table-primary text-center">
+      <table  class="table table-hover table-primary text-center">
         <thead>
         <tr>
           <th scope="col">Manufacturer</th>
@@ -177,7 +177,7 @@
       </table>
       <button *ngIf="user == null || user.role.toString() == 'ROLE_USER'"
               class="btn btn-success font-weight-bold float-right ml-2 pl-3 pr-3" routerLink="reservation"
-              (click)="sendDates()" [disabled]="cars.length === 0">Make reservation
+              (click)="sendDates()" [disabled]="carsForReservation.length === 0">Make reservation
       </button>
       <hr class="my-2">
 
