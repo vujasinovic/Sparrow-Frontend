@@ -7,7 +7,7 @@
   </button>
 
   <div *ngIf="(user | async) as user; else default" class="collapse navbar-collapse">
-    <div *ngIf="user.role === 'ROLE_USER'">
+    <div *ngIf="user.role === 'ROLE_USER' || user.role === 'ROLE_HOTEL_ADMIN'">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <a class="nav-link" href="#"><i class="fa fa-plane mr-1"></i>Flights
@@ -21,11 +21,11 @@
           <a class="nav-link" href="*" routerLink="rentacars"><i class="fa fa-car-alt mr-1"></i>Rent-a-car
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="user.role === 'ROLE_USER'">
           <a class="nav-link" href="#"><i class="fa fa-user-friends mr-1"></i>Friends
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="user.role === 'ROLE_USER'">
           <a class="nav-link" routerLink="reservations"><i class="fa fa-clipboard-list mr-1"></i>My Reservations
           </a>
         </li>
