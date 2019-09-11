@@ -39,6 +39,11 @@ import {HotelStatisticComponent} from "./hotel-statistic/hotel-statistic.compone
 import {UserListComponent} from "./user/user-list.component";
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ChartsModule} from 'ng2-charts';
+import {AirlineProfileComponent} from './airline/airline-profile.component';
+import {DestinationService} from './airline/destination.service';
+import {AirlineFlightsComponent} from './airline/airline-flights.component';
+import {FlightEditorComponent} from './airline/flight-editor.component';
+import {FlightsOverviewComponent} from './airline/flights-overview.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +68,10 @@ import {ChartsModule} from 'ng2-charts';
     UserSearchComponent,
     HotelStatisticComponent,
     UserListComponent,
+    AirlineProfileComponent,
+    AirlineFlightsComponent,
+    FlightEditorComponent,
+    FlightsOverviewComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +89,7 @@ import {ChartsModule} from 'ng2-charts';
     })
   ],
   providers: [Globals, AuthService, AuthenticatedGuardService, LoginGuardService, RegisterService, HotelService, HotelProfileService
-    , FriendsService, UserReservationsService, UserService, UserSearchService,
+    , FriendsService, UserReservationsService, UserService, UserSearchService, DestinationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpConfigInterceptor,

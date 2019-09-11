@@ -11,10 +11,13 @@ import {HotelEditComponent} from './hotel-edit/hotel-edit.component';
 import {SystemAdministratorComponent} from './system-administrator/system-administrator.component';
 import {HotelRoomEditComponent} from './hotel-room-edit/hotel-room-edit.component';
 import {AuthenticatedGuardService} from './login/auth-guard';
-import {UserReservationsComponent} from "./user-reservations/user-reservations.component";
+import {UserReservationsComponent} from './user-reservations/user-reservations.component';
 import {UserProfileComponent} from './profile/user-profile.component';
 import {UserSearchComponent} from './user/user-search.component';
-import {HotelStatisticComponent} from "./hotel-statistic/hotel-statistic.component";
+import {HotelStatisticComponent} from './hotel-statistic/hotel-statistic.component';
+import {AirlineProfileComponent} from './airline/airline-profile.component';
+import {FlightEditorComponent} from './airline/flight-editor.component';
+import {FlightsOverviewComponent} from './airline/flights-overview.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -30,6 +33,12 @@ const routes: Routes = [
   {path: 'sa', component: SystemAdministratorComponent},
   {path: 'friends/search', component: UserSearchComponent, canActivate: [AuthenticatedGuardService]},
   {path: 'reservations', component: UserReservationsComponent},
+  {path: 'user/profile', component: UserProfileComponent, canActivate: [AuthenticatedGuardService]},
+  {path: 'edit-airline/:id', component: AirlineProfileComponent, canActivate: [AuthenticatedGuardService]},
+  {path: 'edit-airline', component: AirlineProfileComponent, canActivate: [AuthenticatedGuardService]},
+  {path: 'edit-flight', component: FlightEditorComponent, canActivate: [AuthenticatedGuardService]},
+  {path: 'edit-flight/:fid', component: FlightEditorComponent, canActivate: [AuthenticatedGuardService]},
+  {path: 'airline-flights', component: FlightsOverviewComponent, canActivate: [AuthenticatedGuardService]},
   {path: 'user/profile', component: UserProfileComponent, canActivate: [AuthenticatedGuardService]},
   {path: 'hotels/:id/statistic', component: HotelStatisticComponent}
 ];

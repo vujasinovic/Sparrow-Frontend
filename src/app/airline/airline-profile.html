@@ -1,0 +1,71 @@
+<div *ngIf="airline">
+  <div class="container-sparrow">
+    <div class="container p-5">
+      <div class="card bg-primary">
+        <div class="card-header text-white text-center">
+          <h5>Airline Profile</h5>
+        </div>
+        <div class="card-body bg-light">
+          <div class="form-group">
+            <label for="inputAirlineName">Airline Name</label>
+            <input [(ngModel)]="airline.name" class="form-control" id="inputAirlineName"
+                   placeholder="Airline name"
+                   name="airlineName">
+          </div>
+          <div class="form-group">
+            <label for="inputAirlineAddress">Address</label>
+            <input [(ngModel)]="airline.address.address"
+                   class="form-control" id="inputAirlineAddress"
+                   placeholder="Address" name="address" value="{{airline.address.address}}" #search>
+          </div>
+          <agm-map [latitude]="airline.address.latitude" [longitude]="airline.address.longitude" [zoom]="zoom">
+            <agm-marker [latitude]="airline.address.latitude" [longitude]="airline.address.longitude"
+                        [markerDraggable]="true"
+                        (dragEnd)="markerDragEnd($event, airline.address)"></agm-marker>
+          </agm-map>
+          <div class="form-group">
+            <label for="inputAirlineDescription">Description</label>
+            <textarea [(ngModel)]="airline.description" class="form-control" id="inputAirlineDescription"
+                      placeholder="Description" name="description" rows="5"> </textarea>
+          </div>
+
+          <div class="form-group">
+            <label id="inputAirlineAdmin">Administrator: {{airline.admin.username}}</label>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              Destinations
+            </div>
+            <div class="card-body">
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let destinatin of destinations">
+                  <div class="row">
+                    <div class="col-2">
+                      {{destinatin.name}}
+                    </div>
+                    <div class="col-1 text-left">
+                      <input [checked]="selectedDsts[destinatin.id]" type="checkbox" class="w-100" (click)="dstClicked(destinatin)"/>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+
+          <div class="row mt-5">
+            <div class="col-1">
+              <div class="btn btn-success" (click)="save()">
+                Save
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
