@@ -1,0 +1,22 @@
+<div class="container-sparrow">
+  <div class="container pt-5 pb-5">
+
+    <div class="card">
+      <div class="card-header text-white">
+        Tickets
+      </div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let ticket of tickets">
+            <div class="row">
+              <div class="col-6">
+                Flight from {{ticket.flight.from}} to {{ticket.flight.to}} at {{ticket.flight.departureDate}} {{ticket.flight.departureTime}}
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>

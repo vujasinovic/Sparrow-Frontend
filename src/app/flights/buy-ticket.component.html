@@ -1,0 +1,201 @@
+<div class="container-sparrow">
+  <div class="container pt-5 pb-5">
+
+    <div *ngIf="flight" class="card">
+      <div class="card-header">
+        Flight Info
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-6">
+            <!--            LEFT-->
+            <div class="row mt-1">
+              <div class="col-6">
+                From:
+              </div>
+              <div class="col-6">
+                <ng-select disabled [items]="flight.airline.destinations" bindLabel="name" autofocus
+                           [(ngModel)]="flight.from"></ng-select>
+
+              </div>
+            </div>
+
+
+            <div class="row mt-1">
+              <div class="col-6">
+                Departure Date:
+              </div>
+              <div class="col-6">
+                <input readonly class="form-control" type="date" [(ngModel)]="flight.departureDate">
+              </div>
+            </div>
+
+            <div class="row mt-1">
+              <div class="col-6">
+                Departure Time:
+              </div>
+              <div class="col-6">
+                <input readonly class="form-control" type="time" [(ngModel)]="flight.departureTime">
+              </div>
+            </div>
+
+
+            <!--
+                          <div class="row mt-1">
+                            <div class="col-6">
+                              Duration in minutes:
+                            </div>
+                            <div class="col-6">
+                              <input readonly class="form-control" type="number" min="1" [(ngModel)]="flight.duration">
+                            </div>
+                          </div>
+            -->
+
+            <!--<div class="row mt-1">
+              <div class="col-6">
+                Quick Reservation Discount:
+              </div>
+              <div class="col-6">
+                <input readonly class="form-control" type="number" min="0" [(ngModel)]="flight.discount">
+              </div>
+            </div>-->
+
+            <div class="row mt-1">
+              <div class="col-6">
+                Free Luggage:
+              </div>
+              <div class="col-6">
+                <input readonly class="form-control" type="checkbox" disabled [(ngModel)]="flight.luggage">
+              </div>
+            </div>
+
+
+            <label class="mt-5">Changeovers:</label>
+            <div class="row">
+              <ul class="list-group col-12">
+                <li class="list-group-item" *ngFor="let co of flight.changeovers">
+                  <div class="row">
+                    <div class="col-6">
+                      {{co.name}}
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+          <div class="col-6">
+            <!--              RIGHT-->
+            <div class="row mt-1">
+              <div class="col-6">
+                To:
+              </div>
+              <div class="col-6">
+                <ng-select disabled [items]="flight.airline.destinations" bindLabel="name" autofocus
+                           [(ngModel)]="flight.to"></ng-select>
+              </div>
+            </div>
+
+            <div class="row mt-1">
+              <div class="col-6">
+                Arrival Date:
+              </div>
+              <div class="col-6">
+                <input readonly class="form-control" type="date" [(ngModel)]="flight.arrivalDate">
+              </div>
+            </div>
+
+            <div class="row mt-1">
+              <div class="col-6">
+                Arrival Time:
+              </div>
+              <div class="col-6">
+                <input readonly class="form-control" type="time" [(ngModel)]="flight.arrivalTime">
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="flight" class="card">
+      <div class="card-header">
+        Seats
+      </div>
+
+      <div class="card-body">
+
+
+        <div class="d-flex flex-wrap">
+          <div *ngFor="let segment of flight.segments">
+
+            <div class="text-center container p-2 ml-4 mr-4">
+              <div class="">
+                {{segment.name}}
+              </div>
+              <div class="">
+                <div *ngFor="let seat of segment.seats; let i = index">
+                  <div *ngIf="i % segment.cols == 0" class="row">
+                    <div *ngFor="let c of range(segment.cols)">
+                      <div class="bd-highlight">
+                        <input type="checkbox" [(ngModel)]="seatSelection[segment.seats[i + c].id]"
+                               [disabled]="!segment.seats[i + c].available || segment.seats[i + c].quickReservation"
+                               (change)="getSelectedSeats()"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngFor="let ss of selectedSeats; let i = index" class="card">
+      <div class="card-header">
+        Companion {{i + 1}} Info
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-4">
+            Invite:
+          </div>
+          <div class="col-8">
+            <ng-select [items]="friends" bindLabel="username" [(ngModel)]="ss.friend"
+                       (change)="friendSelected(ss)"></ng-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            First Name:
+          </div>
+          <div class="col-8">
+            <input required="" type="text" [(ngModel)]="ss.firstName">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            Last Name:
+          </div>
+          <div class="col-8">
+            <input required="" type="text" [(ngModel)]="ss.lastName">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body" >
+        <div class="btn btn-success" (click)="buy()">
+          Buy
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

@@ -23,6 +23,9 @@ import {HotelStatisticComponent} from './hotel-statistic/hotel-statistic.compone
 import {AirlineProfileComponent} from './airline/airline-profile.component';
 import {FlightEditorComponent} from './airline/flight-editor.component';
 import {FlightsOverviewComponent} from './airline/flights-overview.component';
+import {SearchFlightsComponent} from './flights/search-flights.component';
+import {BuyTicketComponent} from './flights/buy-ticket.component';
+import {TicketsComponent} from './flights/tickets.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -51,7 +54,10 @@ const routes: Routes = [
   {path: 'edit-flight/:fid', component: FlightEditorComponent, canActivate: [AuthenticatedGuardService]},
   {path: 'airline-flights', component: FlightsOverviewComponent, canActivate: [AuthenticatedGuardService]},
   {path: 'user/profile', component: UserProfileComponent, canActivate: [AuthenticatedGuardService]},
-  {path: 'hotels/:id/statistic', component: HotelStatisticComponent}
+  {path: 'hotels/:id/statistic', component: HotelStatisticComponent},
+  {path: 'search-flights', component: SearchFlightsComponent},
+  {path: 'buy-ticket/:id', component: BuyTicketComponent, canActivate: [AuthenticatedGuardService]},
+  {path: 'tickets', component: TicketsComponent, canActivate: [AuthenticatedGuardService]},
 ];
 
 @NgModule({

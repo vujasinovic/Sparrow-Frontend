@@ -1,4 +1,5 @@
 import {Seat} from './seat';
+import {Flight} from './flight';
 
 export class Segment {
   constructor(
@@ -6,7 +7,8 @@ export class Segment {
     public rows: number = 0,
     public cols: number = 0,
     public name: string = null,
-    public seats: Seat[] = []
+    public seats: Seat[] = [],
+    public flight: Flight = null
   ) {
 
   }

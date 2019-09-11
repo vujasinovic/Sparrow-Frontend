@@ -69,7 +69,12 @@ export class FlightEditorComponent {
     seg.rows = this.segRow;
 
     for (let i = 0; i < seg.rows * seg.cols; i++) {
-      seg.seats.push(new Seat());
+      const s = new Seat();
+      const mock = new Segment();
+      mock.id = seg.id;
+      s.segment = mock;
+
+      seg.seats.push(s);
     }
 
     this.segName = '';

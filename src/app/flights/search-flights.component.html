@@ -1,0 +1,45 @@
+<div class="container-sparrow">
+  <div class="container pt-5 pb-5">
+    <div class="row text-white">
+      <div class="col-2 text-right" >From</div>
+      <div class="col-2"><input type="text" [(ngModel)]="from" (keyup)="search()"></div>
+      <div class="col-2 text-right">To</div>
+      <div class="col-2"><input type="text" [(ngModel)]="to" (keyup)="search()"></div>
+      <div class="col-2 text-right">Departure:</div>
+      <div class="col-2"><input type="date" [(ngModel)]="date" (ngModelChange)="search()"></div>
+    </div>
+
+    <div class="card mt-5">
+      <div class="card-header">
+        Search Results
+      </div>
+      <div class="card-body">
+        <ul *ngFor="let r of results" class="list-group">
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-4">
+                Flight from {{r.from.name}} to {{r.to.name}} for ${{r.price}}
+              </div>
+              <div *ngIf="r.luggage" class="col-2">
+                Free luggage
+              </div>
+              <div *ngIf="!r.luggage" class="col-2">
+                Luggage charged
+              </div>
+              <div class="col-2">
+                {{r.changeovers.length}} Changeovers
+              </div>
+
+              <div class="ml-auto col-2 text-right">
+                <div class="btn btn-success" [routerLink]="'/buy-ticket/' + r.id">
+                  Buy Ticket
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>

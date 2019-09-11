@@ -17,7 +17,8 @@ export class Flight {
     public duration: number = 1,
     public segments: Segment[] = [],
     public discount: number = 0,
-    public luggage: boolean = false
+    public luggage: boolean = false,
+    public price: number = null
   ) {
   }
 }

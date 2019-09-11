@@ -42,6 +42,7 @@ export class AirlineService {
   }
 
   saveFlight(id: number, flight: Flight): Observable<Flight> {
+    flight.airline = null;
     return this.httpClient.post<Flight>(this.airlineApi + id + '/flight', flight);
   }
 
