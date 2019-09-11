@@ -14,6 +14,11 @@ import {AuthenticatedGuardService} from './login/auth-guard';
 import {UserReservationsComponent} from './user-reservations/user-reservations.component';
 import {UserProfileComponent} from './profile/user-profile.component';
 import {UserSearchComponent} from './user/user-search.component';
+import {RentacarsComponent} from "./rentacars/rentacars.component";
+import {RentacarProfileComponent} from "./rentacar-profile/rentacar-profile.component";
+import {CarEditComponent} from "./car-edit/car-edit.component";
+import {RentacarEditComponent} from "./rentacar-edit/rentacar-edit.component";
+import {CarReservationComponent} from "./car-reservation/car-reservation.component";
 import {HotelStatisticComponent} from './hotel-statistic/hotel-statistic.component';
 import {AirlineProfileComponent} from './airline/airline-profile.component';
 import {FlightEditorComponent} from './airline/flight-editor.component';
@@ -33,6 +38,12 @@ const routes: Routes = [
   {path: 'sa', component: SystemAdministratorComponent},
   {path: 'friends/search', component: UserSearchComponent, canActivate: [AuthenticatedGuardService]},
   {path: 'reservations', component: UserReservationsComponent},
+  {path: 'user/profile', component: UserProfileComponent, canActivate: [AuthenticatedGuardService]},
+  {path: 'rentacars', component:RentacarsComponent},
+  {path: 'rentacars/:id' , component:RentacarProfileComponent},
+  {path: 'rentacars/:rentacarId/car/:carId/edit' , component: CarEditComponent},
+  {path: 'rentacars/:id/edit' , component:RentacarEditComponent},
+  {path: 'rentacars/:id/reservation' , component:CarReservationComponent},
   {path: 'user/profile', component: UserProfileComponent, canActivate: [AuthenticatedGuardService]},
   {path: 'edit-airline/:id', component: AirlineProfileComponent, canActivate: [AuthenticatedGuardService]},
   {path: 'edit-airline', component: AirlineProfileComponent, canActivate: [AuthenticatedGuardService]},

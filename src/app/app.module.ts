@@ -44,6 +44,13 @@ import {DestinationService} from './airline/destination.service';
 import {AirlineFlightsComponent} from './airline/airline-flights.component';
 import {FlightEditorComponent} from './airline/flight-editor.component';
 import {FlightsOverviewComponent} from './airline/flights-overview.component';
+import {RentacarsComponent} from './rentacars/rentacars.component';
+import {RentacarsService} from "./rentacars/rentacars.service";
+import {RentacarProfileComponent} from './rentacar-profile/rentacar-profile.component';
+import {RentacarProfileService} from "./rentacar-profile/rentacar-profile.service";
+import {CarEditComponent} from './car-edit/car-edit.component';
+import {RentacarEditComponent} from './rentacar-edit/rentacar-edit.component';
+import {CarReservationComponent} from './car-reservation/car-reservation.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +75,11 @@ import {FlightsOverviewComponent} from './airline/flights-overview.component';
     UserSearchComponent,
     HotelStatisticComponent,
     UserListComponent,
+    RentacarsComponent,
+    RentacarProfileComponent,
+    CarEditComponent,
+    RentacarEditComponent,
+    CarReservationComponent,
     AirlineProfileComponent,
     AirlineFlightsComponent,
     FlightEditorComponent,
@@ -89,7 +101,8 @@ import {FlightsOverviewComponent} from './airline/flights-overview.component';
     })
   ],
   providers: [Globals, AuthService, AuthenticatedGuardService, LoginGuardService, RegisterService, HotelService, HotelProfileService
-    , FriendsService, UserReservationsService, UserService, UserSearchService, DestinationService,
+    , FriendsService, UserReservationsService, UserService, UserSearchService, RentacarsService, RentacarProfileService,
+    DestinationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpConfigInterceptor,
