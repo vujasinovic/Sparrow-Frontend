@@ -8,6 +8,7 @@ import {HotelService} from "../hotels/hotel.service";
 import {CarReservationDto} from "../dto/car-reservation-dto";
 import {RentacarsService} from "../rentacars/rentacars.service";
 import {RentacarSaleComponent} from "../rentacar-sale/rentacar-sale.component";
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -15,7 +16,8 @@ import {RentacarSaleComponent} from "../rentacar-sale/rentacar-sale.component";
   selector: 'user-reservations'
 })
 export class UserReservationsComponent implements OnInit {
-
+  closeResult: string;
+  currentRate : number;
   hotelReservationsActive: HotelReservationDto[];
   hotelReservationsFinished: HotelReservationDto[];
 
@@ -29,7 +31,7 @@ export class UserReservationsComponent implements OnInit {
   finishedRooms: string;
   daysDifference: number;
 
-  constructor(private userReservationsService: UserReservationsService, private hotelService: HotelService , private rentacarService : RentacarsService) {
+  constructor(private modalService: NgbModal, private userReservationsService: UserReservationsService, private hotelService: HotelService , private rentacarService : RentacarsService) {
   }
 
   ngOnInit(): void {
@@ -110,6 +112,24 @@ export class UserReservationsComponent implements OnInit {
       });
     }
   }
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
+
 
   sendDates(hotelReservation: HotelReservation) {
       RentacarSaleComponent.prototype.tripEnd = hotelReservation.end;
