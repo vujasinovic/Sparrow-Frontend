@@ -1,0 +1,56 @@
+<div class="container-sparrow">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-8 col-lg-6 col-xl-6 mx-auto mt-auto ml-auto">
+        <div class="card bg-primary mt-5 mb-5">
+          <div class="card-header text-white">
+            <h5><i class="fa fa-edit mr-2"></i>Put car on sale</h5>
+          </div>
+          <div class="card-body bg-light text-black-50">
+            <form>
+              <div class="form-group">
+                <label >Car Manufacturer: <b>{{car.carManufacturer}}</b></label>
+              </div>
+              <div class="form-group">
+                <label>Car Model: <b>{{car.carModel}}</b></label>
+              </div>
+              <div class="form-group">
+                <label >Car Year: <b>{{car.yearOfManufacturing}}</b></label>
+              </div>
+              <div class="form-group">
+                <label>No. of seats: <b>{{car.seats}}</b></label>
+              </div>
+              <div class="form-group">
+                <label >CarType: <b>{{car.carType}}</b></label>
+              </div>
+              <div class="form-group">
+                <label>Old Price: <b>{{car.price}}</b></label>
+              </div>
+              <div class="form-group">
+                <label for="inputSaleCarPrice">New Price:</label>
+                <input [(ngModel)]="carSale.price" class="form-control" id="inputSaleCarPrice" placeholder="Input sale price"
+                       name="CarPrice" type="number" min="1" max="1000">
+              </div>
+              <div class="form-group">
+                <label for="inputStartDate">Start Date:</label>
+                <input [(ngModel)]="carSale.start" class="form-control" id="inputStartDate" placeholder="Input start Date"
+                name="startDate" type="date">
+              </div>
+              <div class="form-group">
+                <label for="inputEndDate">Start Date:</label>
+                <input [(ngModel)]="carSale.end" class="form-control" id="inputEndDate" placeholder="Input end Date"
+                       name="startDate" type="date">
+              </div>
+
+              <button  class="btn btn-sm btn-danger float-left gl mt-5">
+              <a href="rentacars/{{rentaCarId}}"  class="btn btn-sm btn-danger ml-1">Cancel</a>
+              </button>
+              <button type="submit" class="btn btn-success float-right mt-5" (click)="createCarSale()" >Confirm</button>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

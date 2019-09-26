@@ -10,9 +10,11 @@ import {Observable} from 'rxjs';
 export class NavigationComponent implements OnInit {
 
   public user: Observable<User>;
+  public user1 : User;
 
   constructor(public authService: AuthService) {
     this.user = authService.getLoggedUserObservable();
+    this.user1 = authService.getLoggedUser();
   }
 
   ngOnInit(): void {

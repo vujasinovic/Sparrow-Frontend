@@ -10,6 +10,9 @@ import {Car} from "../models-rac/car";
 import {EditRentacar} from "../dto/edit-rentacar";
 import {CarReservationComponent} from "../car-reservation/car-reservation.component";
 import {CarReservationModel} from "../models-rac/carReservation";
+import {HotelReservation} from "../models-hotel/hotel-reservation";
+import {CarReservation} from "../dto/car-reservation";
+import {CarSale} from "../models-rac/carSale";
 
 
 @Injectable()
@@ -37,6 +40,11 @@ export class RentacarsService{
 
   }
 
+  public createSaleCar(carSale : CarSale , rentacarId : number , carId : number ){
+    console.log(carSale.start);
+    return this.http.post<CarSale>(this.rentacarAdminApi + '/' + rentacarId + '/' + carId + '/newCarSale', carSale);
+  }
+
   public findRentacar(rentacarId:number):Observable<Rentacar>{
     return this.http.get<Rentacar>(this.rentacarsApi + '/' + rentacarId)
   }
@@ -49,6 +57,10 @@ export class RentacarsService{
 
     return this.http.post<CarReservationModel>(this.rentacarsApi +'/reservation' , carReservation);
 
+  }
+
+  public deleteCarReservation(id: number): Observable<CarReservation> {
+    return this.http.delete<CarReservation>(this.rentacarsApi + '/reservation/' + id);
   }
 
   public clone(obj: any): any {

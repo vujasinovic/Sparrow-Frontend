@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export
 
 class Globals {
-  apiRoot = 'https://isa-sparrow-backend.herokuapp.com/';
+  apiRoot = 'http://localhost:8080/';
 
   localStorageTokenName = 'access_token';
   localStorageUser = 'user';

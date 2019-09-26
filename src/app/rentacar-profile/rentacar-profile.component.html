@@ -68,6 +68,11 @@
                      id="inputEndDate">
             </div>
             <div class="form-group col-md-2">
+              <label for="inputLowestPrice"><i class="fa fa-sign-out-alt mr-1"></i>Highest price(€)</label>
+              <input [(ngModel)]="carSearchDto.priceLow" name="start" type="number" class="form-control form-control-sm"
+                     id="inputLowestPrice">
+            </div>
+            <div class="form-group col-md-2">
               <label for="inputSeats"><i class="fa fa-user-friends mr-1"></i>No. of seats</label>
               <input [(ngModel)]="carSearchDto.seats" name="guests" class="form-control form-control-sm"
                      id="inputSeats" type="number" min="1"
@@ -169,6 +174,7 @@
             <input (change)="toggleCarStatus($event, car)" type="checkbox">
           </td>
           <td *ngIf="user != null && user.role.toString() == 'ROLE_HOTEL_ADMIN'">
+            <a href="#" routerLink="car/{{car.id}}/sale" class="btn btn-sm btn-primary mr-1">Put on sale</a>
             <a href="#" routerLink="car/{{car.id}}/edit" class="btn btn-sm btn-info mr-1">Edit</a>
             <button class="btn btn-sm btn-danger" (click)="deleteCar(car.id)">Delete</button>
           </td>
@@ -177,7 +183,7 @@
       </table>
       <button *ngIf="user == null || user.role.toString() == 'ROLE_USER'"
               class="btn btn-success font-weight-bold float-right ml-2 pl-3 pr-3" routerLink="reservation"
-              (click)="sendDates()" [disabled]="carsForReservation.length === 0">Make reservation
+              (click)="sendDates()" [disabled]="carSearchDto.start == null || carSearchDto.end == null || user == null || carsForReservation.length == 0 ">Make reservation
       </button>
       <hr class="my-2">
 

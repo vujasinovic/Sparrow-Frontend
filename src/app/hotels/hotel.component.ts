@@ -8,16 +8,35 @@ import {NgbModal, NgbRatingConfig} from "@ng-bootstrap/ng-bootstrap";
 @Component({
   selector: 'hotels',
   templateUrl: './hotel.component.html',
+  styles: [`
+      .star {
+          position: relative;
+          display: inline-block;
+          font-size: 3rem;
+          color: #d3d3d3;
+      }
+
+      .full {
+          color: #f8ff93;
+      }
+
+      .half {
+          position: absolute;
+          display: inline-block;
+          overflow: hidden;
+          color: #f8ff93;
+      }
+  `]
 })
 export class HotelComponent implements OnInit {
   hotels: Hotel[];
   hotelSearchDto: HotelSearchDto = new HotelSearchDto();
   errorMsg: string = '';
   errorMsgRequired: string = '';
+  rating : Number = 4.7;
 
   constructor(private hotelService: HotelService, private fb: FormBuilder, private config: NgbRatingConfig, private modalService: NgbModal) {
-    config.max = 5;
-    config.readonly = true;
+
     this.initSearchDto();
   }
 

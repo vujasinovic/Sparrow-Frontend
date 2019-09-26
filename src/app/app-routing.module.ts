@@ -26,6 +26,7 @@ import {FlightsOverviewComponent} from './airline/flights-overview.component';
 import {SearchFlightsComponent} from './flights/search-flights.component';
 import {BuyTicketComponent} from './flights/buy-ticket.component';
 import {TicketsComponent} from './flights/tickets.component';
+import {CarSaleComponent} from "./car-sale/car-sale.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -47,6 +48,7 @@ const routes: Routes = [
   {path: 'rentacars/:rentacarId/car/:carId/edit' , component: CarEditComponent},
   {path: 'rentacars/:id/edit' , component:RentacarEditComponent},
   {path: 'rentacars/:id/reservation' , component:CarReservationComponent},
+  {path: 'rentacars/:rentacarId/car/:carId/sale' , component: CarSaleComponent},
   {path: 'user/profile', component: UserProfileComponent, canActivate: [AuthenticatedGuardService]},
   {path: 'edit-airline/:id', component: AirlineProfileComponent, canActivate: [AuthenticatedGuardService]},
   {path: 'edit-airline', component: AirlineProfileComponent, canActivate: [AuthenticatedGuardService]},

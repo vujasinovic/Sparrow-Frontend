@@ -1,11 +1,9 @@
 import {User} from "../user";
 import {Car} from "./car";
 
-
-export class CarReservationModel {
+export class CarSale{
   id: number;
-  user: User;
-  cars: Car[];
+  car: Car;
   start: Date;
   end: Date;
   price: number;

@@ -1,3 +1,22 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-auto">
+      <a class="btn btn-sm btn-primary mb-2 text-white" href="/hotels" role="button"><i class="fa fa-bed mr-1"></i>Book a hotel</a>
+      </div>
+      <div class="col-md-auto">
+        <a class="btn btn-sm btn-primary mb-2 text-white" href="/rentacars" role="button"><i class="fa fa-car-alt mr-1"></i>Rent-a-Car</a>
+      </div>
+      <div class = "col-md-auto">
+        <a class="btn btn-sm btn-primary mb-2 text-white" href="#" role="button"><i class="fa fa-plane mr-1"></i>Book a flight</a>
+      </div>
+      <div class = "col-md-auto">
+        <a class="btn btn-sm btn-primary btn-outline-primary mb-2 text-white" href="/user/profile" role="button"><i class="fa fa-user-circle-o"></i>Profile</a>
+      </div>
+      <div class = "col-md-auto">
+        <a class="btn btn-sm btn-primary btn-outline-primary mb-2 text-white" href="#" role="button"><i class="fa fa-user-friends mr-1"></i>Friends</a>
+      </div>
+    </div>
+</div>
 <ngb-tabset>
   <ngb-tab>
     <ng-template ngbTabTitle><b>Flights</b></ng-template>
@@ -91,7 +110,84 @@
   <ngb-tab>
     <ng-template ngbTabTitle><b>Rent-a-car</b></ng-template>
     <ng-template ngbTabContent>
-      <p>Implement</p>
+      <div class="container mt-4">
+        <div class="row mt-2">
+          <div class="col-md-12 mr-auto">
+            <h3>Active reservations</h3>
+            <table class="table table-primary table-hover text-center">
+              <thead>
+              <th>Rent-A-Car</th>
+              <th>Car</th>
+              <th>Start date</th>
+              <th>Return Date</th>
+              <th>Price</th>
+              <th></th>
+              </thead>
+              <tbody>
+              <tr *ngFor="let carReservation of carReservationsActive">
+                <td>
+                  {{carReservation.rentacar}}
+                </td>
+                <td>
+                  <p *ngFor="let car of carReservation.cars"> {{car.carManufacturer + ' ' + car.carModel}}</p>
+                </td>
+                <td>
+                  {{carReservation.start}}
+                </td>
+                <td>
+                  {{carReservation.end}}
+                </td>
+                <td>
+                  {{carReservation.price}} €
+                </td>
+                <td>
+                  <button (click)="cancelCarReservation(carReservation)" class="btn btn-sm btn-danger flex-grow-1"><i class="fa fa-times-circle mr-2"></i>Cancel</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <div *ngIf="hotelReservationsActive.length === 0">
+              There are no any active reservations yet. Make one <a href="*" routerLink="../rentacars">here</a>
+            </div>
+          </div>
+        </div>
+        <div class="row  mt-2">
+          <div class="col-md-12">
+            <h3>Finished reservations</h3>
+            <table *ngIf="hotelReservationsFinished.length !== 0" class="table table-light table-hover text-center">
+              <thead>
+              <th>Rent-A-Car</th>
+              <th>Car</th>
+              <th>Date</th>
+              <th>Price</th>
+              <th></th>
+              </thead>
+              <tbody>
+              <tr *ngFor = "let carReservation of carReservationsFinished">
+                <td>
+                  {{carReservation.rentacar}}
+                </td>
+                <td>
+                  <p *ngFor="let car of carReservation.cars"> {{car.carManufacturer + ' ' + car.carModel}}</p>
+                </td>
+                <td>
+                  from <strong>{{carReservation.start}}</strong> to <strong>{{carReservation.end}}</strong>
+                </td>
+                <td>
+                  {{carReservation.price}} €
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-info"><i class="fa fa-star mr-2"></i>Rate</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <div *ngIf="hotelReservationsFinished.length === 0">
+              There are no any finished reservations yet.
+            </div>
+          </div>
+        </div>
+      </div>
     </ng-template>
   </ngb-tab>
 </ngb-tabset>

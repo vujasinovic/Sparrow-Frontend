@@ -5,6 +5,8 @@ import {Hotel} from "../models-hotel/hotel";
 import {HotelReservation} from "../models-hotel/hotel-reservation";
 import * as moment from 'moment';
 import {HotelService} from "../hotels/hotel.service";
+import {CarReservationDto} from "../dto/car-reservation-dto";
+import {RentacarsService} from "../rentacars/rentacars.service";
 
 
 @Component({
@@ -16,16 +18,37 @@ export class UserReservationsComponent implements OnInit {
   hotelReservationsActive: HotelReservationDto[];
   hotelReservationsFinished: HotelReservationDto[];
 
+  carReservationsActive:CarReservationDto[];
+  carReservationsFinished:CarReservationDto[];
+
+  activeCars: string;
+  finishedCars: string;
+
   activeRooms: string;
   finishedRooms: string;
   daysDifference: number;
 
-  constructor(private userReservationsService: UserReservationsService, private hotelService: HotelService) {
+  constructor(private userReservationsService: UserReservationsService, private hotelService: HotelService , private rentacarService : RentacarsService) {
   }
 
   ngOnInit(): void {
     this.findAllActive();
     this.findAllFinished();
+    this.findAllActiveCars();
+    this.findAllFinishedCars();
+  }
+
+  public findAllActiveCars(){
+    this.userReservationsService.findAllActiveCars().subscribe(data => {
+      this.carReservationsActive = data;
+    })
+
+  }
+
+  public findAllFinishedCars(){
+    this.userReservationsService.findAllFinsihedCars().subscribe(data => {
+      this.carReservationsFinished = data;
+    })
 
   }
 
@@ -41,6 +64,21 @@ export class UserReservationsComponent implements OnInit {
       });
       this.activeRooms = reservationActiveRooms.slice(0, -1);
     });
+  }
+
+  cancelCarReservation(carReservation : CarReservationDto) {
+    let start = moment(carReservation.start.toString(), "YYYY-MM-DD");
+    let today = moment().startOf('day').format('YYYY-MM-DD');
+
+    this.daysDifference = moment.duration(start.diff(today)).asDays();
+    if (this.daysDifference < 2 && this.daysDifference >= 0) {
+      alert('Reservations cannot be canceled 48h before start date.');
+      return;
+    } else {
+      this.rentacarService.deleteCarReservation(carReservation.id).subscribe(data => {
+        this.findAllActiveCars();
+      });
+    }
   }
 
   public findAllFinished() {

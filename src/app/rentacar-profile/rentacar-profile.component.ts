@@ -46,6 +46,7 @@ export class RentacarProfileComponent implements OnInit {
     this.carsForReservation = [];
     this.user.role = '';
     this.user = this.authService.getLoggedUser();
+    console.log(this.user.role);
 
   }
 
@@ -77,7 +78,7 @@ export class RentacarProfileComponent implements OnInit {
     this.cars = [];
     for (let i = 0; i < this.carQuantity; i++) {
       this.cars.push(this.rentacar.cars[i]);
-      console.log('Retrieveig car ', this.rentacar.cars[i]);
+      console.log('Retrieving car ', this.rentacar.cars[i]);
     }
     ;
   }
@@ -118,7 +119,11 @@ export class RentacarProfileComponent implements OnInit {
       this.address = this.rentacar.address;
 
       this.findAllDealerships();
-      this.findAllCars();
+      if(this.user.role == 'ROLE_HOTEL_ADMIN'){
+
+        this.findAllCars();
+      }
+
       this.findMostSeats();
 
     })
@@ -150,6 +155,7 @@ export class RentacarProfileComponent implements OnInit {
     }
 
     public sendDates(){
+
     CarReservationComponent.prototype.start = this.carSearchDto.start;
     CarReservationComponent.prototype.end = this.carSearchDto.end;
     }

@@ -56,6 +56,7 @@ import {RentacarProfileService} from './rentacar-profile/rentacar-profile.servic
 import {CarEditComponent} from './car-edit/car-edit.component';
 import {RentacarEditComponent} from './rentacar-edit/rentacar-edit.component';
 import {CarReservationComponent} from './car-reservation/car-reservation.component';
+import { CarSaleComponent } from './car-sale/car-sale.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import {CarReservationComponent} from './car-reservation/car-reservation.compone
     FlightsOverviewComponent,
     SearchFlightsComponent,
     BuyTicketComponent,
-    TicketsComponent
+    TicketsComponent,
+    CarSaleComponent
   ],
   imports: [
     BrowserModule,
