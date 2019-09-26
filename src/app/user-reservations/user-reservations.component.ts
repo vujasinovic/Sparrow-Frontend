@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import {HotelService} from "../hotels/hotel.service";
 import {CarReservationDto} from "../dto/car-reservation-dto";
 import {RentacarsService} from "../rentacars/rentacars.service";
+import {RentacarSaleComponent} from "../rentacar-sale/rentacar-sale.component";
 
 
 @Component({
@@ -110,5 +111,8 @@ export class UserReservationsComponent implements OnInit {
     }
   }
 
-
+  sendDates(hotelReservation: HotelReservation) {
+      RentacarSaleComponent.prototype.tripEnd = hotelReservation.end;
+      RentacarSaleComponent.prototype.tripStart = hotelReservation.start;
+  }
 }

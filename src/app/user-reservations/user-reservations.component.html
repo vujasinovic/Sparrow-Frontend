@@ -58,6 +58,7 @@
                   {{hotelReservation.price}} €
                 </td>
                 <td>
+                  <button routerLink="../rentacar-sale"  (click)="sendDates(hotelReservation)" class="btn btn-sm btn-light mr-2"><i class="fa fa-car-crash mr-2"></i>Book a car</button>
                   <button (click)="cancelReservation(hotelReservation)" class="btn btn-sm btn-danger flex-grow-1"><i class="fa fa-times-circle mr-2"></i>Cancel</button>
                 </td>
               </tr>

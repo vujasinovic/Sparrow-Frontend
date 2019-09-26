@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>Cars on discount</h1>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">Car</th>
+          <th scope="col">Start</th>
+          <th scope="col">End</th>
+          <th scope="col">Total</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let carSale of carsSale">
+          <td>{{carSale.car.carManufacturer}}</td>
+          <td>{{carSale.start}}</td>
+          <td>{{carSale.end}}</td>
+          <td>{{carSale.price}}</td>
+          <td><button class="btn btn-sm btn-primary" (click)="makeReservation(carSale)">Make reservation</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

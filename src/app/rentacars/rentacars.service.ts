@@ -63,6 +63,10 @@ export class RentacarsService{
     return this.http.delete<CarReservation>(this.rentacarsApi + '/reservation/' + id);
   }
 
+  public getCarSales() : Observable<CarSale[]> {
+    return this.http.get<CarSale[]>(this.rentacarsApi + '/car-sales');
+  }
+
   public clone(obj: any): any {
     // tslint:disable-next-line:prefer-const
     let cloneObj = {};

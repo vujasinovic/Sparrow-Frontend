@@ -57,6 +57,7 @@ import {CarEditComponent} from './car-edit/car-edit.component';
 import {RentacarEditComponent} from './rentacar-edit/rentacar-edit.component';
 import {CarReservationComponent} from './car-reservation/car-reservation.component';
 import { CarSaleComponent } from './car-sale/car-sale.component';
+import {RentacarSaleComponent} from "./rentacar-sale/rentacar-sale.component";
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { CarSaleComponent } from './car-sale/car-sale.component';
     SearchFlightsComponent,
     BuyTicketComponent,
     TicketsComponent,
-    CarSaleComponent
+    CarSaleComponent,
+    RentacarSaleComponent
   ],
   imports: [
     BrowserModule,

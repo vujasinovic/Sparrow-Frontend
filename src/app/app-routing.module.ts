@@ -27,6 +27,7 @@ import {SearchFlightsComponent} from './flights/search-flights.component';
 import {BuyTicketComponent} from './flights/buy-ticket.component';
 import {TicketsComponent} from './flights/tickets.component';
 import {CarSaleComponent} from "./car-sale/car-sale.component";
+import {RentacarSaleComponent} from "./rentacar-sale/rentacar-sale.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -60,6 +61,7 @@ const routes: Routes = [
   {path: 'search-flights', component: SearchFlightsComponent},
   {path: 'buy-ticket/:id', component: BuyTicketComponent, canActivate: [AuthenticatedGuardService]},
   {path: 'tickets', component: TicketsComponent, canActivate: [AuthenticatedGuardService]},
+  {path: 'rentacar-sale', component: RentacarSaleComponent},
 ];
 
 @NgModule({
