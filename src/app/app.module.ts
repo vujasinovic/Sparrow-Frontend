@@ -75,7 +75,6 @@ import {RentacarSaleComponent} from "./rentacar-sale/rentacar-sale.component";
     FriendsComponent,
     SystemAdministratorComponent,
     HotelRoomEditComponent,
-    UserReservationsComponent,
     ConfirmDialogComponent,
     UserProfileComponent,
     ChangePasswordDialogComponent,
@@ -91,11 +90,12 @@ import {RentacarSaleComponent} from "./rentacar-sale/rentacar-sale.component";
     AirlineFlightsComponent,
     FlightEditorComponent,
     FlightsOverviewComponent,
-    SearchFlightsComponent,
     BuyTicketComponent,
-    TicketsComponent,
+    SearchFlightsComponent,
+    RentacarSaleComponent,
     CarSaleComponent,
-    RentacarSaleComponent
+    TicketsComponent,
+    UserReservationsComponent
   ],
   imports: [
     BrowserModule,

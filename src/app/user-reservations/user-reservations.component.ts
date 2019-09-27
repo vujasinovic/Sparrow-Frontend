@@ -2,36 +2,44 @@ import {Component, OnInit} from "@angular/core";
 import {UserReservationsService} from "./user-reservations.service";
 import {HotelReservationDto} from "../dto/hotel-reservation-dto";
 import {Hotel} from "../models-hotel/hotel";
-import {HotelReservation} from "../models-hotel/hotel-reservation";
 import * as moment from 'moment';
 import {HotelService} from "../hotels/hotel.service";
 import {CarReservationDto} from "../dto/car-reservation-dto";
 import {RentacarsService} from "../rentacars/rentacars.service";
 import {RentacarSaleComponent} from "../rentacar-sale/rentacar-sale.component";
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {EditHotel} from "../dto/edit-hotel";
+
 
 
 @Component({
   templateUrl: './user-reservations.component.html',
   selector: 'user-reservations'
 })
+
 export class UserReservationsComponent implements OnInit {
-  closeResult: string;
-  currentRate : number;
+
   hotelReservationsActive: HotelReservationDto[];
   hotelReservationsFinished: HotelReservationDto[];
 
   carReservationsActive:CarReservationDto[];
   carReservationsFinished:CarReservationDto[];
 
-  activeCars: string;
-  finishedCars: string;
+  hotelInfo : Hotel[];
+  rateHotel : Hotel;
+  editHotel: EditHotel = new EditHotel();
+
+  currentRating : number = 3;
+
+  newRating: number;
+  newNoOfRatings:number;
 
   activeRooms: string;
   finishedRooms: string;
   daysDifference: number;
 
-  constructor(private modalService: NgbModal, private userReservationsService: UserReservationsService, private hotelService: HotelService , private rentacarService : RentacarsService) {
+  constructor(private userReservationsService: UserReservationsService, private hotelService: HotelService , private rentacarService : RentacarsService , private modalService: NgbModal ,
+                  ) {
   }
 
   ngOnInit(): void {
@@ -39,6 +47,7 @@ export class UserReservationsComponent implements OnInit {
     this.findAllFinished();
     this.findAllActiveCars();
     this.findAllFinishedCars();
+    this.findAllHotels();
   }
 
   public findAllActiveCars(){
@@ -46,6 +55,12 @@ export class UserReservationsComponent implements OnInit {
       this.carReservationsActive = data;
     })
 
+  }
+
+  public findAllHotels(){
+    this.hotelService.findAll().subscribe(data => {
+      this.hotelInfo = data;
+    })
   }
 
   public findAllFinishedCars(){
@@ -98,6 +113,24 @@ export class UserReservationsComponent implements OnInit {
     });
   }
 
+  saveRatings(){
+
+    this.newNoOfRatings = this.rateHotel.noOfScores + 1;
+    this.newRating = ((this.rateHotel.avgScore * this.rateHotel.noOfScores)+ this.currentRating)/this.newNoOfRatings;
+
+    this.editHotel.id = this.rateHotel.id;
+    this.editHotel.address = this.rateHotel.address;
+    this.editHotel.description = this.rateHotel.description;
+    this.editHotel.name = this.rateHotel.name;
+    this.editHotel.avgScore = this.newRating;
+    this.editHotel.noOfScores = this.newNoOfRatings;
+
+    this.hotelService.update(this.editHotel).subscribe(value => {
+
+    })
+    window.location.reload();
+  }
+
   cancelReservation(hotelReservation: HotelReservationDto) {
     let start = moment(hotelReservation.start.toString(), "YYYY-MM-DD");
     let today = moment().startOf('day').format('YYYY-MM-DD');
@@ -112,26 +145,21 @@ export class UserReservationsComponent implements OnInit {
       });
     }
   }
-  open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
+
+  openWindowRating(content , hotelId : number) {
+
+    for(let i = 0 ; i < this.hotelInfo.length ; i++){
+      if(this.hotelInfo[i].id == hotelId){
+        this.rateHotel = this.hotelInfo[i];
+      }
+      console.log(this.rateHotel.id);
     }
+    this.modalService.open(content, { windowClass: 'dark-modal' });
   }
 
 
-  sendDates(hotelReservation: HotelReservation) {
+  sendDates(hotelReservation: HotelReservationDto) {
       RentacarSaleComponent.prototype.tripEnd = hotelReservation.end;
       RentacarSaleComponent.prototype.tripStart = hotelReservation.start;
   }

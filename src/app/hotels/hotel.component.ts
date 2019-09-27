@@ -17,14 +17,14 @@ import {NgbModal, NgbRatingConfig} from "@ng-bootstrap/ng-bootstrap";
       }
 
       .full {
-          color: #f8ff93;
+          color: #ff1318;
       }
 
       .half {
           position: absolute;
           display: inline-block;
           overflow: hidden;
-          color: #f8ff93;
+          color: #ff1318;
       }
   `]
 })

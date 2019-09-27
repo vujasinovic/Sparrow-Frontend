@@ -13,6 +13,7 @@ import {CarReservationModel} from "../models-rac/carReservation";
 import {HotelReservation} from "../models-hotel/hotel-reservation";
 import {CarReservation} from "../dto/car-reservation";
 import {CarSale} from "../models-rac/carSale";
+import {DatesDto} from "../dto/dates-dto";
 
 
 @Injectable()
@@ -65,6 +66,10 @@ export class RentacarsService{
 
   public getCarSales() : Observable<CarSale[]> {
     return this.http.get<CarSale[]>(this.rentacarsApi + '/car-sales');
+  }
+
+  public getCarSalesByDate(dates : DatesDto): Observable<CarSale[]>{
+    return this.http.get<CarSale[]>(this.rentacarsApi + '/car-sales-date' ,{params: this.clone(dates)});
   }
 
   public clone(obj: any): any {

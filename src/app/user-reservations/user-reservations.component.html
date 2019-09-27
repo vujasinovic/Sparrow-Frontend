@@ -1,15 +1,20 @@
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Rate our service</h4>
+    <h4 class="modal-title">Rate our service</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <ngb-rating [(rate)]="currentRate"></ngb-rating>
+    <label>Hotel {{rateHotel.name}} average score is {{rateHotel.avgScore}} from {{rateHotel.noOfScores}} reviews.</label>
+  </div>
+  <div class="modal-body">
+    <label>Please rate our service:</label>
+    <ngb-rating  [(rate)]="currentRating" max="5"></ngb-rating>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-success" (click)="modal.close('Close click'); saveRatings();  " >Save</button>
   </div>
 </ng-template>
 <div class="container">
@@ -32,12 +37,6 @@
     </div>
 </div>
 <ngb-tabset>
-  <ngb-tab>
-    <ng-template ngbTabTitle><b>Flights</b></ng-template>
-    <ng-template ngbTabContent>
-      <p>Implement</p>
-    </ng-template>
-  </ngb-tab>
   <ngb-tab>
     <ng-template ngbTabTitle><b>Hotels</b></ng-template>
     <ng-template ngbTabContent>
@@ -109,7 +108,7 @@
                   {{hotelReservation.price}} €
                 </td>
                 <td>
-                  <button class="btn btn-sm btn-info" (click)="open(content)" ><i class="fa fa-star mr-2"></i>Rate</button>
+                  <button class="btn btn-sm btn-info"  (click)="openWindowRating(content , hotelReservation.hotelId)" ><i class="fa fa-star mr-2"></i>Rate</button>
                 </td>
               </tr>
               </tbody>
@@ -161,7 +160,7 @@
               </tr>
               </tbody>
             </table>
-            <div *ngIf="hotelReservationsActive.length === 0">
+            <div *ngIf="carReservationsActive.length === 0">
               There are no any active reservations yet. Make one <a href="*" routerLink="../rentacars">here</a>
             </div>
           </div>
@@ -169,7 +168,7 @@
         <div class="row  mt-2">
           <div class="col-md-12">
             <h3>Finished reservations</h3>
-            <table *ngIf="hotelReservationsFinished.length !== 0" class="table table-light table-hover text-center">
+            <table *ngIf="carReservationsFinished.length !== 0" class="table table-light table-hover text-center">
               <thead>
               <th>Rent-A-Car</th>
               <th>Car</th>
@@ -192,17 +191,23 @@
                   {{carReservation.price}} €
                 </td>
                 <td>
-                  <button class="btn btn-sm btn-info" (click)="open(content)"><i class="fa fa-star mr-2"></i>Rate</button>
+                  <button class="btn btn-sm btn-info" ><i class="fa fa-star mr-2"></i>Rate</button>
                 </td>
               </tr>
               </tbody>
             </table>
-            <div *ngIf="hotelReservationsFinished.length === 0">
+            <div *ngIf="carReservationsFinished.length === 0">
               There are no any finished reservations yet.
             </div>
           </div>
         </div>
       </div>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab>
+    <ng-template ngbTabTitle><b>Flights</b></ng-template>
+    <ng-template ngbTabContent>
+      <p>Implement</p>
     </ng-template>
   </ngb-tab>
 </ngb-tabset>

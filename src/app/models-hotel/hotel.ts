@@ -15,4 +15,6 @@ export class Hotel {
   hotelServices: HotelServices[];
   image: string;
   minRoomPrice: number;
+  avgScore: number;
+  noOfScores: number;
 }

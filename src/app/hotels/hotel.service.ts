@@ -28,6 +28,7 @@ export class HotelService {
     return this.http.get<Hotel>(this.hotelsApi + '/' + id)
   }
 
+
   public create(hotel: Hotel): Observable<Hotel> {
     return this.http.post<Hotel>(this.systemAdminApi, hotel);
   }

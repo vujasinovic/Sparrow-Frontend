@@ -4,6 +4,8 @@ import {CarSale} from "../models-rac/carSale";
 import {CarReservationModel} from "../models-rac/carReservation";
 import {AuthService} from "../login/auth.service";
 import {User} from "../user";
+import {DatesDto} from "../dto/dates-dto";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'rentacar-sales',
@@ -14,6 +16,8 @@ export class RentacarSaleComponent implements OnInit {
   carReservation: CarReservationModel = new CarReservationModel();
   carsSale : CarSale[];
 
+  datesDto : DatesDto = new DatesDto();
+
   user: User = new User();
 
   @Input()
@@ -23,13 +27,20 @@ export class RentacarSaleComponent implements OnInit {
   tripEnd: Date;
 
   ngOnInit(): void {
-    this.findAll();
-    console.log(this.tripStart);
+    this.datesDto.start = this.tripStart;
+    this.datesDto.end = this.tripEnd;
+    this.findAllDate(this.datesDto);
+
   }
 
-  constructor(private rentaCarService: RentacarsService, private authService: AuthService) {
+  constructor(private rentaCarService: RentacarsService, private authService: AuthService,private router: Router) {
       this.user = this.authService.getLoggedUser();
       this.carReservation.cars = [];
+  }
+  public findAllDate(dates : DatesDto){
+    this.rentaCarService.getCarSalesByDate(dates).subscribe(data => {
+      this.carsSale = data;
+    })
   }
 
   public findAll() {
@@ -40,12 +51,13 @@ export class RentacarSaleComponent implements OnInit {
 
   makeReservation(carSale: CarSale) {
     this.carReservation.cars.push(carSale.car);
-    this.carReservation.end = carSale.end;
-    this.carReservation.start = carSale.start;
+    this.carReservation.end = this.datesDto.end;
+    this.carReservation.start = this.datesDto.start;
     this.carReservation.user = this.user;
     this.carReservation.price = carSale.price;
 
     this.rentaCarService.makeReservation(this.carReservation).subscribe(() => {
+      this.router.navigateByUrl('reservations');
     });
   }
 }

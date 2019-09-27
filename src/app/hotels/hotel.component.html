@@ -73,7 +73,7 @@
                 <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
               </span>
           </ng-template>
-          <ngb-rating [(rate)]="rating" [starTemplate]="t" [readonly]="true" max="5" ></ngb-rating>
+          <ngb-rating [(rate)]="hotel.avgScore" [starTemplate]="t" [readonly]="true" max="5" ></ngb-rating>
         </h1>
       </h3>
       <p class="lead text-white"><i class="fa fa-map-marker-alt"></i> {{hotel.address.address}}</p>

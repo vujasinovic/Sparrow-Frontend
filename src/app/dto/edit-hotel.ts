@@ -5,4 +5,6 @@ export class EditHotel {
   name: string;
   address: Address;
   description: string;
+  avgScore: number;
+  noOfScores: number;
 }
