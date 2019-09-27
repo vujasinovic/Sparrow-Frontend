@@ -72,6 +72,7 @@ export class HotelProfileComponent implements OnInit {
     this.freeRooms = 0;
     this.freeBeds = 0;
     this.hotelService.hotel = new Hotel();
+    console.log(authService.getLoggedUser());
     this.user = authService.getLoggedUser();
 
     this.hotelRoomDiscount.priceListItem = new PriceListItem();
@@ -92,6 +93,7 @@ export class HotelProfileComponent implements OnInit {
   ngOnInit(): void {
     this.hotelProfileService.findOne(+this.hotelId).subscribe(data => {
       this.hotel = data;
+      console.log(this.hotel.admin);
       this.rooms = this.hotel.rooms.length;
 
       for (let i = 0; i < this.hotel.rooms.length; i++) {

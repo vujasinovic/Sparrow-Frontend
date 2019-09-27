@@ -140,7 +140,7 @@
               <tbody>
               <tr *ngFor="let carReservation of carReservationsActive">
                 <td>
-                  {{carReservation.rentacar}}
+                  {{carReservation.rentacarId}}
                 </td>
                 <td>
                   <p *ngFor="let car of carReservation.cars"> {{car.carManufacturer + ' ' + car.carModel}}</p>
@@ -179,7 +179,7 @@
               <tbody>
               <tr *ngFor = "let carReservation of carReservationsFinished">
                 <td>
-                  {{carReservation.rentacar}}
+                  {{carReservation.rentacarId}}
                 </td>
                 <td>
                   <p *ngFor="let car of carReservation.cars"> {{car.carManufacturer + ' ' + car.carModel}}</p>

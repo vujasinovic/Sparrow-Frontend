@@ -3,10 +3,6 @@
     <div class="col-md-7">
       <hr class="my-2">
       <h5 class="text-white font-weight-bold">{{hotel.name}}
-        <button *ngIf="hotel.admin.username === user.username"
-                class="btn btn-sm btn-info float-right ml-2" routerLink="stats">
-          <i class="fa fa-chart-line mr-1"></i>statistics
-        </button>
         <a *ngIf="hotel.admin.username === user.username"
            class="btn btn-sm btn-info float-right ml-2" href="#" routerLink="edit">
           <i class="fa fa-edit mr-1"></i>edit</a>

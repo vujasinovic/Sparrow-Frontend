@@ -9,6 +9,7 @@ import {RentacarsService} from "../rentacars/rentacars.service";
 import {RentacarSaleComponent} from "../rentacar-sale/rentacar-sale.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {EditHotel} from "../dto/edit-hotel";
+import {Rentacar} from "../models-rac/rentacar";
 
 
 
@@ -29,6 +30,8 @@ export class UserReservationsComponent implements OnInit {
   rateHotel : Hotel;
   editHotel: EditHotel = new EditHotel();
 
+  rentacarInfo: Rentacar[];
+
   currentRating : number = 3;
 
   newRating: number;
@@ -40,6 +43,11 @@ export class UserReservationsComponent implements OnInit {
 
   constructor(private userReservationsService: UserReservationsService, private hotelService: HotelService , private rentacarService : RentacarsService , private modalService: NgbModal ,
                   ) {
+
+    this.carReservationsActive = [];
+    this.carReservationsFinished = [];
+    this.hotelReservationsActive = [];
+    this.hotelReservationsFinished = [];
   }
 
   ngOnInit(): void {
@@ -48,6 +56,7 @@ export class UserReservationsComponent implements OnInit {
     this.findAllActiveCars();
     this.findAllFinishedCars();
     this.findAllHotels();
+    this.findAllRentacars();
   }
 
   public findAllActiveCars(){
@@ -55,6 +64,11 @@ export class UserReservationsComponent implements OnInit {
       this.carReservationsActive = data;
     })
 
+  }
+  public findAllRentacars(){
+    this.rentacarService.findAll().subscribe(data => {
+      this.rentacarInfo = data;
+    })
   }
 
   public findAllHotels(){

@@ -9,4 +9,5 @@ export class CarReservationModel {
   start: Date;
   end: Date;
   price: number;
+  rentaCarId : number;
 }

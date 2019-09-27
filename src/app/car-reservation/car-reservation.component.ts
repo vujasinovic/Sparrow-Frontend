@@ -36,6 +36,7 @@ export class CarReservationComponent implements OnInit {
   constructor(private router: Router, private rentacarsService : RentacarsService, private rentacarProfileService: RentacarProfileService,
               private activatedRoute: ActivatedRoute, private authService: AuthService) {
     this.url = this.activatedRoute.snapshot.paramMap.get("id");
+
     this.user.role = '';
     this.user = this.authService.getLoggedUser();
 
@@ -45,9 +46,8 @@ export class CarReservationComponent implements OnInit {
     }
     this.carReservation.start = this.start;
     this.carReservation.end = this.end;
+    this.carReservation.rentaCarId = +this.url;
 
-
-    console.log(this.user);
   }
 
   public makeCarReservation(){
